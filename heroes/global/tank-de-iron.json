@@ -1,0 +1,96 @@
+{
+  "id": "hmw6p57jp4d6",
+  "kind": "vehicle",
+  "links": [
+    {
+      "id": "hmw6p4vwt61h",
+      "rel": "owner",
+      "name": "Iron"
+    }
+  ],
+  "name": "Tank de Iron",
+  "identity": "",
+  "origin": "Tank",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 0,
+    "Coordination": 0,
+    "Strength": 0,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [],
+  "vehicle": {
+    "handling": 3,
+    "speed": {
+      "ground": 2,
+      "water": 0,
+      "air": 0,
+      "space": 0
+    },
+    "structure": 7,
+    "armorV": 5,
+    "armorP": 5,
+    "power": 0
+  },
+  "gear": [
+    {
+      "id": "g7gaeck",
+      "name": "Cañón",
+      "cat": "weapon",
+      "wt": "shooting",
+      "level": 7,
+      "material": 0,
+      "range": "ranged",
+      "extras": [],
+      "uses": null,
+      "counts": false,
+      "note": "",
+      "desc": "",
+      "imp": false,
+      "impKind": "damage",
+      "impSec": "",
+      "tpl": true
+    }
+  ],
+  "updated": 1794073913686,
+  "play": {
+    "stamina": 7,
+    "dp": 0,
+    "tmp": 0,
+    "page": 7,
+    "conds": [],
+    "log": [
+      {
+        "t": "02:51 p. m.",
+        "pg": 7,
+        "msg": "Página 7",
+        "cls": ""
+      },
+      {
+        "t": "02:51 p. m.",
+        "pg": 6,
+        "msg": "Página 6",
+        "cls": ""
+      },
+      {
+        "t": "02:48 p. m.",
+        "pg": 1,
+        "msg": "Cañón 3 + d6[2] = 5 vs 0 + d6[3] = 3 → +2 Moderate Success",
+        "cls": "roll"
+      }
+    ],
+    "notes": "",
+    "aboard": [],
+    "lastRoll": null
+  }
+}

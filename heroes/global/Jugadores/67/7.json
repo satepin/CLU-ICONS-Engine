@@ -1,0 +1,412 @@
+{
+  "id": "hmw5opoo9",
+  "kind": "hero",
+  "links": [
+    {
+      "id": "hmw5ofbkgaq3",
+      "rel": "gestalt",
+      "name": "67 (Gestalt)"
+    }
+  ],
+  "name": "7",
+  "identity": "7",
+  "origin": "Gimmick",
+  "originNote": "Trained: +2 specialties; los poderes son entrenamiento/equipo (devices).",
+  "abilities": {
+    "Prowess": 2,
+    "Coordination": 3,
+    "Strength": 2,
+    "Intellect": 4,
+    "Awareness": 3,
+    "Willpower": 3
+  },
+  "powers": [
+    {
+      "base": "Life Support",
+      "type": "Defensive",
+      "tableType": "Defensive",
+      "sub": "Magnetic",
+      "level": 2,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Gestalt",
+      "type": "Alteration",
+      "tableType": "Control",
+      "sub": "Density Ray",
+      "level": 2,
+      "device": true,
+      "extras": [
+        "Mind Link"
+      ],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Empowerment",
+      "type": "Control",
+      "tableType": "Control",
+      "sub": "",
+      "level": 2,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": "vía Power Control"
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Underwater Combat",
+      "level": 1
+    },
+    {
+      "name": "Business",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin",
+      "dice": "elegido",
+      "result": "Trained"
+    },
+    {
+      "step": "Prowess",
+      "dice": "2d6 [4+3] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Coordination",
+      "dice": "2d6 [5+2] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Strength",
+      "dice": "2d6 [3+5] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Intellect",
+      "dice": "2d6 [5+2] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Awareness",
+      "dice": "2d6 [2+4] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Willpower",
+      "dice": "2d6 [6+2] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Number of Powers",
+      "dice": "2d6 [2+3] = 5",
+      "result": "3"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+2] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [3] d6 [4]",
+      "result": "Blast"
+    },
+    {
+      "step": "Nivel de Blast",
+      "dice": "2d6 [6+3] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+5] = 10",
+      "result": "Alteration"
+    },
+    {
+      "step": "Tabla Alteration",
+      "dice": "d6 [3] d6 [5]",
+      "result": "Gestalt"
+    },
+    {
+      "step": "Nivel de Gestalt",
+      "dice": "2d6 [6+3] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+3] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [3] d6 [5]",
+      "result": "Leaping"
+    },
+    {
+      "step": "Nivel de Leaping",
+      "dice": "2d6 [3+4] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [6+5] = 11",
+      "result": "4"
+    },
+    {
+      "step": "Trained",
+      "dice": "+2 specialties",
+      "result": "total 6"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [2]",
+      "result": "Science"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [3] d6 [4]",
+      "result": "Mental Resistance"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [3] d6 [2]",
+      "result": "Martial Arts"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [3] d6 [6]",
+      "result": "Military"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [4]",
+      "result": "Leadership"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [3]",
+      "result": "Pilot"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+2] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [1] d6 [1]",
+      "result": "Absorption"
+    },
+    {
+      "step": "Absorption: elección",
+      "dice": "elección al azar",
+      "result": "Magnetic"
+    },
+    {
+      "step": "Nivel de Absorption (Magnetic)",
+      "dice": "2d6 [5+5] = 10",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+6] = 10",
+      "result": "Alteration"
+    },
+    {
+      "step": "Tabla Alteration",
+      "dice": "d6 [4] d6 [1]",
+      "result": "Dimension Control"
+    },
+    {
+      "step": "Nivel de Dimension Control",
+      "dice": "2d6 [5+5] = 10",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+3] = 4",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Alteration Ray"
+    },
+    {
+      "step": "Alteration Ray: elección",
+      "dice": "d6 [1]",
+      "result": "Density Ray"
+    },
+    {
+      "step": "Nivel de Alteration Ray (Density Ray)",
+      "dice": "2d6 [5+2] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+1] = 4",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [5] d6 [1]",
+      "result": "Power Control"
+    },
+    {
+      "step": "Power Control (group)",
+      "dice": "d6 [3]",
+      "result": "Power Boost"
+    },
+    {
+      "step": "Nivel de Power Boost",
+      "dice": "2d6 [3+4] = 7",
+      "result": "5 (Good)"
+    }
+  ],
+  "play": {
+    "stamina": 4,
+    "dp": 2,
+    "tmp": 0,
+    "page": 1,
+    "conds": [],
+    "log": [
+      {
+        "t": "02:55 p. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "02:53 p. m.",
+        "pg": 1,
+        "msg": "Awareness 3 + d6[4] = 7 vs 5 + d6[3] = 8 → -1 Moderate Failure",
+        "cls": "roll"
+      },
+      {
+        "t": "02:53 p. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "01:52 a. m.",
+        "pg": 1,
+        "msg": "Awareness 3 + d6[6] = 9 vs 4 + d6[2] = 6 → +3 Major Success",
+        "cls": "roll"
+      },
+      {
+        "t": "01:31 a. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "01:25 a. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "10:20 p. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "10:20 p. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt): recibe 1 de daño de la forma unida",
+        "cls": "hurt"
+      },
+      {
+        "t": "10:20 p. m.",
+        "pg": 1,
+        "msg": "Se une en 67 (Gestalt)",
+        "cls": ""
+      },
+      {
+        "t": "10:20 p. m.",
+        "pg": 1,
+        "msg": "Se separa de 67 (Gestalt)",
+        "cls": ""
+      }
+    ],
+    "notes": "",
+    "lastRoll": {
+      "label": "Awareness",
+      "res": -1,
+      "grade": "Moderate Failure",
+      "cls": "bad",
+      "calc": "3 + d6[4] = 7 vs 5 + d6[3] = 8",
+      "dmg": ""
+    }
+  },
+  "gear": [],
+  "updated": 1794074111067
+}

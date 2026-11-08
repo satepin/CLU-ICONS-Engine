@@ -1,0 +1,215 @@
+{
+  "id": "hmw6gelg0b1r",
+  "kind": "hero",
+  "links": [],
+  "name": "WillFredo",
+  "identity": "Wilfredo",
+  "origin": "Gimmick",
+  "originNote": "Gimmick: Willpower 6 → 7",
+  "abilities": {
+    "Prowess": 4,
+    "Coordination": 4,
+    "Strength": 3,
+    "Intellect": 4,
+    "Awareness": 3,
+    "Willpower": 7
+  },
+  "powers": [
+    {
+      "base": "Mental Blast",
+      "type": "Mental",
+      "tableType": "Mental",
+      "sub": "",
+      "level": 5,
+      "device": true,
+      "extras": [
+        "Contagious"
+      ],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Force Field",
+      "type": "Defensive",
+      "tableType": "Defensive",
+      "sub": "",
+      "level": 4,
+      "device": true,
+      "extras": [
+        "Secondary Effect"
+      ],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Leadership",
+      "level": 1
+    },
+    {
+      "name": "Weapons",
+      "level": 1
+    },
+    {
+      "name": "Power (Mental Blast)",
+      "level": 1
+    },
+    {
+      "name": "Sleight of Hand",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [4]",
+      "result": "Gimmick"
+    },
+    {
+      "step": "Grupos",
+      "dice": "",
+      "result": "(6-1) +Wil/−Pro  (6-3) +Wil/−Str  (1-5) +Pro/−Awa  (1-4) +Pro/−Int"
+    },
+    {
+      "step": "Pendiente",
+      "dice": "Elegí el grupo que DESCARTÁS (se aplican los otros tres)",
+      "result": "se decide al final"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [17]",
+      "result": "poder Mental"
+    },
+    {
+      "step": "Tabla Mental",
+      "dice": "d6 [5] d6 [1]",
+      "result": "Mental Blast"
+    },
+    {
+      "step": "Nivel de Mental Blast",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [37]",
+      "result": "poder Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [1] d6 [5]",
+      "result": "Force Field"
+    },
+    {
+      "step": "Nivel de Force Field",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Mental Blast → 4"
+    },
+    {
+      "step": "Extra",
+      "dice": "Mental Blast · 1 punto",
+      "result": "Contagious"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Mental Blast → 5"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Force Field → 4"
+    },
+    {
+      "step": "Extra",
+      "dice": "Force Field · 1 punto",
+      "result": "Secondary Effect"
+    },
+    {
+      "step": "Pendiente",
+      "dice": "Gimmick: +1 a una ability mental (máx. 7)",
+      "result": "se decide al final"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [5+6] = 11",
+      "result": "4"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [4]",
+      "result": "Leadership"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [5]",
+      "result": "Weapons"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [4]",
+      "result": "Power (Mental Blast)"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [4]",
+      "result": "Sleight of Hand"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 4",
+      "result": "Pro 4 Coo 4 Str 3 Int 4 Awa 3 Wil 6"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [],
+  "updated": 1794073416244,
+  "play": {
+    "stamina": 10,
+    "dp": 1,
+    "tmp": 0,
+    "page": 2,
+    "conds": [],
+    "log": [
+      {
+        "t": "02:42 p. m.",
+        "pg": 2,
+        "msg": "Coordination 4 + d6[4] = 8 vs 0 + d6[1] = 1 → +7 Massive Success",
+        "cls": "roll"
+      },
+      {
+        "t": "02:42 p. m.",
+        "pg": 2,
+        "msg": "Página 2",
+        "cls": ""
+      },
+      {
+        "t": "02:42 p. m.",
+        "pg": 1,
+        "msg": "Ayuda a Imparable (esfuerzo combinado) con Mental Blast 5 contra Escorpión",
+        "cls": "roll"
+      }
+    ],
+    "notes": "",
+    "lastRoll": {
+      "label": "Coordination",
+      "res": 7,
+      "grade": "Massive Success",
+      "cls": "ok",
+      "calc": "4 + d6[4] = 8 vs 0 + d6[1] = 1",
+      "dmg": ""
+    }
+  }
+}

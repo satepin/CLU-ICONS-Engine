@@ -1,0 +1,13 @@
+# fichas privadas: sólo en tu máquina
+heroes/local/**/*.json
+heroes/local/*.json
+# manuales y PDFs del juego: no nos pertenecen, no se suben
+fuentes/
+*.pdf
+# varios
+__pycache__/
+.DS_Store
+Thumbs.db
+
+# versión con el texto completo de Great Power (uso personal)
+index.local.html

@@ -1,0 +1,263 @@
+{
+  "id": "hmw6oozza45e",
+  "kind": "hero",
+  "links": [
+    {
+      "id": "hmw6osn78m3w",
+      "rel": "vehicle",
+      "name": "Submarine de El Pesado"
+    }
+  ],
+  "name": "El Pesado",
+  "identity": "Graciela Victorina",
+  "origin": "Trained",
+  "originNote": "Trained: poderes por entrenamiento/equipo.",
+  "abilities": {
+    "Prowess": 4,
+    "Coordination": 4,
+    "Strength": 4,
+    "Intellect": 3,
+    "Awareness": 5,
+    "Willpower": 4
+  },
+  "powers": [
+    {
+      "base": "Gravity Control",
+      "type": "Control",
+      "tableType": "Control",
+      "sub": "",
+      "level": 6,
+      "device": true,
+      "extras": [
+        "Affects Others",
+        "Rangeless"
+      ],
+      "limits": [
+        {
+          "n": "Exclusive",
+          "b": "extra"
+        }
+      ],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Science",
+      "level": 1
+    },
+    {
+      "name": "Stealth",
+      "level": 1
+    },
+    {
+      "name": "Martial Arts",
+      "level": 2
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [1]",
+      "result": "Trained"
+    },
+    {
+      "step": "Grupo 3",
+      "dice": "5-5",
+      "result": "sube y baja Awareness → se re-tira"
+    },
+    {
+      "step": "Grupos",
+      "dice": "d100 [84·30] [70·55] [82·9] [19·93]",
+      "result": "+Wil/−Coo  +Awa/−Int  +Awa/−Pro  +Coo/−Wil"
+    },
+    {
+      "step": "Pendiente",
+      "dice": "Elegí el grupo que DESCARTÁS (se aplican los otros tres)",
+      "result": "se decide al final"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [99]",
+      "result": "poder a elección o mejora libre"
+    },
+    {
+      "step": "Nivel de Gravity Control",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [56]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Affliction"
+    },
+    {
+      "step": "Nivel de Affliction",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Extra",
+      "dice": "Gravity Control · sacrificio",
+      "result": "Affects Others"
+    },
+    {
+      "step": "Sacrificio",
+      "dice": "Affliction",
+      "result": "se pierde → extra Affects Others para Gravity Control"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Gravity Control → 4"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Gravity Control → 5"
+    },
+    {
+      "step": "Powers",
+      "dice": "3 punto(s)",
+      "result": "Gravity Control → 6"
+    },
+    {
+      "step": "Limit",
+      "dice": "Gravity Control",
+      "result": "Exclusive (extra gratis)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [5+1] = 6",
+      "result": "2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [3]",
+      "result": "Science"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [6]",
+      "result": "Stealth"
+    },
+    {
+      "step": "Trained",
+      "dice": "elección",
+      "result": "Martial Arts"
+    },
+    {
+      "step": "Trained",
+      "dice": "elección",
+      "result": "Martial Arts"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 3",
+      "result": "Pro 4 Coo 4 Str 4 Int 3 Awa 5 Wil 4"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [
+    {
+      "id": "g1051uc",
+      "name": "Maza / martillo de madera",
+      "cat": "weapon",
+      "wt": "bashing",
+      "level": 0,
+      "material": 5,
+      "range": "close",
+      "extras": [],
+      "uses": null,
+      "counts": false,
+      "note": "",
+      "desc": "",
+      "imp": false,
+      "impKind": "damage",
+      "impSec": ""
+    },
+    {
+      "id": "gskfzh5",
+      "name": "Armadura metálica / balística moderna",
+      "cat": "armor",
+      "wt": "shooting",
+      "level": 4,
+      "material": 0,
+      "range": "ranged",
+      "extras": [],
+      "uses": 2,
+      "counts": false,
+      "note": "",
+      "desc": "",
+      "imp": false,
+      "impKind": "damage",
+      "impSec": ""
+    }
+  ],
+  "updated": 1794073417404,
+  "play": {
+    "stamina": 8,
+    "dp": 4,
+    "tmp": 0,
+    "page": 2,
+    "conds": [],
+    "log": [
+      {
+        "t": "02:42 p. m.",
+        "pg": 2,
+        "msg": "Coordination 4 + d6[5] = 9 vs 0 + d6[1] = 1 → +8 Massive Success",
+        "cls": "roll"
+      },
+      {
+        "t": "02:42 p. m.",
+        "pg": 2,
+        "msg": "Página 2",
+        "cls": ""
+      },
+      {
+        "t": "02:40 p. m.",
+        "pg": 1,
+        "msg": "Atacado por Escorpión · Affliction (Veneno) 3: 2 + d6[5] + combinado 0 (0/11 ayudas) = 7 vs Evadir 6 + d6[3] = 9 → -2 Moderate Failure · ayudas: servant 2+d6[5]✗, servant 2+d6[6]✗, servant 2+d6[5]✗, servant 2+d6[1]✗, servant 2+d6[5]✗, servant 2+d6[4]✗, servant 2+d6[5]✗, servant 2+d6[2]✗, servant 2+d6[3]✗, servant 2+d6[4]✗, servant 2+d6[5]✗ · falla",
+        "cls": ""
+      },
+      {
+        "t": "02:39 p. m.",
+        "pg": 1,
+        "msg": "Coordination 4+1 + d6[4] = 9 vs 4 + d6[6] = 10 → -1 Moderate Failure",
+        "cls": "roll"
+      },
+      {
+        "t": "02:38 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:38 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      }
+    ],
+    "notes": "",
+    "lastRoll": {
+      "label": "Coordination",
+      "res": 8,
+      "grade": "Massive Success",
+      "cls": "ok",
+      "calc": "4 + d6[5] = 9 vs 0 + d6[1] = 1",
+      "dmg": ""
+    }
+  }
+}

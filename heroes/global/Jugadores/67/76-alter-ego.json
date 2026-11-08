@@ -1,0 +1,656 @@
+{
+  "id": "hmw5otrjadmf",
+  "kind": "hero",
+  "links": [
+    {
+      "id": "hmw5ofbkgaq3",
+      "rel": "alterego",
+      "name": "67 (Gestalt)"
+    }
+  ],
+  "name": "76 (Alter Ego)",
+  "identity": "6 & 7",
+  "origin": "Gestalt",
+  "originNote": "Mismo origen que 67 (Gestalt) · Alter Ego de 67 (Gestalt) (mismo origen y abilities mentales; descartó Spinning (un poder menos))",
+  "abilities": {
+    "Prowess": 5,
+    "Coordination": 6,
+    "Strength": 4,
+    "Intellect": 5,
+    "Awareness": 3,
+    "Willpower": 3
+  },
+  "powers": [
+    {
+      "base": "Alter Ego",
+      "type": "Alteration",
+      "tableType": "Alteration",
+      "sub": "",
+      "level": 4,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": "vínculo con 67 (Gestalt)"
+    },
+    {
+      "base": "Leaping",
+      "type": "Movement",
+      "tableType": "Movement",
+      "sub": "",
+      "level": 3,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Probability Control",
+      "type": "Control",
+      "tableType": "Mental",
+      "sub": "Negativa",
+      "level": 4,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Wizardry",
+      "type": "Control",
+      "tableType": "Control",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": "vía Matter Control"
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Science",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin",
+      "dice": "elegido",
+      "result": "Trained"
+    },
+    {
+      "step": "Prowess",
+      "dice": "2d6 [3+6] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Coordination",
+      "dice": "2d6 [6+6] = 12",
+      "result": "8 (Amazing)"
+    },
+    {
+      "step": "Strength",
+      "dice": "2d6 [1+4] = 5",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Intellect",
+      "dice": "2d6 [2+5] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Awareness",
+      "dice": "2d6 [4+2] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Willpower",
+      "dice": "2d6 [4+4] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Number of Powers",
+      "dice": "2d6 [1+2] = 3",
+      "result": "2"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+3] = 5",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [2] d6 [3]",
+      "result": "Continuum Control"
+    },
+    {
+      "step": "Continuum Control (group)",
+      "dice": "d6 [2]",
+      "result": "Gravity Control"
+    },
+    {
+      "step": "Nivel de Gravity Control",
+      "dice": "2d6 [1+2] = 3",
+      "result": "2 (Poor)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+6] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [6] d6 [1]",
+      "result": "Spinning"
+    },
+    {
+      "step": "Nivel de Spinning",
+      "dice": "2d6 [3+6] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [2+6] = 8",
+      "result": "3"
+    },
+    {
+      "step": "Trained",
+      "dice": "+2 specialties",
+      "result": "total 5"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [1] d6 [4]",
+      "result": "Athletics"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [3] d6 [5]",
+      "result": "Mental Resistance"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [4]",
+      "result": "Power (Gravity Control)"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [4]",
+      "result": "Weapons"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [3]",
+      "result": "Law"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+4] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [4] d6 [1]",
+      "result": "Spinning"
+    },
+    {
+      "step": "Nivel de Spinning",
+      "dice": "2d6 [3+5] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+2] = 3",
+      "result": "Mental"
+    },
+    {
+      "step": "Tabla Mental",
+      "dice": "d6 [6] d6 [3]",
+      "result": "Mind Control"
+    },
+    {
+      "step": "Nivel de Mind Control",
+      "dice": "2d6 [5+5] = 10",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+3] = 5",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [4] d6 [6]",
+      "result": "Matter Control"
+    },
+    {
+      "step": "Matter Control (group)",
+      "dice": "d6 [2]",
+      "result": "Telekinesis"
+    },
+    {
+      "step": "Nivel de Telekinesis",
+      "dice": "2d6 [4+5] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [2+5] = 7",
+      "result": "2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [3]",
+      "result": "Law"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [4]",
+      "result": "Power (Probability Control (Negativa))"
+    }
+  ],
+  "play": {
+    "stamina": 7,
+    "dp": 2,
+    "tmp": 0,
+    "page": 1,
+    "conds": [],
+    "log": [
+      {
+        "t": "08:52 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 6 + d8[1] = 7",
+        "cls": "roll"
+      },
+      {
+        "t": "08:51 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 6 + d8[4] = 10",
+        "cls": "roll"
+      },
+      {
+        "t": "08:50 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 6 + d8[2] = 8",
+        "cls": "roll"
+      },
+      {
+        "t": "08:49 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 6 + d8[8] = 14",
+        "cls": "roll"
+      },
+      {
+        "t": "08:49 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 6 + d8[4] = 10",
+        "cls": "roll"
+      },
+      {
+        "t": "08:49 p. m.",
+        "pg": 1,
+        "msg": "Coordination 6 + d8[8] = 14 vs 5 + d8[4] = 9 → +5 Massive Success",
+        "cls": "roll"
+      },
+      {
+        "t": "07:39 p. m.",
+        "pg": 1,
+        "msg": "Coordination 6 + d8[8] = 14 vs 5 + d8[8] = 13 → +1 Moderate Success",
+        "cls": "roll"
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 1,
+        "msg": "Nuevo número: PD 2 → 2",
+        "cls": "dp"
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 11,
+        "msg": "Página 11 · terminan: Preparando Binding (Wizardry)",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 10,
+        "msg": "Wizardry: prepara Binding — queda listo al pasar de página",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 10,
+        "msg": "Página 10 · terminan: Preparando Danger Sense (Wizardry)",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 9,
+        "msg": "Wizardry: prepara Danger Sense — queda listo al pasar de página",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 9,
+        "msg": "Página 9 · terminan: Preparando Danger Sense (Wizardry)",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 8,
+        "msg": "Wizardry: prepara Danger Sense — queda listo al pasar de página",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 8,
+        "msg": "Wizardry vuelve a su forma base",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 8,
+        "msg": "Página 8 · terminan: Preparando Probability Control (Wizardry)",
+        "cls": ""
+      },
+      {
+        "t": "07:21 p. m.",
+        "pg": 7,
+        "msg": "Wizardry: prepara Probability Control — queda listo al pasar de página",
+        "cls": ""
+      },
+      {
+        "t": "02:55 p. m.",
+        "pg": 7,
+        "msg": "Asume esta forma (desde 67 (Gestalt))",
+        "cls": ""
+      },
+      {
+        "t": "02:53 p. m.",
+        "pg": 7,
+        "msg": "Se transforma en 67 (Gestalt) (1 página de preparación)",
+        "cls": ""
+      },
+      {
+        "t": "02:53 p. m.",
+        "pg": 7,
+        "msg": "Coordination 6 + d6[5] = 11 vs 10 + d6[4] = 14 → -3 Major Failure",
+        "cls": "roll"
+      },
+      {
+        "t": "02:52 p. m.",
+        "pg": 7,
+        "msg": "Termina: Bound (atrapado)",
+        "cls": ""
+      },
+      {
+        "t": "02:52 p. m.",
+        "pg": 7,
+        "msg": "Condición: Bound (atrapado) (4 pág.)",
+        "cls": ""
+      },
+      {
+        "t": "02:51 p. m.",
+        "pg": 7,
+        "msg": "Página 7",
+        "cls": ""
+      },
+      {
+        "t": "02:51 p. m.",
+        "pg": 6,
+        "msg": "Página 6",
+        "cls": ""
+      },
+      {
+        "t": "02:46 p. m.",
+        "pg": 5,
+        "msg": "Intellect 5 + d6[6] = 11 vs 0 + d6[5] = 5 → +6 Massive Success",
+        "cls": "roll"
+      },
+      {
+        "t": "02:45 p. m.",
+        "pg": 5,
+        "msg": "Wizardry 5 + d6[6] = 11 vs 0 + d6[4] = 4 → +7 Massive Success",
+        "cls": "roll"
+      },
+      {
+        "t": "02:45 p. m.",
+        "pg": 5,
+        "msg": "Página 5 · terminan: Stunned (aturdido)",
+        "cls": ""
+      },
+      {
+        "t": "02:45 p. m.",
+        "pg": 4,
+        "msg": "Página 4",
+        "cls": ""
+      },
+      {
+        "t": "02:45 p. m.",
+        "pg": 3,
+        "msg": "Página 3",
+        "cls": ""
+      },
+      {
+        "t": "02:45 p. m.",
+        "pg": 2,
+        "msg": "Página 2",
+        "cls": ""
+      },
+      {
+        "t": "02:45 p. m.",
+        "pg": 1,
+        "msg": "Condición: Stunned (aturdido) (4 pág.)",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Nuevo número: PD 2 → 2",
+        "cls": "dp"
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Nuevo número: PD 2 → 2",
+        "cls": "dp"
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Nuevo número: PD 2 → 2",
+        "cls": "dp"
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 3,
+        "msg": "Página 3",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 2,
+        "msg": "Página 2",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+2 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "02:44 p. m.",
+        "pg": 1,
+        "msg": "Asume esta forma (desde 67 (Gestalt))",
+        "cls": ""
+      },
+      {
+        "t": "01:52 a. m.",
+        "pg": 1,
+        "msg": "Awareness 3 + d6[5] = 8 vs 4 + d6[2] = 6 → +2 Moderate Success",
+        "cls": "roll"
+      },
+      {
+        "t": "01:37 a. m.",
+        "pg": 1,
+        "msg": "Nuevo número: PD 2 → 2",
+        "cls": "dp"
+      },
+      {
+        "t": "01:37 a. m.",
+        "pg": 4,
+        "msg": "Página 4",
+        "cls": ""
+      },
+      {
+        "t": "01:37 a. m.",
+        "pg": 3,
+        "msg": "Página 3",
+        "cls": ""
+      },
+      {
+        "t": "01:37 a. m.",
+        "pg": 2,
+        "msg": "Página 2",
+        "cls": ""
+      },
+      {
+        "t": "01:36 a. m.",
+        "pg": 1,
+        "msg": "Atacado por pilotazo · Aura 6: 4 + d6[3] = 7 vs Esquivar 6 + d6[1] = 7 → +0 Marginal Success · daño 3 (mitad, marginal) − Resistance 0 = −3 Stamina · queda inconsciente (Stamina 0)",
+        "cls": "hurt"
+      },
+      {
+        "t": "01:36 a. m.",
+        "pg": 1,
+        "msg": "Atacado por pilotazo · Aura 6: 4 + d6[3] = 7 vs Esquivar 6 + d6[3] = 9 → -2 Moderate Failure · falla",
+        "cls": ""
+      },
+      {
+        "t": "01:36 a. m.",
+        "pg": 1,
+        "msg": "Atacado por pilotazo · Aura 6: 4 + d6[5] = 9 vs Esquivar 6 + d6[6] = 12 → -3 Major Failure · falla",
+        "cls": ""
+      },
+      {
+        "t": "01:36 a. m.",
+        "pg": 1,
+        "msg": "Atacado por pilotazo · Aura 6: 4 + d6[4] = 8 vs Esquivar 6 + d6[1] = 7 → +1 Moderate Success · daño 6 − Resistance 0 = −6 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "01:31 a. m.",
+        "pg": 1,
+        "msg": "Asume esta forma (desde 67 (Gestalt))",
+        "cls": ""
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Se transforma en 67 (Gestalt) (1 página de preparación)",
+        "cls": ""
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Wizardry 5 + d6[6] = 11 vs 4 + d6[3] = 7 → +4 Major Success",
+        "cls": "roll"
+      },
+      {
+        "t": "01:30 a. m.",
+        "pg": 1,
+        "msg": "Asume esta forma (desde 67 (Gestalt))",
+        "cls": ""
+      },
+      {
+        "t": "01:25 a. m.",
+        "pg": 1,
+        "msg": "Se transforma en 67 (Gestalt) (1 página de preparación)",
+        "cls": ""
+      },
+      {
+        "t": "01:25 a. m.",
+        "pg": 1,
+        "msg": "Se transforma en 76 (Alter Ego) (1 página de preparación)",
+        "cls": ""
+      },
+      {
+        "t": "10:20 p. m.",
+        "pg": 1,
+        "msg": "Se transforma en 67 (Gestalt) (1 página de preparación)",
+        "cls": ""
+      },
+      {
+        "t": "10:20 p. m.",
+        "pg": 1,
+        "msg": "Asume esta forma (desde 67 (Gestalt))",
+        "cls": ""
+      }
+    ],
+    "notes": "",
+    "lastRoll": {
+      "label": "Iniciativa",
+      "res": 7,
+      "grade": "total",
+      "cls": "raw",
+      "calc": "Coordination 6 + d8[1]",
+      "raw": true
+    },
+    "wiz": {
+      "3": {
+        "as": "Binding",
+        "ready": 11
+      }
+    }
+  },
+  "gear": [],
+  "updated": 1794095531468
+}
