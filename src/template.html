@@ -268,6 +268,14 @@ body:not(.kveh) .onlyveh{display:none!important}
 .rfold{border-bottom:1px solid var(--ink);margin-top:4px}
 .rfold button{width:100%;text-align:left;font-weight:700;border:none;background:transparent;box-shadow:none}
 .rfold.root{border:none;font-size:11px;padding:2px 0}
+.rfold.sctop{margin-top:8px;border:2px solid var(--ink);border-radius:5px;border-bottom-width:2px}
+.rfold.sctop.sc-global{background:#dbe8ff}.rfold.sctop.sc-local{background:#ececec;border-style:dashed}
+.rfold.sc-global:not(.sctop),.ritem.sc-global{border-left:4px solid #1f5fbf}
+.rfold.sc-local:not(.sctop),.ritem.sc-local{border-left:4px dashed #888}
+.ritem.sc-local span{color:#444}
+.scbadge{float:right;font-size:10px;font-weight:700;text-transform:uppercase;border:1px solid var(--ink);border-radius:3px;padding:0 4px;background:#fff;margin-top:2px}
+.rfold.sc-global .scbadge{background:#1f5fbf;color:#fff}
+.scico{font-style:normal;font-size:11px;margin-right:3px}
 .dragging{opacity:.4}
 .drop-before{box-shadow:inset 0 3px 0 var(--blue)!important}
 .drop-after{box-shadow:inset 0 -3px 0 var(--blue)!important}
@@ -1230,9 +1238,11 @@ function rosterItems(){
   if(FS.ok)return FS.files.map(f=>({key:'fs:'+f.file,data:f.data,label:f.file,folder:f.folder}));
   const r=roster();return Object.keys(r).map(k=>({key:'ls:'+k,data:r[k],folder:''}));
 }
+const scopeOf=path=>{const top=(path||'').split('/')[0].toLowerCase();return top==='local'?'local':top==='global'?'global':''};
+const SCOPE={local:{ico:'🔒',lab:'privada · no se sube'},global:{ico:'🌐',lab:'compartida · se sube al repositorio'}};
 function itemRow(it,depth){
-  const d=it.data;const ab=abilityQuery(RV.q||'');
-  return `<div class="ritem ${d.id===C.id?'cur':''}" draggable="true" data-rid="${d.id}" style="padding-left:${depth*14}px"><span data-load="${esc(it.key)}" title="${esc(it.label||'')}">${kindIcon(d.kind)}${esc(d.name||'sin nombre')} <small class="hint">${esc(d.origin||'')}${(d.links||[]).length?' · 🔗'+d.links.length:''}${ab?` · ${ab.a} ${(d.abilities||{})[ab.a]}`:''}</small></span><button class="mini" data-dup="${esc(it.key)}" title="Duplicar">⧉</button><button class="mini" data-delr="${esc(it.key)}" title="Borrar">✕</button></div>`;
+  const d=it.data;const ab=abilityQuery(RV.q||'');const sc=scopeOf(it.folder);
+  return `<div class="ritem ${d.id===C.id?'cur':''} ${sc?'sc-'+sc:''}" draggable="true" data-rid="${d.id}" style="padding-left:${depth*14}px"><span data-load="${esc(it.key)}" title="${esc((it.label||'')+(sc?' — '+SCOPE[sc].lab:''))}">${sc?`<i class="scico">${SCOPE[sc].ico}</i>`:''}${kindIcon(d.kind)}${esc(d.name||'sin nombre')} <small class="hint">${esc(d.origin||'')}${(d.links||[]).length?' · 🔗'+d.links.length:''}${ab?` · ${ab.a} ${(d.abilities||{})[ab.a]}`:''}</small></span><button class="mini" data-dup="${esc(it.key)}" title="Duplicar">⧉</button><button class="mini" data-delr="${esc(it.key)}" title="Borrar">✕</button></div>`;
 }
 function renderRoster(){
   const all=rosterItems();const items=sortItems(all.filter(it=>matches(it.data)));const searching=!!(RV.q||'').trim();let h='';
@@ -1251,7 +1261,8 @@ function renderRoster(){
       items.filter(it=>it.folder===path).forEach(it=>s+=itemRow(it,depth));
       FS.folders.filter(f=>f.path.slice(0,f.path.lastIndexOf('/')<0?0:f.path.lastIndexOf('/'))===path&&(path?f.path.startsWith(path+'/'):!f.path.includes('/'))).forEach(f=>{
         const n=count(f.path);if(searching&&!n)return;const col=!searching&&RV.collapsed[f.path];
-        s+=`<div class="rfold" data-fold="${esc(f.path)}" style="padding-left:${depth*14}px"><button class="mini ghost" data-foldtog="${esc(f.path)}" title="${col?'Expandir':'Colapsar'}">${col?'▸':'▾'} 📁 ${esc(f.name)} <small class="hint">(${n})</small></button></div>`;
+        const sc=scopeOf(f.path);const top=sc&&!f.path.includes('/');
+        s+=`<div class="rfold ${sc?'sc-'+sc:''} ${top?'sctop':''}" data-fold="${esc(f.path)}" style="padding-left:${depth*14}px"><button class="mini ghost" data-foldtog="${esc(f.path)}" title="${col?'Expandir':'Colapsar'}${sc?' — '+SCOPE[sc].lab:''}">${col?'▸':'▾'} ${top?SCOPE[sc].ico:'📁'} ${esc(f.name)} <small class="hint">(${n})</small>${top?`<span class="scbadge">${sc==='local'?'privada':'se sube'}</span>`:''}</button></div>`;
         if(!col)s+=node(f.path,depth+1)});
       return s};
     h+=`<div class="rfold root" data-fold=""><span class="hint">raíz · soltá acá para sacar de una carpeta</span></div>`+node('',0);
