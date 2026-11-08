@@ -275,6 +275,7 @@ body:not(.kveh) .onlyveh{display:none!important}
 .ritem.sc-local span{color:#444}
 .scbadge{float:right;font-size:10px;font-weight:700;text-transform:uppercase;border:1px solid var(--ink);border-radius:3px;padding:0 4px;background:#fff;margin-top:2px}
 .rfold.sc-global .scbadge{background:#1f5fbf;color:#fff}
+.scwarn{font-size:12px;border:2px dashed var(--red);border-radius:5px;padding:4px 6px;margin:4px 0;background:#fff3f2}
 .scico{font-style:normal;font-size:11px;margin-right:3px}
 .dragging{opacity:.4}
 .drop-before{box-shadow:inset 0 3px 0 var(--blue)!important}
@@ -1238,7 +1239,8 @@ function rosterItems(){
   if(FS.ok)return FS.files.map(f=>({key:'fs:'+f.file,data:f.data,label:f.file,folder:f.folder}));
   const r=roster();return Object.keys(r).map(k=>({key:'ls:'+k,data:r[k],folder:''}));
 }
-const scopeOf=path=>{const top=(path||'').split('/')[0].toLowerCase();return top==='local'?'local':top==='global'?'global':''};
+const scopeOf=path=>{const segs=[(FS.dir&&FS.dir.name)||'',...(path||'').split('/')].map(s=>s.toLowerCase());return segs.find(s=>s==='local'||s==='global')||''};
+const isScopeFolder=path=>/(^|\/)(local|global)$/i.test(path||'');
 const SCOPE={local:{ico:'🔒',lab:'privada · no se sube'},global:{ico:'🌐',lab:'compartida · se sube al repositorio'}};
 function itemRow(it,depth){
   const d=it.data;const ab=abilityQuery(RV.q||'');const sc=scopeOf(it.folder);
@@ -1252,6 +1254,7 @@ function renderRoster(){
     else if(FS.dir)h+=`<div class="folderbar"><button class="mini" data-fs="reconnect">📁 Reconectar “${esc(FS.dir.name)}”</button><button class="mini" data-fs="pick">otra</button></div>`;
     else h+=`<div class="folderbar"><button class="mini" data-fs="pick">📁 Elegir carpeta de fichas</button></div>`;
   }
+  if(FS.ok&&!FS.folders.some(f=>isScopeFolder(f.path))&&!/^(local|global)$/i.test(FS.dir.name))h+=`<div class="scwarn">Esta carpeta no tiene <b>local/</b> ni <b>global/</b>. Si usás el repositorio, tocá <b>cambiar</b> y elegí <b>CLU-ICONS-Engine/heroes</b>.</div>`;
   h+=`<div class="src">${FS.ok?'En la carpeta':'En este navegador'}${searching?` · ${items.length} de ${all.length}`:''}</div>`;
   if(!all.length)h+='<span class="hint">Nada guardado todavía.</span>';
   else if(searching&&!items.length)h+='<span class="hint">Ninguna ficha coincide.</span>';
@@ -1261,7 +1264,7 @@ function renderRoster(){
       items.filter(it=>it.folder===path).forEach(it=>s+=itemRow(it,depth));
       FS.folders.filter(f=>f.path.slice(0,f.path.lastIndexOf('/')<0?0:f.path.lastIndexOf('/'))===path&&(path?f.path.startsWith(path+'/'):!f.path.includes('/'))).forEach(f=>{
         const n=count(f.path);if(searching&&!n)return;const col=!searching&&RV.collapsed[f.path];
-        const sc=scopeOf(f.path);const top=sc&&!f.path.includes('/');
+        const sc=scopeOf(f.path);const top=sc&&isScopeFolder(f.path)&&scopeOf(f.path.split('/').slice(0,-1).join('/'))!==sc;
         s+=`<div class="rfold ${sc?'sc-'+sc:''} ${top?'sctop':''}" data-fold="${esc(f.path)}" style="padding-left:${depth*14}px"><button class="mini ghost" data-foldtog="${esc(f.path)}" title="${col?'Expandir':'Colapsar'}${sc?' — '+SCOPE[sc].lab:''}">${col?'▸':'▾'} ${top?SCOPE[sc].ico:'📁'} ${esc(f.name)} <small class="hint">(${n})</small>${top?`<span class="scbadge">${sc==='local'?'privada':'se sube'}</span>`:''}</button></div>`;
         if(!col)s+=node(f.path,depth+1)});
       return s};
