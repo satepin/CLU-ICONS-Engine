@@ -168,6 +168,14 @@ body.play.gridview .refcol{display:none}
 .wizrow .tag{border:1px solid var(--ink);border-radius:3px;padding:0 5px;background:#fff}.wizrow .tag.ok{background:#e3f6dc}
 .wizrow select{max-width:220px}
 .copies{display:flex;flex-direction:column;gap:4px}
+.achsum{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}
+.achpill{border:2px solid var(--ink);border-radius:14px;padding:1px 9px;font-size:13px;background:#fff}
+.achpill.menor{background:#f3e0cf}.achpill.moderado{background:#e6e6e6}.achpill.mayor{background:#ffe9a8}
+.achtabs{display:flex;gap:4px;margin:6px 0}.achtabs button.on{background:var(--ink);color:#fff}
+.achadd input,.achadd select{font-size:13px}
+.achtab{width:100%;border-collapse:collapse;font-size:13px}.achtab th{text-align:left;border-bottom:2px solid var(--ink);padding:2px 4px}
+.achtab td{border-bottom:1px dashed #bbb;padding:2px 4px}.achtab td input{width:100%;font-size:12px;border-width:1px;padding:1px 3px}
+.achtab tr.used td,.achtab tr.conv td{color:#777}.achtab tr.used td input,.achtab tr.conv td input{color:#777;background:transparent}.achtab tr.tot td{border-top:2px solid var(--ink)}
 .copybox{border:1px dashed var(--ink);border-radius:4px;padding:4px 6px;background:#f3ecff;font-size:13px}
 .copybox.perm{border-style:solid;box-shadow:2px 2px 0 var(--ink)}
 .copybox.unbal{background:#fff0ef;border-color:var(--red)}
@@ -513,6 +521,11 @@ body:not(.play) .play-only{display:none!important}
       <h2>Qualities</h2>
       <div class="qual" id="quals"></div>
       <div class="field"><label>Description & background</label><textarea id="cDesc" rows="4" placeholder="Apariencia, traje, cómo obtuvo sus poderes…"></textarea></div>
+    </section>
+
+    <section class="panel nov" id="achPanel">
+      <h2>🏆 Logros <span class="tag noprint"><button class="mini big2" id="btnAchShop">🛒 Gastar logros</button></span></h2>
+      <div id="ach"></div>
     </section>
   </main>
   <!-- MODO JUGAR -->
@@ -905,7 +918,11 @@ function powerCost(p){
   const base=(p.base==='Ability Boost'&&p.level<7)?0:1;
   return Math.max(0,base+netExtras(p)-p.limits.filter(l=>l.b==='det').length);
 }
-function computeDet(){
+let DET_RAW=false;
+function computeDet(){const b=computeDetBase();const adj=+C.detAdj||0;if(!adj||C.kind==='servant'||C.kind==='vehicle')return b;
+  DET_RAW=true;let r;try{r=computeDetBase().det}finally{DET_RAW=false}
+  return{det:Math.max(0,r+adj),why:`${b.why} · mejoras por logros ${adj>0?'+':''}${adj}`}}
+function computeDetBase(){
   if(C.kind==='servant')return{det:0,why:'Los servants no tienen Determination'};
   if(C.kind==='vehicle')return{det:0,why:'Los vehículos no tienen Determination'};
   const GC=(C.gear||[]).filter(g=>g.counts);
@@ -914,10 +931,10 @@ function computeDet(){
   if(S.det==='level'){
     let sum=0;C.powers.forEach(p=>{if(powerCost(p)>0||netExtras(p)>0)sum+=p.level*(1+netExtras(p))});
     hiAb.forEach(a=>sum+=C.abilities[a]);GC.forEach(g=>sum+=(+g.level||0)*(1+(g.extras||[]).length));
-    const k=Math.round(sum/6);return{det:Math.max(1,6-k),why:`Suma de niveles ${sum} ÷ 6 ≈ ${k} → 6 − ${k}`};
+    const k=Math.round(sum/6);return{det:DET_RAW?6-k:Math.max(1,6-k),why:`Suma de niveles ${sum} ÷ 6 ≈ ${k} → 6 − ${k}`};
   }
   const pc=countedPowers();const gc=GC.reduce((s,g)=>s+1+(g.extras||[]).length,0);const tot=pc+hiAb.length+gc;
-  return{det:Math.max(1,6-tot),why:`6 − ${tot} (${pc} de poderes/extras${hiAb.length?` + ${hiAb.length} por ${hiAb.join(', ')} > 6`:''}${gc?` + ${gc} de equipo`:''}) · mín. 1`};
+  return{det:DET_RAW?6-tot:Math.max(1,6-tot),why:`6 − ${tot} (${pc} de poderes/extras${hiAb.length?` + ${hiAb.length} por ${hiAb.join(', ')} > 6`:''}${gc?` + ${gc} de equipo`:''}) · mín. 1`};
 }
 function updateDerived(){
   if(C.kind==='servant'){try{const sp=servantSpent(C),T=servantPool(C);$('svSpent').textContent=sp;$('svPool').classList.toggle('over',sp>T);$('svBreak').textContent=servantBreakdown(C)}catch(_){}}
@@ -934,7 +951,7 @@ function renderAll(){
   const on=C.origin.split(' + ').map(o=>{const x=ORIGINS.find(x=>x.n===o.trim());return x&&C.rules==='balanced'?{n:x.n,d:BAL_ORIGIN_TXT[x.n]}:x}).filter(Boolean);
   $('originNote').innerHTML=(on.map(o=>`<b>${o.n}:</b> ${esc(o.d)}`).join('<br>')||'<span class="hint">Sin origen.</span>')+(C.originNote?`<br><b>Aplicado:</b> <i>${esc(C.originNote)}</i>`:'');
   $('originNote').style.display=(on.length||C.originNote)?'':'none';
-  document.body.classList.toggle('kveh',C.kind==='vehicle');renderAbil();renderPowers();renderSpecs();renderQuals();renderLog();updateDerived();renderLinks();renderGear();renderVeh();
+  document.body.classList.toggle('kveh',C.kind==='vehicle');renderAbil();renderPowers();renderSpecs();renderQuals();renderLog();updateDerived();renderLinks();renderGear();renderVeh();renderAch();
   if(typeof PLAY_MODE!=='undefined'){RS.key=RS.key&&RS._for===C.id?RS.key:null;if(RS._for!==C.id){RS.last=null;RS.specs=[];RS.menu=null;RS._for=C.id;const r=$('pResult');if(r){r.className='result';r.innerHTML='<span class="hint">Elegí una ability o un poder y tocá Tirar.</span>'}}if(TABLE.ids.includes(C.id))TABLE.cache[C.id]=C;if(PLAY_MODE){ensurePlay();renderPlayRoot()}renderRoster()}
 }
 function renderAbil(){
@@ -3002,8 +3019,164 @@ function applyCreationCap(c){const cap=capFromSettings();if(!cap.on)return;
 // --- interfaz del modo guiado (pantalla completa, bandeja de dados y pausa para leer cada resultado)
 const W={gen:null,c:null,dice:'click',step:'',resolve:null,steps:[],tray:[],seen:0,series:false,answers:[],seed:1};
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+// ---------------------------------------------------------------- logros y mejoras (Edición Recopilada, Dirigiendo el juego)
+const ACH_TIERS={menor:{lab:'Menor',ico:'🥉',hint:'una parte importante de la historia se resolvió (hasta una vez por número)'},
+  moderado:{lab:'Moderado',ico:'🥈',hint:'un evento significativo de la serie (más o menos cada 4 números)'},
+  mayor:{lab:'Mayor',ico:'🥇',hint:'un evento mayor: fin de un arco largo, la derrota de un supervillano… (más o menos cada 8 números)'}};
+const ACHV={tab:'list'};
+const today=()=>new Date().toISOString().slice(0,10);
+const achOf=c=>{c.ach=c.ach||{};c.ach.list=c.ach.list||[];c.ach.mejoras=c.ach.mejoras||[];c.ach.stunts=c.ach.stunts||[];c.ach.world=c.ach.world||[];return c.ach};
+const achAvail=(c,t)=>achOf(c).list.filter(x=>x.tier===t&&x.state==='ok');
+function renderAch(){const el=$('ach');if(!el)return;const A=achOf(C);
+  const cnt=t=>achAvail(C,t).length;
+  const tabs=[['list','Logros'],['events','Por evento'],['mej','Mejoras aplicadas']];
+  let h=`<div class="achsum">${Object.entries(ACH_TIERS).map(([k,v])=>`<span class="achpill ${k}">${v.ico} ${v.lab}: <b>${cnt(k)}</b> disponible${cnt(k)===1?'':'s'}</span>`).join('')}
+    <span class="hint">4 menores = 1 moderado · 2 moderados = 1 mayor</span></div>
+    <div class="achtabs">${tabs.map(([k,l])=>`<button class="mini ${ACHV.tab===k?'on':''}" data-achtab="${k}">${l}</button>`).join('')}</div>`;
+  if(ACHV.tab==='list'){
+    h+=`<div class="row achadd"><select id="achTier">${Object.entries(ACH_TIERS).map(([k,v])=>`<option value="${k}">${v.ico} ${v.lab}</option>`).join('')}</select>
+      <input id="achEvent" list="achEvents" placeholder="evento u origen (ej. «Número 3: rescate en el puerto»)" style="flex:1;min-width:200px">
+      <datalist id="achEvents">${[...new Set(A.list.map(x=>x.event).filter(Boolean))].map(e=>`<option>${esc(e)}</option>`).join('')}</datalist>
+      × <input id="achN" type="number" min="1" max="20" value="1" style="width:52px"><input id="achDate" type="date" value="${today()}"><button class="mini" id="achAdd">+ agregar</button></div>
+      <p class="hint" id="achTierHint">${ACH_TIERS.menor.hint}</p>`;
+    h+=A.list.length?`<table class="achtab"><tr><th></th><th>Evento / origen</th><th>Fecha</th><th>Estado</th><th></th></tr>${A.list.slice().reverse().map(x=>`<tr class="${x.state}">
+      <td>${ACH_TIERS[x.tier].ico} ${ACH_TIERS[x.tier].lab}</td><td><input data-achf="event" data-id="${x.id}" value="${esc(x.event||'')}"></td><td><input type="date" data-achf="date" data-id="${x.id}" value="${esc(x.date||'')}"></td>
+      <td>${x.state==='ok'?'<b>disponible</b>':x.state==='used'?`gastado: ${esc(x.usedFor||'')}`:`convertido${x.usedFor?': '+esc(x.usedFor):''}`}</td>
+      <td>${x.state==='ok'?`<button class="mini" data-achdel="${x.id}" title="Quitar">✕</button>`:''}</td></tr>`).join('')}</table>`:'<p class="hint">Todavía no hay logros. Agregalos al terminar cada número o evento.</p>';
+  }else if(ACHV.tab==='events'){
+    const ev={};A.list.filter(x=>!x.conv).forEach(x=>{const k=x.event||'(sin evento)';ev[k]=ev[k]||{menor:0,moderado:0,mayor:0,first:x.date||''};ev[k][x.tier]++;if(x.date&&(!ev[k].first||x.date<ev[k].first))ev[k].first=x.date});
+    const rows=Object.entries(ev).sort((a,b)=>(a[1].first||'').localeCompare(b[1].first||''));
+    h+=rows.length?`<table class="achtab"><tr><th>Evento</th><th>Fecha</th><th>🥉</th><th>🥈</th><th>🥇</th></tr>${rows.map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v.first)}</td><td>${v.menor||''}</td><td>${v.moderado||''}</td><td>${v.mayor||''}</td></tr>`).join('')}
+      <tr class="tot"><td><b>Total otorgado</b></td><td></td>${['menor','moderado','mayor'].map(k=>`<td><b>${rows.reduce((s,r)=>s+r[1][k],0)}</b></td>`).join('')}</tr></table>
+      <p class="hint">No incluye los logros que salieron de convertir otros.</p>`:'<p class="hint">Sin eventos registrados.</p>';
+  }else{
+    h+=A.mejoras.length?`<table class="achtab"><tr><th>Fecha</th><th>Logro</th><th>Mejora</th></tr>${A.mejoras.slice().reverse().map(m=>`<tr><td>${esc(m.date||'')}</td><td>${ACH_TIERS[m.tier].ico} ${ACH_TIERS[m.tier].lab}</td><td>${esc(m.desc)}</td></tr>`).join('')}</table>`:'<p class="hint">Todavía no se aplicó ninguna mejora.</p>';
+    if(A.stunts.length)h+=`<p><b>Proezas dominadas:</b> ${esc(A.stunts.join(', '))}</p>`;
+    if(A.world.length)h+=`<p><b>Aportes al escenario:</b> ${esc(A.world.join(' · '))}</p>`;
+    if(+C.detAdj)h+=`<p class="hint">Ajuste de Determination por mejoras: ${C.detAdj>0?'+':''}${C.detAdj}</p>`;
+  }
+  el.innerHTML=h;
+}
+document.addEventListener('click',e=>{const t=e.target;
+  if(t.dataset&&t.dataset.achtab){ACHV.tab=t.dataset.achtab;renderAch();return}
+  if(t.id==='achAdd'){const A=achOf(C);const n=Math.max(1,Math.min(20,+$('achN').value||1));const ev=$('achEvent').value.trim();const tier=$('achTier').value;
+    for(let k=0;k<n;k++)A.list.push({id:newId(),tier,event:ev,date:$('achDate').value||today(),state:'ok'});save(true);renderAch();$('achTier').value=tier;$('achTierHint').textContent=ACH_TIERS[tier].hint;
+    toast(`+${n} logro${n>1?'s':''} ${ACH_TIERS[tier].lab.toLowerCase()}${n>1?(tier==='menor'?'es':'s'):''}${ev?' · '+ev:''}`);return}
+  if(t.dataset&&t.dataset.achdel){const A=achOf(C);A.list=A.list.filter(x=>x.id!==t.dataset.achdel);save(true);renderAch();return}
+  if(t.id==='btnAchShop'){advOpen();return}
+});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='achTier'){const h=$('achTierHint');if(h)h.textContent=ACH_TIERS[t.value].hint;return}
+  if(t.dataset&&t.dataset.achf){const x=achOf(C).list.find(y=>y.id===t.dataset.id);if(x){x[t.dataset.achf]=t.value;save(true);if(ACHV.tab!=='list')renderAch()}}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='achEvent'){e.preventDefault();$('achAdd').click()}});
+
+// --- la tienda de mejoras (usa el asistente paso a paso)
+function detParts(c){const o=C;C=c;try{const b=computeDet();DET_RAW=true;let r;try{r=computeDetBase().det}finally{DET_RAW=false}return{det:b.det,raw:r}}finally{C=o}}
+function* yPickPower(c,title,filter){const L=c.powers.map((p,i)=>({p,i})).filter(x=>x.p.base&&(!filter||filter(x.p)));if(!L.length)return null;
+  const v=yield* yChoose(title,[...L.map(x=>({v:x.i,label:`${disp(x.p)} ${x.p.level}`,hint:[x.p.extras.length?'Extras: '+x.p.extras.join(', '):'',x.p.limits.length?'Limits: '+x.p.limits.map(l=>l.n).join(', '):''].filter(Boolean).join(' · ')})),{v:'__x',label:'↩ Cancelar'}]);
+  return v==null||v==='__x'?null:c.powers[+v]}
+function* yText(title,def,text){return yield{t:'text',title,def:def||'',text}}
+function* yMejoraMenor(c,det){const lowOK=det-1>=0;const noDet=lowOK?'':'Tu Determination ya está en 0';
+  const k=yield* yChoose('Mejora menor',[
+    {v:'x',label:'Agregar un extra permanente a un poder',hint:'compensás con −1 Determination o con un limit',disabled:!c.powers.length},
+    {v:'l',label:'Quitar un limit de un poder (−1 Determination)',disabled:!lowOK||!c.powers.some(p=>p.limits.length),hint:noDet||(!c.powers.some(p=>p.limits.length)?'ningún poder tiene limits':'')},
+    {v:'stunt',label:'Dominar una proeza (−1 Determination)',disabled:!lowOK,hint:noDet||'la podés hacer sin gastar Determination'},
+    {v:'ab',label:'+1 a una ability y −1 a otra (entre 1 y 10)'},
+    {v:'spec',label:'Nueva specialty o un nivel más en una (hasta Master)'},
+    {v:'swap',label:'Cambiar un extra, un limit o una specialty por otro del mismo tipo'},
+    {v:'__x',label:'↩ Volver'}]);
+  if(k==='x'){const p=yield* yPickPower(c,'¿A qué poder le agregás el extra?');if(!p)return null;const x=yield* yAddExtra(p,'mejora');if(!x)return null;
+    const how=yield* yChoose(`¿Cómo compensás el extra ${x}?`,[{v:'det',label:'−1 Determination',disabled:!lowOK,hint:noDet},{v:'lim',label:'Agregando un limit al mismo poder'}],()=>'lim');
+    if(how==='lim'){const lo=limitOpts(p);const l=yield* yChoose(`Limit que compensa ${x}`,lo.map(e=>({v:e[0],label:e[0],hint:e[1]})));if(!l){p.extras.pop();return null}p.limits.push({n:l,b:'extra'});return{desc:`${disp(p)}: extra ${x}, compensado con el limit ${l}`,dDet:0}}
+    return{desc:`${disp(p)}: extra ${x} (−1 Determination)`,dDet:-1}}
+  if(k==='l'){const p=yield* yPickPower(c,'¿De qué poder quitás un limit?',p=>p.limits.length);if(!p)return null;
+    const n=yield* yChoose('¿Qué limit quitás?',p.limits.map(l=>({v:l.n,label:`${l.n} (${BENEFITS[l.b]})`})));if(!n)return null;p.limits=p.limits.filter(l=>l.n!==n);return{desc:`${disp(p)}: quita el limit ${n}`,dDet:-1}}
+  if(k==='stunt'){const s=yield* yText('¿Qué proeza domina?','',`Ejemplo: «Blast en ráfaga sobre varios blancos». Ver Proezas en Lo Básico.`);if(!s)return null;achOf(c).stunts.push(s);return{desc:`domina la proeza «${s}»`,dDet:-1}}
+  if(k==='ab'){const up=yield* yChoose('+1 a…',ABIL.map(a=>({v:a,label:`${a} (${c.abilities[a]} → ${c.abilities[a]+1})`,disabled:c.abilities[a]>=10,hint:c.abilities[a]>=10?'ya está en 10':''})));if(!up)return null;
+    const dn=yield* yChoose(`−1 a otra ability (por el +1 a ${up})`,ABIL.filter(a=>a!==up).map(a=>({v:a,label:`${a} (${c.abilities[a]} → ${c.abilities[a]-1})`,disabled:c.abilities[a]<=1,hint:c.abilities[a]<=1?'no puede bajar de 1':''})));if(!dn)return null;
+    c.abilities[up]++;c.abilities[dn]--;return{desc:`+1 ${up} (${c.abilities[up]}), −1 ${dn} (${c.abilities[dn]})`,dDet:0}}
+  if(k==='spec'){const s=yield* yChoose('¿Qué specialty?',SPEC_NAMES.map(x=>{const ex=c.specialties.find(y=>y.name===x);return{v:x,label:ex?`${x} (${SPEC_LV[ex.level]} → ${SPEC_LV[ex.level+1]||'—'})`:`${x} (nueva)`,disabled:ex&&ex.level>=3,hint:ex&&ex.level>=3?'ya es Master':''}}));if(!s)return null;
+    const ex=c.specialties.find(y=>y.name===s);if(ex)ex.level++;else c.specialties.push({name:s,level:1});return{desc:`specialty ${s} → ${SPEC_LV[(ex||{level:1}).level]}`,dDet:0}}
+  if(k==='swap'){const w=yield* yChoose('¿Qué cambiás?',[{v:'x',label:'Un extra por otro extra',disabled:!c.powers.some(p=>p.extras.length)},{v:'l',label:'Un limit por otro limit',disabled:!c.powers.some(p=>p.limits.length)},{v:'s',label:'Una specialty por otra del mismo nivel',disabled:!c.specialties.length},{v:'__x',label:'↩ Volver'}]);
+    if(w==='x'){const p=yield* yPickPower(c,'¿De qué poder?',p=>p.extras.length);if(!p)return null;const o=yield* yChoose('¿Qué extra sale?',p.extras.map(x=>({v:x,label:x})));if(!o)return null;
+      p.extras=p.extras.filter(x=>x!==o);const n=yield* yAddExtra(p,'cambio');if(!n){p.extras.push(o);return null}return{desc:`${disp(p)}: cambia el extra ${o} por ${n}`,dDet:0}}
+    if(w==='l'){const p=yield* yPickPower(c,'¿De qué poder?',p=>p.limits.length);if(!p)return null;const o=yield* yChoose('¿Qué limit sale?',p.limits.map(l=>({v:l.n,label:l.n})));if(!o)return null;
+      const old=p.limits.find(l=>l.n===o);const n=yield* yChoose('¿Qué limit entra?',limitOpts(p).map(e=>({v:e[0],label:e[0],hint:e[1]})));if(!n)return null;old.n=n;return{desc:`${disp(p)}: cambia el limit ${o} por ${n}`,dDet:0}}
+    if(w==='s'){const o=yield* yChoose('¿Qué specialty sale?',c.specialties.map(s=>({v:s.name,label:`${s.name} (${SPEC_LV[s.level]})`})));if(!o)return null;const sp=c.specialties.find(s=>s.name===o);
+      const n=yield* yChoose(`¿Qué specialty entra, al nivel ${SPEC_LV[sp.level]}?`,SPEC_NAMES.filter(x=>!c.specialties.some(s=>s.name===x)).map(x=>({v:x,label:x})));if(!n)return null;sp.name=n;return{desc:`cambia la specialty ${o} por ${n} (${SPEC_LV[sp.level]})`,dDet:0}}
+    return null}
+  return null}
+function* yMejoraModerada(c){
+  const k=yield* yChoose('Mejora moderada',[
+    {v:'ab',label:'+1 a una ability (máx. 10)'},
+    {v:'swap',label:'Intercambiar los niveles de dos abilities o de dos poderes'},
+    {v:'qchg',label:'Cambiar una quality permanente',disabled:!c.qualities.some(q=>q)},
+    {v:'qnew',label:'Una quality permanente nueva'},
+    {v:'world',label:'Agregar algo al escenario (ver Creación del Universo)'},
+    {v:'__x',label:'↩ Volver'}]);
+  if(k==='ab'){const a=yield* yChoose('+1 a…',ABIL.map(x=>({v:x,label:`${x} (${c.abilities[x]} → ${c.abilities[x]+1})`,disabled:c.abilities[x]>=10,hint:c.abilities[x]>=10?'ya está en 10':''})));if(!a)return null;c.abilities[a]++;return{desc:`+1 ${a} (${c.abilities[a]})`,dDet:0}}
+  if(k==='swap'){const w=yield* yChoose('¿Qué intercambiás?',[{v:'a',label:'Dos abilities'},{v:'p',label:'Dos poderes',disabled:c.powers.filter(p=>p.base).length<2}]);
+    if(w==='a'){const a=yield* yChoose('Primera ability',ABIL.map(x=>({v:x,label:`${x} ${c.abilities[x]}`})));const b=yield* yChoose(`Intercambia con ${a}…`,ABIL.filter(x=>x!==a).map(x=>({v:x,label:`${x} ${c.abilities[x]}`})));if(!a||!b)return null;
+      [c.abilities[a],c.abilities[b]]=[c.abilities[b],c.abilities[a]];return{desc:`intercambia ${a} (${c.abilities[a]}) y ${b} (${c.abilities[b]})`,dDet:0}}
+    if(w==='p'){const p=yield* yPickPower(c,'Primer poder');if(!p)return null;const q=yield* yPickPower(c,`Intercambia el nivel con ${disp(p)}…`,x=>x!==p);if(!q)return null;
+      [p.level,q.level]=[q.level,p.level];postLevel(p);postLevel(q);return{desc:`intercambia niveles: ${disp(p)} ${p.level} y ${disp(q)} ${q.level}`,dDet:0}}
+    return null}
+  if(k==='qchg'){const i=yield* yChoose('¿Qué quality cambia?',c.qualities.map((q,i)=>({v:i,label:q||'(vacía)',disabled:!q})));if(i==null)return null;const o=c.qualities[+i];const n=yield* yText('Nueva quality',o,'');if(!n)return null;c.qualities[+i]=n;return{desc:`quality «${o}» → «${n}»`,dDet:0}}
+  if(k==='qnew'){const n=yield* yText('Nueva quality permanente','','');if(!n)return null;const e=c.qualities.findIndex(q=>!q);if(e>=0)c.qualities[e]=n;else c.qualities.push(n);return{desc:`nueva quality «${n}»`,dDet:0}}
+  if(k==='world'){const n=yield* yText('¿Qué se agrega al escenario?','','Un lugar, una organización, un aliado… Queda anotado en los logros.');if(!n)return null;achOf(c).world.push(n);return{desc:`agrega al escenario: ${n}`,dDet:0}}
+  return null}
+function* yMejoraMayor(c){
+  const nM=achOf(c).list.filter(x=>x.tier==='mayor'&&x.state==='used').length+1;
+  const k=yield* yChoose('Mejora mayor',[
+    {v:'det',label:'+1 a la Determination'},
+    {v:'pow',label:'Un poder nuevo (tirando su nivel)'},
+    {v:'reroll',label:'Volver a tirar todos los poderes desde cero (Fase 3)'},
+    {v:'revive',label:'Volver de entre los muertos'},
+    {v:'retire',label:`Retirar al héroe: el nuevo tendrá +${nM} de Determination`,hint:'queda anotado; creá el héroe nuevo aparte'},
+    {v:'__x',label:'↩ Volver'}]);
+  if(k==='det')return{desc:'+1 Determination',dDet:1};
+  if(k==='pow'){const m=yield* yChoose('¿Cómo elegís el poder?',[{v:'roll',label:'🎲 Tirar en las tablas'},{v:'pick',label:'Elegirlo'}]);const p=m==='pick'?yield* yPowerByChoice():yield* yPowerRandom(settings().allowed);if(!p)return null;c.powers.push(p);return{desc:`poder nuevo: ${disp(p)} ${p.level}`,dDet:0}}
+  if(k==='reroll'){const old=c.powers.map(p=>`${disp(p)} ${p.level}`).join(', ');c.powers=[];const r=yield* y2d6('Cantidad de poderes',NPOW_REF);const n=tableCount(r.v);L('Number of Powers',r.s,n);
+    for(let g=0;c.powers.length<n&&g<60;g++){const p=yield* yPowerRandom(settings().allowed);if(!p)break;const dup=c.powers.find(q=>q.base===p.base&&q.sub===p.sub);if(dup){dup.level=Math.min(10,dup.level+2);postLevel(dup);continue}c.powers.push(p)}
+    resolveAbilityPowers(c);return{desc:`re-tira los poderes (antes: ${old||'ninguno'}; ahora: ${c.powers.map(p=>`${disp(p)} ${p.level}`).join(', ')})`,dDet:0}}
+  if(k==='revive'){if(c.play){c.play.alive=true;c.play.dying=false}return{desc:'vuelve de entre los muertos',dDet:0}}
+  if(k==='retire')return{desc:`se retira: el héroe nuevo empieza con +${nM} de Determination`,dDet:0};
+  return null}
+function* genAdvance(c){const A=achOf(c);
+  const take=(t,why)=>{const x=achAvail(c,t)[0];x.state='used';x.usedFor=why;x.usedAt=today()};
+  for(let g=0;g<200;g++){
+    yield{t:'step',name:'Logros'};
+    const m=achAvail(c,'menor').length,o=achAvail(c,'moderado').length,M=achAvail(c,'mayor').length;const D=detParts(c).det;
+    const ch=yield* yChoose(`Tenés ${m} 🥉 menores · ${o} 🥈 moderados · ${M} 🥇 mayores`,[
+      {v:'menor',label:'🥉 Mejora menor (gasta 1 logro menor)',disabled:!m,hint:m?'':'no tenés logros menores'},
+      {v:'moderado',label:'🥈 Mejora moderada (gasta 1 logro moderado)',disabled:!o,hint:o?'':'no tenés logros moderados'},
+      {v:'mayor',label:'🥇 Mejora mayor (gasta 1 logro mayor)',disabled:!M,hint:M?'':'no tenés logros mayores'},
+      {v:'c41',label:'Convertir 4 menores → 1 moderado',disabled:m<4,hint:m<4?`te faltan ${4-m}`:''},
+      {v:'c21',label:'Convertir 2 moderados → 1 mayor',disabled:o<2,hint:o<2?`te faltan ${2-o}`:''},
+      {v:'done',label:'✔ Terminar y guardar la ficha'}],()=>'done',`Determination ahora: ${D}. Las mejoras que la bajan pueden dejarla en 0, no menos.`);
+    if(ch==='done'||ch==null)return;
+    if(ch==='c41'||ch==='c21'){const [from,n,to]=ch==='c41'?['menor',4,'moderado']:['moderado',2,'mayor'];
+      const nid=newId();achAvail(c,from).slice(0,n).forEach(x=>{x.state='conv';x.usedFor=`→ 1 ${to}`;x.usedAt=today()});
+      A.list.push({id:nid,tier:to,event:`Conversión de ${n} ${from==='menor'?'menores':'moderados'}`,date:today(),state:'ok',conv:true});L('Conversión',`${n} ${from}`,`1 ${to}`);continue}
+    yield{t:'step',name:'Mejora'};
+    const before=detParts(c);const adj0=+c.detAdj||0;
+    const res=ch==='menor'?yield* yMejoraMenor(c,before.det):ch==='moderado'?yield* yMejoraModerada(c):yield* yMejoraMayor(c);
+    if(!res)continue;
+    const after=detParts(c);c.detAdj=adj0+res.dDet-(after.raw-before.raw);if(!c.detAdj)delete c.detAdj;
+    take(ch,res.desc);A.mejoras.push({date:today(),tier:ch,desc:res.desc});L(`Mejora ${ACH_TIERS[ch].lab.toLowerCase()}`,'',res.desc+` · Determination ${before.det} → ${detParts(c).det}`);
+  }
+}
+function advOpen(){
+  if(C.kind==='servant'||C.kind==='vehicle'){toast('Los logros son para héroes');return}
+  const A=achOf(C);if(!A.list.some(x=>x.state==='ok')){toast('No hay logros disponibles: agregalos en la sección Logros');return}
+  W.mode='adv';W.base=clone(C);W.bal=false;W.S=settings();W.d100=false;W.cap={on:false,a:10,p:10,s:3};W.answers=[];W.seed=(Math.random()*2**31)|0;
+  W.steps=['Logros','Mejora'];
+  try{W.dice=(store()&&store().getItem('icons-gp-wizdice'))||(DICE_MODE==='manual'?'manual':'click')}catch(_){W.dice='click'}
+  if(!['click','series','manual'].includes(W.dice))W.dice='click';
+  $('wizModal').classList.add('open');document.body.style.overflow='hidden';wizRun();
+}
 function wizOpen(){
-  W.bal=isBalanced();W.S=settings();W.d100=W.S.balDice==='d100';W.cap=capFromSettings();W.answers=[];W.seed=(Math.random()*2**31)|0;
+  W.mode='create';W.bal=isBalanced();W.S=settings();W.d100=W.S.balDice==='d100';W.cap=capFromSettings();W.answers=[];W.seed=(Math.random()*2**31)|0;
   W.steps=W.bal?['Origen','Abilities','Powers','Origen (ajustes)','Specialties','Pendientes','Final']:['Origen','Abilities','Powers','Origen (ajustes)','Extras y limits','Specialties','Pendientes','Final'];
   try{W.dice=(store()&&store().getItem('icons-gp-wizdice'))||(DICE_MODE==='manual'?'manual':'click')}catch(_){W.dice='click'}
   if(!['click','series','manual'].includes(W.dice))W.dice='click';
@@ -3013,8 +3186,12 @@ function wizClose(){$('wizModal').classList.remove('open');document.body.style.o
 function wizStep(x){const orig=Math.random;Math.random=W.rng;try{return W.gen.next(x)}finally{Math.random=orig}}
 async function wizRun(){for(;;){try{await wizRunOnce();return}catch(e){if(e==='restart')continue;if(e!=='cancel'){console.error(e);toast('Error: '+(e.message||e))}wizClose();return}}}
 async function wizRunOnce(){
-  LOG=[];W.c=blank();W.c.abilities=Object.fromEntries(ABIL.map(a=>[a,W.bal?4:0]));GC={bal:W.bal,d100:W.bal&&W.d100,cap:W.cap};
-  W.gen=W.bal?genBalanced(W.c):genStandard(W.c,W.S);W.rng=mulberry32(W.seed);W.step='';W.tray=[];W.series=false;W.seen=0;
+  const adv=W.mode==='adv';
+  try{const h=document.querySelector('#wizModal h2');if(h)h.textContent=adv?'🛒 Gastar logros':'🧭 Creación paso a paso'}catch(_){}
+  LOG=[];
+  if(adv){W.c=clone(W.base);GC={bal:false,d100:false,cap:{on:false,a:10,p:10,s:3}};W.gen=genAdvance(W.c)}
+  else{W.c=blank();W.c.abilities=Object.fromEntries(ABIL.map(a=>[a,W.bal?4:0]));GC={bal:W.bal,d100:W.bal&&W.d100,cap:W.cap};
+  W.gen=W.bal?genBalanced(W.c):genStandard(W.c,W.S)}W.rng=mulberry32(W.seed);W.step='';W.tray=[];W.series=false;W.seen=0;
   let r=wizStep();let i=0;
   while(!r.done&&i<W.answers.length){const q=r.value;if(q.t==='step'){W.step=q.name;r=wizStep();continue}r=wizStep(W.answers[i++].v)}
   W.seen=LOG.length;
@@ -3027,6 +3204,7 @@ async function wizRunOnce(){
     if(q.t==='d6'||q.t==='d100')W.tray.push({l:q.label,v:ans,k:q.t,pair:q.pair,ab:q.pair?(q.t==='d100'?abFromD100(ans):ans):0,face:q.faces?q.faces[ans]:''});else W.series=false;
     r=wizStep(ans)}
   if(LOG.length>W.seen)await wizResults();
+  if(adv){const n=achOf(W.c).mejoras.length-achOf(W.base).mejoras.length;W.c.log=(W.base.log||[]).concat(LOG);C=W.c;renderAll();save(true);wizClose();toast(n?`${n} mejora${n>1?'s':''} aplicada${n>1?'s':''}`:'Sin cambios');return}
   W.step='Final';const name=await wizAsk({t:'text',title:'¡Listo! ¿Cómo se llama?',def:heroName(),text:'Podés cambiar todo después en la ficha.'});
   W.c.name=name||heroName();W.c.log=LOG;C=W.c;renderAll();save(true);wizClose();toast('Héroe creado paso a paso: '+C.name);
 }
@@ -3043,8 +3221,8 @@ function wizAsk(q){
   if(q.t==='d6'&&W.dice==='series'&&W.series){const v=1+Math.floor(Math.random()*6);return Promise.resolve(v)}
   return new Promise((res,rej)=>{W.resolve=res;W.reject=rej;W.q=q;wizRender(q)});
 }
-function wizPreview(){const c=W.c;
-  return `<div class="wz-ab">${ABIL.map(a=>`<span><small>${a.slice(0,3).toUpperCase()}</small><b>${c.abilities[a]||'–'}</b></span>`).join('')}</div>
+function wizPreview(){const c=W.c;const advTop=W.mode==='adv'?`<div class="achsum">${Object.entries(ACH_TIERS).map(([k,v])=>`<span class="achpill ${k}">${v.ico} <b>${achAvail(c,k).length}</b></span>`).join('')}<span class="achpill">Det <b>${detParts(c).det}</b></span></div>`:'';
+  return advTop+`<div class="wz-ab">${ABIL.map(a=>`<span><small>${a.slice(0,3).toUpperCase()}</small><b>${c.abilities[a]||'–'}</b></span>`).join('')}</div>
    <div class="hint" style="margin:6px 0">${esc(c.origin||'sin origen todavía')}</div>
    ${c.powers.length?c.powers.map(p=>`<div class="wz-pw">• <b>${esc(disp(p))}</b> ${p.level}${p.device?' [Device]':''}${p.extras.length?' · Extras: '+esc(p.extras.join(', ')):''}${p.limits.length?' · Limits: '+esc(p.limits.map(l=>l.n).join(', ')):''}</div>`).join(''):'<div class="hint">Sin poderes todavía.</div>'}
    ${c.specialties.length?`<div style="margin-top:6px"><b>Specialties:</b> ${esc(c.specialties.map(s=>(s.level==2?'Expert ':s.level==3?'Master ':'')+s.name).join(', '))}</div>`:''}`;
@@ -3062,10 +3240,10 @@ function trayHtml(){
 }
 function wizRender(q){
   $('wzSteps').innerHTML=W.steps.map(s=>`<span class="${s===W.step?'on':W.steps.indexOf(s)<W.steps.indexOf(W.step)?'done':''}">${s}</span>`).join('');
-  $('wzMode').innerHTML=`${W.bal?'<b>Reglas balanceadas</b>':'<b>Reglas estándar</b>'} · Dados:
+  $('wzMode').innerHTML=`${W.mode==='adv'?`<b>Mejoras de ${esc(W.c.name||'tu héroe')}</b>`:W.bal?'<b>Reglas balanceadas</b>':'<b>Reglas estándar</b>'} · Dados:
     <select id="wzDice"><option value="click" ${W.dice==='click'?'selected':''}>la app, dado por dado</option><option value="series" ${W.dice==='series'?'selected':''}>la app, una tirada por clic</option><option value="manual" ${W.dice==='manual'?'selected':''}>físicos (los cargo yo)</option></select>
     ${W.bal?`· Abilities: <select id="wzBalDice"><option value="d6" ${W.d100?'':'selected'}>8 d6</option><option value="d100" ${W.d100?'selected':''}>8 d100 (tabla)</option></select>`:''}
-    <span class="wz-cap"><label><input type="checkbox" id="wzCapOn" ${W.cap.on?'checked':''}> Límite de creación</label> abilities ≤ <input type="number" id="wzCapA" min="1" max="10" value="${W.cap.a}"> poderes ≤ <input type="number" id="wzCapP" min="1" max="10" value="${W.cap.p}"> specialties ≤ <select id="wzCapS">${[1,2,3].map(n=>`<option value="${n}" ${(W.cap.s||3)==n?'selected':''}>+${n}</option>`).join('')}</select></span>`;
+    <span class="wz-cap" ${W.mode==='adv'?'style="display:none"':''}><label><input type="checkbox" id="wzCapOn" ${W.cap.on?'checked':''}> Límite de creación</label> abilities ≤ <input type="number" id="wzCapA" min="1" max="10" value="${W.cap.a}"> poderes ≤ <input type="number" id="wzCapP" min="1" max="10" value="${W.cap.p}"> specialties ≤ <select id="wzCapS">${[1,2,3].map(n=>`<option value="${n}" ${(W.cap.s||3)==n?'selected':''}>+${n}</option>`).join('')}</select></span>`;
   $('wzPrev').innerHTML=wizPreview();
   const ub=$('wzUndo');ub.disabled=!W.answers.length;ub.textContent=W.answers.length?`↶ Deshacer: ${(W.answers.filter(a=>!a.auto).slice(-1)[0]||{}).label||''}`.slice(0,60):'↶ Deshacer';
   $('wzLog').innerHTML=LOG.slice().reverse().map(e=>`<div><span>${esc(e.step)}</span><span class="d">${esc(e.dice)}</span><span class="r">→ ${esc(e.result)}</span></div>`).join('')||'<div class="hint">Todavía no hay tiradas.</div>';

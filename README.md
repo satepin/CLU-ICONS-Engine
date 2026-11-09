@@ -60,6 +60,19 @@ En el panel **Reglas** se configuran estas opciones:
 
 Todo se puede editar después en la ficha: abilities, poderes con sus extras y limits, specialties, qualities, equipo, vehículos y notas.
 
+### Logros y mejoras
+
+En la sección **🏆 Logros** de la ficha se registran los logros que va ganando el héroe: menores, moderados y mayores, con el evento que los otorgó y la fecha. Tiene tres pestañas:
+- **Logros:** todos los logros y su estado (disponible, gastado o convertido).
+- **Por evento:** cuántos logros de cada tipo dio cada evento.
+- **Mejoras aplicadas:** el historial de mejoras, las proezas dominadas y los aportes al escenario.
+
+**🛒 Gastar logros** abre una tienda paso a paso, como la de creación, con las mejoras de la Edición Recopilada:
+- se elige qué logro gastar y qué mejora aplicar;
+- convierte 4 menores en 1 moderado y 2 moderados en 1 mayor;
+- ajusta la Determination (puede bajar hasta 0);
+- se puede deshacer (Ctrl+Z) o cancelar sin tocar la ficha.
+
 ### Guardar y compartir
 
 - **💾 Guardar** escribe `nombre-del-heroe.json` en la carpeta elegida. Si renombrás al personaje, el archivo se renombra solo.
