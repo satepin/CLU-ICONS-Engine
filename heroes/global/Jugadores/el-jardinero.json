@@ -1,0 +1,444 @@
+{
+  "id": "hmw9na513i7y",
+  "kind": "hero",
+  "links": [],
+  "name": "El Jardinero",
+  "identity": "Juan",
+  "origin": "Gimmick",
+  "originNote": "Trained: +2 specialties; los poderes son entrenamiento/equipo (devices).",
+  "abilities": {
+    "Prowess": 2,
+    "Coordination": 4,
+    "Strength": 4,
+    "Intellect": 4,
+    "Awareness": 6,
+    "Willpower": 4
+  },
+  "powers": [
+    {
+      "base": "Phasing",
+      "type": "Alteration",
+      "tableType": "Defensive",
+      "sub": "Mental",
+      "level": 3,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Plant Control",
+      "type": "Control",
+      "tableType": "Defensive",
+      "sub": "",
+      "level": 5,
+      "device": true,
+      "extras": [
+        "Plant Growth"
+      ],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Resistance",
+      "type": "Defensive",
+      "tableType": "Defensive",
+      "sub": "Mental",
+      "level": 3,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Athletics",
+      "level": 1
+    },
+    {
+      "name": "Underwater Combat",
+      "level": 1
+    },
+    {
+      "name": "Investigation",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin",
+      "dice": "elegido",
+      "result": "Trained"
+    },
+    {
+      "step": "Prowess",
+      "dice": "2d6 [5+1] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Coordination",
+      "dice": "2d6 [4+4] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Strength",
+      "dice": "2d6 [5+6] = 11",
+      "result": "7 (Incredible)"
+    },
+    {
+      "step": "Intellect",
+      "dice": "2d6 [2+3] = 5",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Awareness",
+      "dice": "2d6 [3+1] = 4",
+      "result": "3 (Average)"
+    },
+    {
+      "step": "Willpower",
+      "dice": "2d6 [1+4] = 5",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Number of Powers",
+      "dice": "2d6 [6+2] = 8",
+      "result": "4"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+2] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+3] = 4",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+4] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+5] = 10",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+3] = 4",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+5] = 11",
+      "result": "Sensory (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+2] = 8",
+      "result": "Movement (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+6] = 11",
+      "result": "Sensory (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+2] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+2] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [2] d6 [2]",
+      "result": "Absorption"
+    },
+    {
+      "step": "Absorption: elección",
+      "dice": "elección al azar",
+      "result": "Fire"
+    },
+    {
+      "step": "Nivel de Absorption (Fire)",
+      "dice": "2d6 [2+5] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+5] = 8",
+      "result": "Movement (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+3] = 4",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+3] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+4] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+6] = 10",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+1] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+1] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [6] d6 [2]",
+      "result": "Regeneration"
+    },
+    {
+      "step": "Nivel de Regeneration",
+      "dice": "2d6 [3+3] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+4] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Absorption"
+    },
+    {
+      "step": "Absorption: elección",
+      "dice": "elección al azar",
+      "result": "Sonic"
+    },
+    {
+      "step": "Nivel de Absorption (Sonic)",
+      "dice": "2d6 [4+1] = 5",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+2] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+4] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+4] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [2] d6 [2]",
+      "result": "Absorption"
+    },
+    {
+      "step": "Absorption: elección",
+      "dice": "elección al azar",
+      "result": "Magnetic"
+    },
+    {
+      "step": "Nivel de Absorption (Magnetic)",
+      "dice": "2d6 [3+5] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [1+3] = 4",
+      "result": "1"
+    },
+    {
+      "step": "Trained",
+      "dice": "+2 specialties",
+      "result": "total 3"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [3]",
+      "result": "Law"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [5]",
+      "result": "Power (Absorption (Sonic))"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Art"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+4] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [6] d6 [6]",
+      "result": "Resistance"
+    },
+    {
+      "step": "Resistance: elección",
+      "dice": "elección al azar",
+      "result": "Mental"
+    },
+    {
+      "step": "Nivel de Resistance (Mental)",
+      "dice": "2d6 [6+2] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+5] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [6] d6 [4]",
+      "result": "Resistance"
+    },
+    {
+      "step": "Resistance: elección",
+      "dice": "elección al azar",
+      "result": "Binding"
+    },
+    {
+      "step": "Nivel de Resistance (Binding)",
+      "dice": "2d6 [6+4] = 10",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+4] = 9",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+5] = 8",
+      "result": "Movement (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+5] = 9",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+2] = 8",
+      "result": "Movement (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+1] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+1] = 4",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+6] = 12",
+      "result": "Sensory (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+1] = 3",
+      "result": "Mental (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+6] = 10",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+5] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+1] = 2",
+      "result": "Mental (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+4] = 9",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+4] = 7",
+      "result": "Offensive (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+4] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+2] = 3",
+      "result": "Mental (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+6] = 9",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+1] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [2] d6 [6]",
+      "result": "Force Field"
+    },
+    {
+      "step": "Nivel de Force Field",
+      "dice": "2d6 [3+3] = 6",
+      "result": "4 (Fair)"
+    }
+  ],
+  "gear": [],
+  "ach": {
+    "list": [],
+    "mejoras": [],
+    "stunts": [],
+    "world": []
+  },
+  "updated": 1794252293888
+}
