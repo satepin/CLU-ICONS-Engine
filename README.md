@@ -82,7 +82,8 @@ Los poderes **Alter Ego**, **Servant**, **Gestalt** y los **vehículos** crean f
 - elegí el modo de la tirada: contra oposición, contra dificultad fija, o **sólo dado + modificador**;
 - Determination Points normales y temporales, esfuerzo determinado, qualities;
 - Stamina, daño con Resistance, condiciones con duración en páginas;
-- **Wizardry, Magic y Gadgets** pueden volverse otro poder un rato. Sin el extra *Instant*, el cambio tarda una página.
+- **Wizardry, Magic, Gadgets y las Mimicry** pueden volverse otro poder un rato. Sin *Instant* ni *Mastery*, el cambio tarda una página. En el modo edición se guardan **copias**: qué poder, con qué extras y limits, y si queda copiada **a largo plazo**, en cuyo caso arranca activa. Una copia de Servant, Alter Ego o Gestalt puede crear su ficha vinculada, y el vínculo queda aunque se deje de copiar.
+- Un **ítem misceláneo** puede **conferir un poder** mientras está equipado. Se equipa o se quita desde el modo jugar o desde la mesa.
 
 Arriba se elige el **dado de juego** (d8 por defecto, o d6) y si usás **dados físicos**: en ese caso la app te pide cada resultado.
 
