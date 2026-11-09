@@ -920,6 +920,7 @@ function computeDet(){
   return{det:Math.max(1,6-tot),why:`6 − ${tot} (${pc} de poderes/extras${hiAb.length?` + ${hiAb.length} por ${hiAb.join(', ')} > 6`:''}${gc?` + ${gc} de equipo`:''}) · mín. 1`};
 }
 function updateDerived(){
+  if(C.kind==='servant'){try{const sp=servantSpent(C),T=servantPool(C);$('svSpent').textContent=sp;$('svPool').classList.toggle('over',sp>T);$('svBreak').textContent=servantBreakdown(C)}catch(_){}}
   $('vStam').textContent=(+C.abilities.Strength||0)+(+C.abilities.Willpower||0);
   const d=computeDet();$('vDet').textContent=d.det;$('vDetWhy').textContent=d.why;
   document.querySelectorAll('.ab').forEach(el=>{const a=el.dataset.a;el.classList.toggle('hi',C.abilities[a]>6);el.querySelector('.lvl').textContent=LEVEL_NAMES[C.abilities[a]]||''});
@@ -1627,7 +1628,12 @@ async function createAlterEgo(power,keepCore,given){
 }
 // --- Servant
 function servantPool(c){const s=c.servant||{};return 4*(+s.level||0)+(+s.level||0)*(+s.enhanced||0)}
-function servantSpent(c){return ['Prowess','Coordination','Strength'].reduce((s,a)=>s+(+c.abilities[a]||0),0)+c.powers.reduce((s,p)=>s+(+p.level||0),0)+Math.max(0,(+((c.servant||{}).count)||1)-1)}
+// extras de servant: como en la tienda, cuestan 1, 2, 3… por poder (un limit con “extra gratis” compensa uno)
+const svExtraCost=p=>{const n=netExtras(p);return n*(n+1)/2};
+function servantSpent(c){return ['Prowess','Coordination','Strength'].reduce((s,a)=>s+(+c.abilities[a]||0),0)+c.powers.reduce((s,p)=>s+(+p.level||0)+svExtraCost(p),0)+Math.max(0,(+((c.servant||{}).count)||1)-1)}
+function servantBreakdown(c){const ab=['Prowess','Coordination','Strength'].reduce((s,a)=>s+(+c.abilities[a]||0),0);const pw=c.powers.reduce((s,p)=>s+(+p.level||0),0);
+  const ex=c.powers.reduce((s,p)=>s+svExtraCost(p),0);const n=Math.max(0,(+((c.servant||{}).count)||1)-1);
+  return `abilities ${ab} · poderes ${pw} · extras ${ex}${ex?` (${c.powers.filter(p=>netExtras(p)).map(p=>`${disp(p)}: ${Array.from({length:netExtras(p)},(_,k)=>k+1).join('+')}`).join('; ')})`:''}${n?` · +${n} servant${n>1?'s':''}`:''}`}
 async function createServant(power,given){
   const L=+power.level||1;const enh=power.extras.filter(x=>x==='Enhanced').length;
   const s=blank();s.id=newId();s.kind='servant';s.name=(C.name?C.name+' — ':'')+'Servant';s.origin='Servant';
@@ -1708,9 +1714,9 @@ function powerLinkRow(p,i){
 }
 function kindBoxHtml(){
   if(C.kind==='servant'){const s=C.servant||(C.servant={level:4,enhanced:0,count:1});const T=servantPool(C),sp=servantSpent(C);
-    return `<div class="kindbox"><b>🐺 Servant</b> — se compra con un pool de 4 × nivel (+nivel por cada Enhanced). Prowess, Coordination, Strength y poderes cuestan 1 por nivel; cada servant adicional, 1 punto. Sin abilities mentales ni Determination.
+    return `<div class="kindbox"><b>🐺 Servant</b> — se compra con un pool de 4 × nivel (+nivel por cada Enhanced). Prowess, Coordination, Strength y poderes cuestan 1 por nivel; los extras de un mismo poder cuestan 1, 2, 3… (regla de la mesa); cada servant adicional, 1 punto. Sin abilities mentales ni Determination.
       <div class="row" style="margin-top:4px">Nivel de Servant <input type="number" min="1" max="10" data-sv="level" value="${s.level}"> Enhanced × <input type="number" min="0" max="5" data-sv="enhanced" value="${s.enhanced||0}"> Cantidad <input type="number" min="1" data-sv="count" value="${s.count||1}">
-      <span class="poolv ${sp>T?'over':''}">Puntos: <b id="svSpent">${sp}</b> / ${T}</span></div></div>`}
+      <span class="poolv ${sp>T?'over':''}" id="svPool">Puntos: <b id="svSpent">${sp}</b> / ${T}</span></div><div class="hint" id="svBreak">${esc(servantBreakdown(C))}</div></div>`}
   if(C.kind==='gestalt'){const g=C.gestalt||(C.gestalt={level:4});const n=linkedOf('component').length;
     return `<div class="kindbox"><b>🧩 Forma unida (Gestalt)</b> — cada ability y poder vale lo más alto entre los componentes o el nivel de Gestalt (máx. 10). El daño de la forma unida se reparte entre los componentes al separarse.
       <div class="row" style="margin-top:4px">Nivel de Gestalt <input type="number" min="1" max="10" data-gs="level" value="${g.level}">

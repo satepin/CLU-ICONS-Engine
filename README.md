@@ -73,6 +73,7 @@ Los poderes **Alter Ego**, **Servant**, **Gestalt** y los **vehículos** crean f
 - en la mesa, un botón cambia entre las formas de un Alter Ego;
 - otro junta los componentes en la forma Gestalt o los separa;
 - los grupos de servants genéricos se manejan desde una sola ficha.
+- en un servant, los extras de un mismo poder cuestan 1, 2, 3… puntos del pool (regla de la mesa, como la tienda de las reglas balanceadas).
 
 ### Jugar
 
