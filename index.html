@@ -2445,7 +2445,7 @@ function attacksOf(ch){
 }
 
 // ---------------------------------------------------------------- Wizardry (Magic, Gadgets, Cosmic Power): volverse otro poder un rato
-const WIZ_BASES=['Wizardry','Magic','Gadgets','Cosmic Power','Power Mimicry','Animal Mimicry','Plant Mimicry','Material Mimicry','Mimicry'];
+const WIZ_BASES=['Wizardry','Magic','Gadgets','Cosmic Power','Nemesis','Power Mimicry','Animal Mimicry','Plant Mimicry','Material Mimicry','Mimicry'];
 const INSTANT_COPY=['Power Mimicry','Animal Mimicry'];
 const isWiz=p=>p&&(WIZ_BASES.includes(p.base)||/vía Wizardry/.test(p.note||''));
 const wizInstant=p=>p.extras.some(x=>/^(Instant|Instantáneo|Immediate|Inmediat|Mastery)/i.test(x))||INSTANT_COPY.includes(p.base)||(p.base==='Cosmic Power'&&!p.limits.some(l=>/Preparation/i.test(l.n)));
@@ -2457,7 +2457,7 @@ function wizState(ch,i){const pw=ch.powers[i];const w=ch.play&&ch.play.wiz&&ch.p
   if(w)return Object.assign({},w,{at:w.ready,ready:((ch.play&&ch.play.page)||1)>=w.ready});
   const pc=permCopy(pw);return pc?{as:pc.c.as,ci:pc.j,ready:true,perm:true,at:1}:null}
 function wizEff(ch,p,i){const w=wizState(ch,i);if(!w||!w.ready)return p;const L=p.copies||[];const cp=w.ci!=null&&L[w.ci]&&L[w.ci].as===w.as?L[w.ci]:null;
-  return Object.assign({},p,{base:w.as,sub:cp?cp.sub||'':w.sub||'',type:typeOf(w.as)||p.type,wizFrom:disp(p),extras:cp?cp.extras.slice():[],limits:cp?cp.limits.map(l=>Object.assign({},l)):[]})}
+  return Object.assign({},p,{base:w.as,level:Math.max(1,Math.min(+p.level||1,+w.lv||+p.level||1)),sub:cp?cp.sub||'':w.sub||'',type:typeOf(w.as)||p.type,wizFrom:disp(p)+(w.vs?` vs ${w.vs}`:''),extras:cp?cp.extras.slice():[],limits:cp?cp.limits.map(l=>Object.assign({},l)):[]})}
 function nullEff(ch,p,i){const cs=((ch.play&&ch.play.conds)||[]).filter(c=>c.null);if(!cs.length)return p;const o=ch.powers[i]||p;
   const hit=cs.filter(c=>c.null.base==='*'||c.null.base===o.base||c.null.base===p.base);if(!hit.length)return p;
   if(hit.some(c=>!c.null.red))return Object.assign({},p,{nulled:true});const red=hit.reduce((s,c)=>s+(+c.null.red||0),0);return Object.assign({},p,{level:Math.max(0,(+p.level||0)-red),reduced:red})}
@@ -2466,22 +2466,25 @@ const grantedPowers=ch=>(ch.gear||[]).map((g,gi)=>g&&g.cat==='misc'&&g.grantOn&&
 const effPowers=ch=>{const L=(ch.powers||[]).map((p,i)=>nullEff(ch,isWiz(p)?wizEff(ch,p,i):p,i));const n=L.length;return L.concat(grantedPowers(ch).map((p,k)=>nullEff(ch,p,n+k)))};
 const NULL_BASES=['Power Nullification','Power Control'];
 const wizLabel=(ch,p,i)=>{const w=wizState(ch,i);return w?(w.ready?`${disp(p)} → ${w.as}`:`${disp(p)} (preparando ${w.as})`):disp(p)};
-function wizSet(ch,i,as,ci){withC(ch,()=>{const p=ensurePlay();const pw=C.powers[i];if(!pw)return;p.wiz=p.wiz||{};
+function wizSet(ch,i,as,ci,opt){opt=opt||{};withC(ch,()=>{const p=ensurePlay();const pw=C.powers[i];if(!pw)return;p.wiz=p.wiz||{};
   p.conds=p.conds.filter(c=>!(c.wizPrep&&c.wizPrep.i===i));const pc=permCopy(pw);
   if(as==='__off'){p.wiz[i]={off:true};plog(`${disp(pw)} suelta la copia de ${pc?pc.c.as:'su poder'}`);return}
   if(!as){delete p.wiz[i];plog(pc?`${disp(pw)} vuelve a su copia permanente: ${pc.c.as}`:`${disp(pw)} vuelve a su forma base`);return}
-  const rec=ci!=null?{as,ci}:{as};
+  const rec=ci!=null?{as,ci}:{as};const lv=Math.max(1,Math.min(+pw.level,+opt.lv||+pw.level));if(lv<pw.level)rec.lv=lv;if(opt.vs)rec.vs=opt.vs;
+  const vsTxt=opt.vs?` contra ${opt.vs}`:'';
   if(pc&&ci===pc.j){delete p.wiz[i];plog(`${disp(pw)} vuelve a su copia permanente: ${as}`);return}
-  if(wizInstant(pw)){p.wiz[i]=Object.assign(rec,{ready:p.page||1});plog(`${disp(pw)} se vuelve ${as} ${pw.level} (inmediato)`)}
-  else{p.wiz[i]=Object.assign(rec,{ready:(p.page||1)+1});addCond(`Preparando ${as} (${disp(pw)})`,1,{wizPrep:{i,as}});plog(`${disp(pw)}: prepara ${as} — queda listo al pasar de página`)}
+  if(wizInstant(pw)){p.wiz[i]=Object.assign(rec,{ready:p.page||1});plog(`${disp(pw)} se vuelve ${as} ${lv}${vsTxt} (inmediato)`)}
+  else{p.wiz[i]=Object.assign(rec,{ready:(p.page||1)+1});addCond(pw.base==='Nemesis'?`Preparando Nemesis${vsTxt}: no puede usar otros poderes`:`Preparando ${as} (${disp(pw)})`,1,{wizPrep:{i,as}});plog(`${disp(pw)}: prepara ${as} — queda listo al pasar de página`)}
 });chSave(ch);if(PLAY_MODE)renderPlayRoot()}
 function wizHtml(ch){const rows=(ch.powers||[]).map((p,i)=>isWiz(p)?{p,i}:null).filter(Boolean);if(!rows.length)return '';
   const opts=POWERS.filter(x=>!WIZ_BASES.includes(x.n)&&!REPLACE[x.n]).map(x=>x.n).sort();
   return rows.map(({p,i})=>{const w=wizState(ch,i);const pc=permCopy(p);const cps=(p.copies||[]).map((c,j)=>({c,j,b:copyBal(c)})).filter(x=>x.c.as);
     const cpLab=c=>`${c.as}${c.sub?' ('+c.sub+')':''}${c.extras.length?' + '+c.extras.join(', '):''}${c.limits.length?' − '+c.limits.map(l=>l.n).join(', '):''}${c.perm?' ★':''}`;
     return `<div class="wizrow" data-cid="${ch.id}" data-wi="${i}">🔀 <b>${esc(disp(p))} ${p.level}</b>
-    ${w?(w.ready?`<span class="tag ok">ahora es <b>${esc(w.as)} ${p.level}</b>${w.perm?' (permanente)':''}</span>`:`<span class="tag">preparando ${esc(w.as)}: listo en la página ${w.at}</span>`):'<span class="hint">sin copia</span>'}
+    ${w?(w.ready?`<span class="tag ok">ahora es <b>${esc(w.as)} ${w.lv||p.level}</b>${w.vs?` contra ${esc(w.vs)}`:''}${w.perm?' (permanente)':''}</span>`:`<span class="tag">preparando ${esc(w.as)}: listo en la página ${w.at}</span>`):'<span class="hint">sin copia</span>'}
     <select class="wizsel"><option value="">volverse…</option>${cps.length?`<optgroup label="Copias guardadas">${cps.map(x=>`<option value="c:${x.j}" ${w&&w.ci===x.j?'selected':''} ${x.b.ok?'':'disabled'}>${esc(cpLab(x.c))}${x.b.ok?'':` — falta${x.b.miss>1?'n':''} ${x.b.miss} limit`}</option>`).join('')}</optgroup>`:''}<optgroup label="Otro poder">${opts.map(n=>`<option ${w&&w.ci==null&&w.as===n?'selected':''}>${esc(n)}</option>`).join('')}</optgroup></select>
+    <span title="Puede ser menor que el nivel del poder">nivel <input type="number" class="wizlv" min="1" max="${p.level}" value="${w&&w.lv?w.lv:p.level}" style="width:46px"></span>
+    ${p.base==='Nemesis'?`<span>contra <input class="wizvs" list="wizVsList" value="${esc(w&&w.vs||'')}" placeholder="oponente" style="width:120px"></span><datalist id="wizVsList">${(typeof TABLE!=='undefined'?TABLE.ids:[]).map(id=>tch(id)).filter(x=>x&&x.id!==ch.id).map(x=>`<option>${esc(x.name||'')}</option>`).join('')}</datalist>`:''}
     <button class="mini" data-wiz="set">Cambiar</button>${w&&!w.perm?`<button class="mini" data-wiz="off">${pc?'Volver a '+esc(pc.c.as):'Volver a la base'}</button>`:''}${w&&w.perm?'<button class="mini" data-wiz="drop">Soltar la copia</button>':''}${!w&&pc?`<button class="mini" data-wiz="off">Retomar ${esc(pc.c.as)}</button>`:''}
     <span class="hint">${wizInstant(p)?'inmediato':'sin Instant: tarda una página'}</span></div>`}).join('')}
 
@@ -2494,7 +2497,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-eq]');if(!
 document.addEventListener('click',e=>{const b=e.target.closest('[data-wiz]');if(!b)return;const r=b.closest('.wizrow');const ch=tch(r.dataset.cid)||(C&&C.id===r.dataset.cid?C:null);if(!ch)return;const i=+r.dataset.wi;
   if(b.dataset.wiz==='off'){wizSet(ch,i,null);return}if(b.dataset.wiz==='drop'){wizSet(ch,i,'__off');return}
   const v=r.querySelector('.wizsel').value;if(!v){toast('Elegí en qué poder se convierte');return}
-  if(v.startsWith('c:')){const j=+v.slice(2);const c=(ch.powers[i].copies||[])[j];if(c&&!copyBal(c).ok){toast('Esa copia tiene más extras que limits: compensala en el modo edición');return}if(c)wizSet(ch,i,c.as,j);return}wizSet(ch,i,v)});
+  const opt={lv:+((r.querySelector('.wizlv')||{}).value)||0,vs:((r.querySelector('.wizvs')||{}).value||'').trim()};
+  if(v.startsWith('c:')){const j=+v.slice(2);const c=(ch.powers[i].copies||[])[j];if(c&&!copyBal(c).ok){toast('Esa copia tiene más extras que limits: compensala en el modo edición');return}if(c)wizSet(ch,i,c.as,j,opt);return}wizSet(ch,i,v,null,opt)});
 const condRe=/stun|aturd|uncons|incons|bound|atrap|dying|pierde strength|sin acci/i;
 const canReact=t=>(t.play?t.play.stamina>0:true)&&!((t.play&&t.play.conds)||[]).some(c=>condRe.test(c.n));
 const strOf=t=>t.kind==='vehicle'?+((t.vehicle||{}).structure)||0:+t.abilities.Strength||0;
