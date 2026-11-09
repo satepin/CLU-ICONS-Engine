@@ -170,6 +170,8 @@ body.play.gridview .refcol{display:none}
 .copies{display:flex;flex-direction:column;gap:4px}
 .copybox{border:1px dashed var(--ink);border-radius:4px;padding:4px 6px;background:#f3ecff;font-size:13px}
 .copybox.perm{border-style:solid;box-shadow:2px 2px 0 var(--ink)}
+.copybox.unbal{background:#fff0ef;border-color:var(--red)}
+.balrow{font-size:12px;font-weight:700;margin-top:2px}.balrow.ok{color:#2e7d32}.balrow.bad{color:var(--red)}
 .copybox .row{gap:4px;flex-wrap:wrap;align-items:center;margin:2px 0}.copybox select{font-size:12px;max-width:200px}
 .lab2{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--muted);margin-left:4px}
 .eqrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0;padding:4px 6px;border:1px dashed var(--ink);border-radius:4px;background:#fff7e0}
@@ -989,16 +991,17 @@ function renderPowers(){
 const copyPower=(p,j)=>{const c=(p.copies||[])[j]||{};return{base:c.as||'',sub:c.sub||'',level:+p.level||1,extras:c.extras||[],limits:c.limits||[],device:p.device,note:''}};
 const noCustom=s=>s.replace('<option value="__custom">Otro (escribir)…</option>','').replace('<option value="__custom">Otro…</option>','');
 function copyBoxHtml(p,i){const L=p.copies||[];
-  return `<div class="lab">Copias</div><div class="copies">${L.map((c,j)=>`<div class="copybox ${c.perm?'perm':''}" data-ci="${j}">
+  return `<div class="lab">Copias</div><div class="copies">${L.map((c,j)=>{const B=copyBal(c);return `<div class="copybox ${c.perm?'perm':''} ${B.ok?'':'unbal'}" data-ci="${j}">
      <div class="row"><select data-cf="as">${noCustom(powerOptions(c.as))}</select><input data-cf="sub" value="${esc(c.sub||'')}" placeholder="detalle (fire, Strength…)" style="width:150px">
        <span class="hint">nivel ${p.level}</span>
        <label class="check" style="margin:0" title="Queda copiado sin tener que prepararlo: en el modo jugar arranca activo"><input type="checkbox" data-cf="perm" ${c.perm?'checked':''}> a largo plazo</label>
        <button class="mini" data-cact="del" title="Quitar esta copia">✕</button></div>
      ${c.as?`<div class="row"><span class="lab2">Extras</span>${c.extras.map((x,k)=>`<span class="chip">${esc(x)}<button data-cact="rmx" data-j="${k}">×</button></span>`).join('')}<select data-cadd="x">${noCustom(extraOptions({base:c.as}))}</select>
        <span class="lab2">Limits</span>${c.limits.map((l,k)=>`<span class="chip lim">${esc(l.n)}<button data-cact="rml" data-j="${k}">×</button></span>`).join('')}<select data-cadd="l">${noCustom(limitOptions({base:c.as}))}</select></div>`:''}
+     ${c.as&&(B.x||B.l)?`<div class="balrow ${B.ok?'ok':'bad'}">⚖ ${B.x} extra${B.x===1?'':'s'} · ${B.l} limit${B.l===1?'':'s'} — ${B.ok?'compensada: no cambia el costo de Determination':`falta${B.miss>1?'n':''} ${B.miss} limit para compensar; no se puede usar en el modo jugar${c.perm?' ni queda activa a largo plazo':''}`}</div>`:''}
      ${LINK_POWERS.includes(c.as)?powerLinkRow(copyPower(p,j),i).replace(/data-i="(\d+)"/g,`data-i="$1" data-ci="${j}"`):''}
-   </div>`).join('')}
-   <div class="row"><button class="mini" data-cact="add">+ guardar una copia</button><span class="hint">${wizInstant(p)?'cambia al instante en el modo jugar':'sin Instant ni Mastery: en el modo jugar tarda una página en cambiar'}</span></div></div>`}
+   </div>`}).join('')}
+   <div class="row"><button class="mini" data-cact="add">+ guardar una copia</button><span class="hint">Cada extra de una copia se compensa con un limit. ${wizInstant(p)?'cambia al instante en el modo jugar':'sin Instant ni Mastery: en el modo jugar tarda una página en cambiar'}</span></div></div>`}
 
 // --- copias guardadas de Wizardry / Mimicry (modo edición)
 const copyAt=t=>{const box=t.closest('.copybox[data-ci]');const card=t.closest('.power[data-i]');if(!card)return null;const p=C.powers[+card.dataset.i];p.copies=p.copies||[];return{p,box,c:box?p.copies[+box.dataset.ci]:null}};
@@ -1012,7 +1015,7 @@ document.addEventListener('input',e=>{const t=e.target;if(t.dataset.cf!=='sub')r
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset.cf&&!t.dataset.cadd)return;const o=copyAt(t);if(!o||!o.c)return;
   if(t.dataset.cf==='as'){o.c.as=t.value;o.c.extras=[];o.c.limits=[]}
   else if(t.dataset.cf==='perm'){o.c.perm=t.checked;if(t.checked)o.p.copies.forEach(x=>{if(x!==o.c)x.perm=false})}
-  else if(t.dataset.cadd){if(!t.value)return;if(t.dataset.cadd==='x'){if(!o.c.extras.includes(t.value))o.c.extras.push(t.value)}else if(!o.c.limits.some(l=>l.n===t.value))o.c.limits.push({n:t.value,b:'none'})}
+  else if(t.dataset.cadd){if(!t.value)return;if(t.dataset.cadd==='x'){if(!o.c.extras.includes(t.value))o.c.extras.push(t.value)}else if(!o.c.limits.some(l=>l.n===t.value))o.c.limits.push({n:t.value,b:'extra'})}
   else return;
   renderPowers();save(true)});
 function tip(p,name,kind){
@@ -2423,7 +2426,9 @@ const WIZ_BASES=['Wizardry','Magic','Gadgets','Cosmic Power','Power Mimicry','An
 const INSTANT_COPY=['Power Mimicry','Animal Mimicry'];
 const isWiz=p=>p&&(WIZ_BASES.includes(p.base)||/vía Wizardry/.test(p.note||''));
 const wizInstant=p=>p.extras.some(x=>/^(Instant|Instantáneo|Immediate|Inmediat|Mastery)/i.test(x))||INSTANT_COPY.includes(p.base)||(p.base==='Cosmic Power'&&!p.limits.some(l=>/Preparation/i.test(l.n)));
-const permCopy=pw=>{const L=(pw&&pw.copies)||[];const j=L.findIndex(c=>c.perm&&c.as);return j<0?null:{c:L[j],j}};
+// regla de la mesa: una copia no cambia el costo de Determination, así que cada extra se compensa con un limit
+const copyBal=c=>{const x=(c.extras||[]).length,l=(c.limits||[]).length;return{x,l,ok:l>=x,miss:Math.max(0,x-l)}};
+const permCopy=pw=>{const L=(pw&&pw.copies)||[];const j=L.findIndex(c=>c.perm&&c.as&&copyBal(c).ok);return j<0?null:{c:L[j],j}};
 function wizState(ch,i){const pw=ch.powers[i];const w=ch.play&&ch.play.wiz&&ch.play.wiz[i];
   if(w&&w.off)return null;
   if(w)return Object.assign({},w,{at:w.ready,ready:((ch.play&&ch.play.page)||1)>=w.ready});
@@ -2449,11 +2454,11 @@ function wizSet(ch,i,as,ci){withC(ch,()=>{const p=ensurePlay();const pw=C.powers
 });chSave(ch);if(PLAY_MODE)renderPlayRoot()}
 function wizHtml(ch){const rows=(ch.powers||[]).map((p,i)=>isWiz(p)?{p,i}:null).filter(Boolean);if(!rows.length)return '';
   const opts=POWERS.filter(x=>!WIZ_BASES.includes(x.n)&&!REPLACE[x.n]).map(x=>x.n).sort();
-  return rows.map(({p,i})=>{const w=wizState(ch,i);const pc=permCopy(p);const cps=(p.copies||[]).map((c,j)=>({c,j})).filter(x=>x.c.as);
+  return rows.map(({p,i})=>{const w=wizState(ch,i);const pc=permCopy(p);const cps=(p.copies||[]).map((c,j)=>({c,j,b:copyBal(c)})).filter(x=>x.c.as);
     const cpLab=c=>`${c.as}${c.sub?' ('+c.sub+')':''}${c.extras.length?' + '+c.extras.join(', '):''}${c.limits.length?' − '+c.limits.map(l=>l.n).join(', '):''}${c.perm?' ★':''}`;
     return `<div class="wizrow" data-cid="${ch.id}" data-wi="${i}">🔀 <b>${esc(disp(p))} ${p.level}</b>
     ${w?(w.ready?`<span class="tag ok">ahora es <b>${esc(w.as)} ${p.level}</b>${w.perm?' (permanente)':''}</span>`:`<span class="tag">preparando ${esc(w.as)}: listo en la página ${w.at}</span>`):'<span class="hint">sin copia</span>'}
-    <select class="wizsel"><option value="">volverse…</option>${cps.length?`<optgroup label="Copias guardadas">${cps.map(x=>`<option value="c:${x.j}" ${w&&w.ci===x.j?'selected':''}>${esc(cpLab(x.c))}</option>`).join('')}</optgroup>`:''}<optgroup label="Otro poder">${opts.map(n=>`<option ${w&&w.ci==null&&w.as===n?'selected':''}>${esc(n)}</option>`).join('')}</optgroup></select>
+    <select class="wizsel"><option value="">volverse…</option>${cps.length?`<optgroup label="Copias guardadas">${cps.map(x=>`<option value="c:${x.j}" ${w&&w.ci===x.j?'selected':''} ${x.b.ok?'':'disabled'}>${esc(cpLab(x.c))}${x.b.ok?'':` — falta${x.b.miss>1?'n':''} ${x.b.miss} limit`}</option>`).join('')}</optgroup>`:''}<optgroup label="Otro poder">${opts.map(n=>`<option ${w&&w.ci==null&&w.as===n?'selected':''}>${esc(n)}</option>`).join('')}</optgroup></select>
     <button class="mini" data-wiz="set">Cambiar</button>${w&&!w.perm?`<button class="mini" data-wiz="off">${pc?'Volver a '+esc(pc.c.as):'Volver a la base'}</button>`:''}${w&&w.perm?'<button class="mini" data-wiz="drop">Soltar la copia</button>':''}${!w&&pc?`<button class="mini" data-wiz="off">Retomar ${esc(pc.c.as)}</button>`:''}
     <span class="hint">${wizInstant(p)?'inmediato':'sin Instant: tarda una página'}</span></div>`}).join('')}
 
@@ -2466,7 +2471,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-eq]');if(!
 document.addEventListener('click',e=>{const b=e.target.closest('[data-wiz]');if(!b)return;const r=b.closest('.wizrow');const ch=tch(r.dataset.cid)||(C&&C.id===r.dataset.cid?C:null);if(!ch)return;const i=+r.dataset.wi;
   if(b.dataset.wiz==='off'){wizSet(ch,i,null);return}if(b.dataset.wiz==='drop'){wizSet(ch,i,'__off');return}
   const v=r.querySelector('.wizsel').value;if(!v){toast('Elegí en qué poder se convierte');return}
-  if(v.startsWith('c:')){const j=+v.slice(2);const c=(ch.powers[i].copies||[])[j];if(c)wizSet(ch,i,c.as,j);return}wizSet(ch,i,v)});
+  if(v.startsWith('c:')){const j=+v.slice(2);const c=(ch.powers[i].copies||[])[j];if(c&&!copyBal(c).ok){toast('Esa copia tiene más extras que limits: compensala en el modo edición');return}if(c)wizSet(ch,i,c.as,j);return}wizSet(ch,i,v)});
 const condRe=/stun|aturd|uncons|incons|bound|atrap|dying|pierde strength|sin acci/i;
 const canReact=t=>(t.play?t.play.stamina>0:true)&&!((t.play&&t.play.conds)||[]).some(c=>condRe.test(c.n));
 const strOf=t=>t.kind==='vehicle'?+((t.vehicle||{}).structure)||0:+t.abilities.Strength||0;
