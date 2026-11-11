@@ -1,0 +1,255 @@
+{
+  "id": "hmw815sz5geh",
+  "kind": "hero",
+  "links": [
+    {
+      "id": "hmw81z21krn5",
+      "rel": "servant",
+      "name": "Piñón"
+    },
+    {
+      "id": "hmw82cudhv3s",
+      "rel": "servant",
+      "name": "Bombita"
+    },
+    {
+      "id": "hmw8889zhwuw",
+      "rel": "servant",
+      "name": "Cruz Roja"
+    },
+    {
+      "id": "hmw8j8s5zhoe",
+      "rel": "servant",
+      "name": "Stunner"
+    },
+    {
+      "id": "hmw8jpflyn6v",
+      "rel": "servant",
+      "name": "Vacuna"
+    },
+    {
+      "id": "hmw8jrtmelkf",
+      "rel": "servant",
+      "name": "Creeper"
+    },
+    {
+      "id": "hmw8k0i0uwks",
+      "rel": "servant",
+      "name": "Grandote"
+    },
+    {
+      "id": "hmw8k4ya5x8e",
+      "rel": "servant",
+      "name": "Batería AA Enojada"
+    },
+    {
+      "id": "hmw9tp2tfpn2",
+      "rel": "servant",
+      "name": "PLAGA"
+    },
+    {
+      "id": "hmw9uwzxm51l",
+      "rel": "servant",
+      "name": "Lucky"
+    }
+  ],
+  "name": "Golem",
+  "identity": "Golem",
+  "origin": "Artificial",
+  "originNote": "Artificial: Coordination 4 → 5",
+  "abilities": {
+    "Prowess": 5,
+    "Coordination": 4,
+    "Strength": 7,
+    "Intellect": 2,
+    "Awareness": 4,
+    "Willpower": 3
+  },
+  "powers": [
+    {
+      "base": "Precognition",
+      "type": "Sensory",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 4,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Servant",
+      "type": "Control",
+      "tableType": "Mental",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [
+        "Variable"
+      ],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Life Support",
+      "type": "Defensive",
+      "tableType": "Defensive",
+      "sub": "",
+      "level": 10,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": "por origen Artificial"
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Technology",
+      "level": 1
+    },
+    {
+      "name": "Leadership",
+      "level": 1
+    },
+    {
+      "name": "Science",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [5]",
+      "result": "Artificial"
+    },
+    {
+      "step": "Grupo 1",
+      "dice": "5-5",
+      "result": "sube y baja Awareness → se re-tira"
+    },
+    {
+      "step": "Grupo 1",
+      "dice": "3-3",
+      "result": "sube y baja Strength → se re-tira"
+    },
+    {
+      "step": "Grupos",
+      "dice": "",
+      "result": "(4-1) +Int/−Pro  (6-3) +Wil/−Str  (1-5) +Pro/−Awa  (2-3) +Coo/−Str"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 4",
+      "result": "Pro 4 Coo 4 Str 3 Int 5 Awa 3 Wil 5"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [44]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [2] d6 [6]",
+      "result": "Corrosion"
+    },
+    {
+      "step": "Nivel de Corrosion",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [97]",
+      "result": "poder a elección o mejora libre"
+    },
+    {
+      "step": "Nivel de Mind Shield",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [36]",
+      "result": "poder Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [6] d6 [5]",
+      "result": "Resistance"
+    },
+    {
+      "step": "Resistance: elección",
+      "dice": "elección",
+      "result": "Alteration"
+    },
+    {
+      "step": "Nivel de Resistance (Alteration)",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [49]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "mejora",
+      "result": "Corrosion → 4"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Corrosion → 5"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Corrosion → 6"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [44]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Extra",
+      "dice": "Corrosion · tabla d100",
+      "result": "Level Duration"
+    },
+    {
+      "step": "Life Support",
+      "dice": "Artificial",
+      "result": "nivel 3"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [6+2] = 8",
+      "result": "3"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [2]",
+      "result": "Technology"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [4]",
+      "result": "Leadership"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [2]",
+      "result": "Science"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [],
+  "updated": 1794366016689
+}
