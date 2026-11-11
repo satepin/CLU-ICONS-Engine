@@ -436,5 +436,14 @@
     "stunts": [],
     "world": []
   },
-  "updated": 1794251927561
+  "updated": 1794255298419,
+  "play": {
+    "stamina": 7,
+    "dp": 2,
+    "tmp": 0,
+    "page": 1,
+    "conds": [],
+    "log": [],
+    "notes": ""
+  }
 }

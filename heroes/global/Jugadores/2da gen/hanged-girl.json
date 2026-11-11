@@ -1,0 +1,445 @@
+{
+  "id": "hmw9pcl5n2m5",
+  "kind": "hero",
+  "links": [],
+  "name": "Hanged Girl",
+  "identity": "Rosa",
+  "origin": "Gimmick",
+  "originNote": "Artificial: Prowess 4 → 5",
+  "abilities": {
+    "Prowess": 4,
+    "Coordination": 3,
+    "Strength": 4,
+    "Intellect": 5,
+    "Awareness": 5,
+    "Willpower": 6
+  },
+  "powers": [
+    {
+      "base": "Super-Senses",
+      "type": "Sensory",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 1,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Ability Increase",
+      "type": "Alteration",
+      "tableType": "Sensory",
+      "sub": "Will",
+      "level": 3,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Mental Blast",
+      "type": "Mental",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 5,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Resistance",
+      "type": "Defensive",
+      "tableType": "Mental",
+      "sub": "Fisica",
+      "level": 4,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Martial Arts",
+      "level": 1
+    },
+    {
+      "name": "Mental Resistance",
+      "level": 1
+    },
+    {
+      "name": "Performance",
+      "level": 1
+    },
+    {
+      "name": "Athletics",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [5]",
+      "result": "Artificial"
+    },
+    {
+      "step": "Grupos",
+      "dice": "d100 [80·27] [36·80] [74·21] [74·42]",
+      "result": "+Awa/−Coo  +Str/−Awa  +Awa/−Coo  +Awa/−Str"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 4",
+      "result": "Pro 4 Coo 2 Str 5 Int 4 Awa 5 Wil 4"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [22]",
+      "result": "poder Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [3] d6 [3]",
+      "result": "Healing"
+    },
+    {
+      "step": "Nivel de Healing",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [37]",
+      "result": "poder Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [4] d6 [1]",
+      "result": "Immortality"
+    },
+    {
+      "step": "Nivel de Immortality",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Immortality → 4"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Healing → 4"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [54]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [4] d6 [3]",
+      "result": "Fast Attack"
+    },
+    {
+      "step": "Nivel de Fast Attack",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [29]",
+      "result": "poder Defensive"
+    },
+    {
+      "step": "Extra",
+      "dice": "Immortality · tabla d100",
+      "result": "Effect"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Immortality → 5"
+    },
+    {
+      "step": "Life Support",
+      "dice": "Artificial",
+      "result": "nivel 3"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [1+1] = 2",
+      "result": "1"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [5]",
+      "result": "Power (Healing)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+4] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [5] d6 [5]",
+      "result": "Strike"
+    },
+    {
+      "step": "Nivel de Strike",
+      "dice": "2d6 [4+2] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+6] = 11",
+      "result": "Sensory"
+    },
+    {
+      "step": "Tabla Sensory",
+      "dice": "d6 [4] d6 [1]",
+      "result": "Interface"
+    },
+    {
+      "step": "Nivel de Interface",
+      "dice": "2d6 [5+3] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+4] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [5] d6 [3]",
+      "result": "Fast Attack"
+    },
+    {
+      "step": "Nivel de Fast Attack",
+      "dice": "2d6 [5+2] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+2] = 3",
+      "result": "Mental"
+    },
+    {
+      "step": "Tabla Mental",
+      "dice": "d6 [6] d6 [1]",
+      "result": "Mental Blast"
+    },
+    {
+      "step": "Nivel de Mental Blast",
+      "dice": "2d6 [2+1] = 3",
+      "result": "2 (Poor)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [4+3] = 7",
+      "result": "2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [3] d6 [3]",
+      "result": "Medicine"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [4]",
+      "result": "Weapons"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [5+2] = 7",
+      "result": "2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [1]",
+      "result": "Technology"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [5]",
+      "result": "Leadership"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [],
+  "ach": {
+    "list": [
+      {
+        "id": "hmw9vxl9w4gs",
+        "tier": "menor",
+        "event": "Bingo",
+        "date": "2026-11-09",
+        "state": "ok"
+      }
+    ],
+    "mejoras": [],
+    "stunts": [],
+    "world": []
+  },
+  "updated": 1794362272606,
+  "play": {
+    "stamina": 1,
+    "dp": 1,
+    "tmp": 0,
+    "page": 7,
+    "conds": [],
+    "log": [
+      {
+        "t": "10:57 p. m.",
+        "pg": 7,
+        "msg": "Página 7",
+        "cls": ""
+      },
+      {
+        "t": "08:12 p. m.",
+        "pg": 6,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "08:12 p. m.",
+        "pg": 6,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "08:12 p. m.",
+        "pg": 6,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "08:08 p. m.",
+        "pg": 6,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "08:05 p. m.",
+        "pg": 6,
+        "msg": "Página 6",
+        "cls": ""
+      },
+      {
+        "t": "07:55 p. m.",
+        "pg": 5,
+        "msg": "Página 5",
+        "cls": ""
+      },
+      {
+        "t": "07:51 p. m.",
+        "pg": 4,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:51 p. m.",
+        "pg": 4,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:45 p. m.",
+        "pg": 4,
+        "msg": "Página 4",
+        "cls": ""
+      },
+      {
+        "t": "07:44 p. m.",
+        "pg": 3,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:31 p. m.",
+        "pg": 3,
+        "msg": "Página 3",
+        "cls": ""
+      },
+      {
+        "t": "07:19 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "07:19 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:19 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:19 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:19 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:17 p. m.",
+        "pg": 1,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "07:08 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 3 + d8[3] = 6",
+        "cls": "roll"
+      },
+      {
+        "t": "07:05 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 3 + d8[3] = 6",
+        "cls": "roll"
+      },
+      {
+        "t": "07:05 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 3 + d8[5] = 8",
+        "cls": "roll"
+      },
+      {
+        "t": "07:05 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 3 + d8[7] = 10",
+        "cls": "roll"
+      },
+      {
+        "t": "06:03 p. m.",
+        "pg": 1,
+        "msg": "Intellect 5 + d8[5] = 10",
+        "cls": "roll"
+      }
+    ],
+    "notes": "",
+    "lastRoll": null
+  }
+}

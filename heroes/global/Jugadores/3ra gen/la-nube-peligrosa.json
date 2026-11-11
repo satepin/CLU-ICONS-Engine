@@ -1,0 +1,196 @@
+{
+  "id": "hmw9w1lu6d2u",
+  "kind": "hero",
+  "links": [],
+  "name": "La Nube Peligrosa",
+  "identity": "una nube",
+  "origin": "Transformed",
+  "originNote": "Transformed: Coordination 3 → 4",
+  "abilities": {
+    "Prowess": 3,
+    "Coordination": 4,
+    "Strength": 5,
+    "Intellect": 4,
+    "Awareness": 4,
+    "Willpower": 5
+  },
+  "powers": [
+    {
+      "base": "Affliction",
+      "type": "Offensive",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 3,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Alternate Form",
+      "type": "Alteration",
+      "tableType": "Alteration",
+      "sub": "Gaseous Form",
+      "level": 5,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Danger Sense",
+      "type": "Sensory",
+      "tableType": "Sensory",
+      "sub": "",
+      "level": 4,
+      "device": false,
+      "extras": [
+        "Broadcast"
+      ],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Art",
+      "level": 1
+    },
+    {
+      "name": "Linguistics",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [2]",
+      "result": "Transformed"
+    },
+    {
+      "step": "Grupo 1",
+      "dice": "3-3",
+      "result": "sube y baja Strength → se re-tira"
+    },
+    {
+      "step": "Grupos",
+      "dice": "d100 [90·19] [10·66] [90·11] [41·95]",
+      "result": "+Wil/−Coo  +Pro/−Int  +Wil/−Pro  +Str/−Wil"
+    },
+    {
+      "step": "Pendiente",
+      "dice": "Elegí el grupo que DESCARTÁS (se aplican los otros tres)",
+      "result": "se decide al final"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [53]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Affliction"
+    },
+    {
+      "step": "Nivel de Affliction",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [84]",
+      "result": "poder Alteration"
+    },
+    {
+      "step": "Tabla Alteration",
+      "dice": "d6 [1] d6 [4]",
+      "result": "Alternate Form"
+    },
+    {
+      "step": "Alternate Form: elección",
+      "dice": "d6 [4]",
+      "result": "Gaseous Form"
+    },
+    {
+      "step": "Nivel de Alternate Form (Gaseous Form)",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [93]",
+      "result": "poder Sensory"
+    },
+    {
+      "step": "Tabla Sensory",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Danger Sense"
+    },
+    {
+      "step": "Nivel de Danger Sense",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Danger Sense → 4"
+    },
+    {
+      "step": "Extra",
+      "dice": "Danger Sense · 1 punto",
+      "result": "Broadcast"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Alternate Form (Gaseous Form) → 4"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Alternate Form (Gaseous Form) → 5"
+    },
+    {
+      "step": "Pendiente",
+      "dice": "Transformed: +1 a una ability o poder (máx. 7)",
+      "result": "se decide al final"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [2+4] = 6",
+      "result": "2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Art"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [6]",
+      "result": "Linguistics"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 2",
+      "result": "Pro 3 Coo 3 Str 5 Int 4 Awa 4 Wil 5"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [],
+  "ach": {
+    "list": [],
+    "mejoras": [],
+    "stunts": [],
+    "world": []
+  },
+  "updated": 1794363610400
+}

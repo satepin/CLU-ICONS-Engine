@@ -1,0 +1,377 @@
+{
+  "id": "hmw9p3o1z9lc",
+  "kind": "hero",
+  "links": [],
+  "name": "Umbral",
+  "identity": "",
+  "origin": "Gimmick",
+  "originNote": "Gimmick: todos los poderes son devices; +2 a Willpower.",
+  "abilities": {
+    "Prowess": 4,
+    "Coordination": 5,
+    "Strength": 4,
+    "Intellect": 4,
+    "Awareness": 5,
+    "Willpower": 3
+  },
+  "powers": [
+    {
+      "base": "Extra Body Parts",
+      "type": "Alteration",
+      "tableType": "Control",
+      "sub": "Garras",
+      "level": 4,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Dimensional Travel",
+      "type": "Movement",
+      "tableType": "Control",
+      "sub": "",
+      "level": 4,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": "vía Energy Control"
+    },
+    {
+      "base": "Alteration Ray",
+      "type": "Control",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 4,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Life Support",
+      "type": "Defensive",
+      "tableType": "Alteration",
+      "sub": "",
+      "level": 10,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Science",
+      "level": 1
+    },
+    {
+      "name": "Art",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin",
+      "dice": "2d6 [5+3] = 8",
+      "result": "Gimmick"
+    },
+    {
+      "step": "Prowess",
+      "dice": "2d6 [1+3] = 4",
+      "result": "3 (Average)"
+    },
+    {
+      "step": "Coordination",
+      "dice": "2d6 [6+6] = 12",
+      "result": "8 (Amazing)"
+    },
+    {
+      "step": "Strength",
+      "dice": "2d6 [5+1] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Intellect",
+      "dice": "2d6 [3+5] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Awareness",
+      "dice": "2d6 [6+2] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Willpower",
+      "dice": "2d6 [1+6] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Number of Powers",
+      "dice": "2d6 [3+3] = 6",
+      "result": "3"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+3] = 5",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [6] d6 [2]",
+      "result": "Power Control"
+    },
+    {
+      "step": "Power Control (group)",
+      "dice": "d6 [3]",
+      "result": "Power Boost"
+    },
+    {
+      "step": "Nivel de Power Boost",
+      "dice": "2d6 [5+1] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+2] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [5] d6 [2]",
+      "result": "Regeneration"
+    },
+    {
+      "step": "Nivel de Regeneration",
+      "dice": "2d6 [2+6] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+5] = 11",
+      "result": "Sensory"
+    },
+    {
+      "step": "Tabla Sensory",
+      "dice": "d6 [5] d6 [1]",
+      "result": "Interface"
+    },
+    {
+      "step": "Nivel de Interface",
+      "dice": "2d6 [3+3] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Gimmick",
+      "dice": "+2 mental",
+      "result": "Willpower → 7"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [4+3] = 7",
+      "result": "2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [4]",
+      "result": "Sleight of Hand"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [4] d6 [6]",
+      "result": "Power (Regeneration)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+4] = 5",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Alteration Ray"
+    },
+    {
+      "step": "Alteration Ray: elección",
+      "dice": "d6 [4]",
+      "result": "Phasing Ray"
+    },
+    {
+      "step": "Nivel de Alteration Ray (Phasing Ray)",
+      "dice": "2d6 [4+1] = 5",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+2] = 5",
+      "result": "Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [4] d6 [2]",
+      "result": "Energy Control"
+    },
+    {
+      "step": "Energy Control (group)",
+      "dice": "d6 [5] d6 [1]",
+      "result": "Magnetic Control"
+    },
+    {
+      "step": "Nivel de Magnetic Control",
+      "dice": "2d6 [6+2] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+6] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [4] d6 [6]",
+      "result": "Stunning"
+    },
+    {
+      "step": "Nivel de Stunning",
+      "dice": "2d6 [1+6] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+6] = 10",
+      "result": "Alteration"
+    },
+    {
+      "step": "Tabla Alteration",
+      "dice": "d6 [4] d6 [1]",
+      "result": "Dimension Control"
+    },
+    {
+      "step": "Nivel de Dimension Control",
+      "dice": "2d6 [4+4] = 8",
+      "result": "5 (Good)"
+    }
+  ],
+  "gear": [],
+  "ach": {
+    "list": [],
+    "mejoras": [],
+    "stunts": [],
+    "world": []
+  },
+  "updated": 1794266524217,
+  "play": {
+    "stamina": 3,
+    "dp": 2,
+    "tmp": 0,
+    "page": 1,
+    "conds": [],
+    "log": [
+      {
+        "t": "08:22 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 5 + d8[2] = 7",
+        "cls": "roll"
+      },
+      {
+        "t": "08:21 p. m.",
+        "pg": 2,
+        "msg": "Página 2",
+        "cls": ""
+      },
+      {
+        "t": "08:21 p. m.",
+        "pg": 1,
+        "msg": "Nuevo número: PD 2 → 2",
+        "cls": "dp"
+      },
+      {
+        "t": "07:40 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "07:40 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:40 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:40 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:40 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "07:40 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "06:50 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 5 + d8[8] = 13",
+        "cls": "roll"
+      },
+      {
+        "t": "06:44 p. m.",
+        "pg": 1,
+        "msg": "Awareness 5 + d8[2] = 7 vs 5 = 5 → +2 Moderate Success",
+        "cls": "roll"
+      },
+      {
+        "t": "05:48 p. m.",
+        "pg": 1,
+        "msg": "Awareness 5 + d8[2] = 7 vs 5 = 5 → +2 Moderate Success",
+        "cls": "roll"
+      },
+      {
+        "t": "05:35 p. m.",
+        "pg": 1,
+        "msg": "Awareness 5 + d8[8] = 13 vs 8 = 8 → +5 Massive Success",
+        "cls": "roll"
+      },
+      {
+        "t": "05:29 p. m.",
+        "pg": 1,
+        "msg": "Awareness 5 + d8[6] = 11 vs 8 = 8 → +3 Major Success",
+        "cls": "roll"
+      },
+      {
+        "t": "05:28 p. m.",
+        "pg": 1,
+        "msg": "Awareness 5 + d8[4] = 9 vs 0 = 0 → +9 Massive Success",
+        "cls": "roll"
+      }
+    ],
+    "notes": "",
+    "lastRoll": {
+      "label": "Iniciativa",
+      "res": 7,
+      "grade": "total",
+      "cls": "raw",
+      "calc": "Coordination 5 + d8[2]",
+      "raw": true
+    }
+  }
+}

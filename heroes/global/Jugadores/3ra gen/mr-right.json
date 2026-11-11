@@ -1,0 +1,224 @@
+{
+  "id": "hmw9wwmz0z48",
+  "kind": "hero",
+  "links": [],
+  "name": "Mr. Right",
+  "identity": "Angelo ",
+  "origin": "Transformed",
+  "originNote": "Transformed: Intellect 4 → 5",
+  "abilities": {
+    "Prowess": 5,
+    "Coordination": 5,
+    "Strength": 3,
+    "Intellect": 5,
+    "Awareness": 4,
+    "Willpower": 3
+  },
+  "powers": [
+    {
+      "base": "Dream Control",
+      "type": "Mental",
+      "tableType": "Mental",
+      "sub": "",
+      "level": 4,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Super-Senses",
+      "type": "Sensory",
+      "tableType": "Sensory",
+      "sub": "Additional: Tracking Sense, Comprehend Languages; Enhanced Hearing +1",
+      "level": 3,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Telepathy",
+      "type": "Mental",
+      "tableType": "Mental",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [
+        "Mind Probe"
+      ],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Business",
+      "level": 1
+    },
+    {
+      "name": "Drive",
+      "level": 1
+    },
+    {
+      "name": "Sleight of Hand",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [2]",
+      "result": "Transformed"
+    },
+    {
+      "step": "Grupos",
+      "dice": "d100 [86·38] [70·22] [18·98] [10·96]",
+      "result": "+Wil/−Str  +Awa/−Coo  +Coo/−Wil  +Pro/−Wil"
+    },
+    {
+      "step": "Pendiente",
+      "dice": "Elegí el grupo que DESCARTÁS (se aplican los otros tres)",
+      "result": "se decide al final"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [74]",
+      "result": "poder Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [3] d6 [5]",
+      "result": "Leaping"
+    },
+    {
+      "step": "Nivel de Leaping",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [13]",
+      "result": "poder Mental"
+    },
+    {
+      "step": "Tabla Mental",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Dream Control"
+    },
+    {
+      "step": "Nivel de Dream Control",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [94]",
+      "result": "poder Sensory"
+    },
+    {
+      "step": "Tabla Sensory",
+      "dice": "d6 [4] d6 [6]",
+      "result": "Super-Senses"
+    },
+    {
+      "step": "Nivel de Super-Senses",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Super-Senses",
+      "dice": "",
+      "result": "Additional: Tracking Sense, Comprehend Languages; Enhanced Hearing +1"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [9]",
+      "result": "poder Mental"
+    },
+    {
+      "step": "Tabla Mental",
+      "dice": "d6 [5] d6 [6]",
+      "result": "Telepathy"
+    },
+    {
+      "step": "Nivel de Telepathy",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Extra",
+      "dice": "Telepathy · sacrificio",
+      "result": "Mind Probe"
+    },
+    {
+      "step": "Sacrificio",
+      "dice": "Leaping",
+      "result": "se pierde → extra Mind Probe para Telepathy"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Dream Control → 4"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Telepathy → 4"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Telepathy → 5"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [3+6] = 9",
+      "result": "3"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [1] d6 [5]",
+      "result": "Business"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [1] d6 [6]",
+      "result": "Drive"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [4]",
+      "result": "Sleight of Hand"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 2",
+      "result": "Pro 5 Coo 5 Str 3 Int 5 Awa 4 Wil 3"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [],
+  "ach": {
+    "list": [],
+    "mejoras": [],
+    "stunts": [],
+    "world": []
+  },
+  "updated": 1794366030597,
+  "play": {
+    "stamina": 6,
+    "dp": 2,
+    "tmp": 0,
+    "page": 1,
+    "conds": [],
+    "log": [],
+    "notes": ""
+  }
+}

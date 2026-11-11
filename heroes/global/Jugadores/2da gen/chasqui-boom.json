@@ -1,0 +1,534 @@
+{
+  "id": "hmw9p58q9v88",
+  "kind": "hero",
+  "links": [],
+  "name": "Chasqui-boom",
+  "identity": "",
+  "origin": "Transformed",
+  "originNote": "Transformed: Prowess 4 → 5",
+  "abilities": {
+    "Prowess": 4,
+    "Coordination": 5,
+    "Strength": 5,
+    "Intellect": 4,
+    "Awareness": 2,
+    "Willpower": 4
+  },
+  "powers": [
+    {
+      "base": "Leaping",
+      "type": "Movement",
+      "tableType": "Movement",
+      "sub": "",
+      "level": 3,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Blast",
+      "type": "Offensive",
+      "tableType": "Movement",
+      "sub": "",
+      "level": 6,
+      "device": false,
+      "extras": [
+        "Contagious"
+      ],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Invisibility",
+      "type": "Alteration",
+      "tableType": "Sensory",
+      "sub": "",
+      "level": 4,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Leadership",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "Loco de Mierda",
+    "Deadman Walking",
+    ""
+  ],
+  "desc": "",
+  "log": [
+    {
+      "step": "Origin (balanceado)",
+      "dice": "d6 [2]",
+      "result": "Transformed"
+    },
+    {
+      "step": "Grupos",
+      "dice": "d100 [57·18] [88·74] [91·38] [43·80]",
+      "result": "+Int/−Coo  +Wil/−Awa  +Wil/−Str  +Str/−Awa"
+    },
+    {
+      "step": "Abilities",
+      "dice": "descarta grupo 4",
+      "result": "Pro 4 Coo 3 Str 3 Int 5 Awa 3 Wil 6"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [57]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [6] d6 [2]",
+      "result": "Energy Drain"
+    },
+    {
+      "step": "Nivel de Energy Drain",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [20]",
+      "result": "poder Control"
+    },
+    {
+      "step": "Tabla Control",
+      "dice": "d6 [6] d6 [3]",
+      "result": "Servant"
+    },
+    {
+      "step": "Nivel de Servant",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Servant → 4"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [63]",
+      "result": "poder Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Burrowing"
+    },
+    {
+      "step": "Nivel de Burrowing",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Powers",
+      "dice": "2 punto(s)",
+      "result": "Servant → 5"
+    },
+    {
+      "step": "Tabla balanceada",
+      "dice": "d100 [50]",
+      "result": "poder Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [1] d6 [3]",
+      "result": "Binding"
+    },
+    {
+      "step": "Nivel de Binding",
+      "dice": "reglas balanceadas",
+      "result": "3 (los poderes empiezan en 3)"
+    },
+    {
+      "step": "Powers",
+      "dice": "1 punto(s)",
+      "result": "Energy Drain → 4"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [4+4] = 8",
+      "result": "3"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [3]",
+      "result": "Law"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Art"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [5] d6 [4]",
+      "result": "Sleight of Hand"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+2] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [3] d6 [2]",
+      "result": "Dimensional Travel"
+    },
+    {
+      "step": "Nivel de Dimensional Travel",
+      "dice": "2d6 [2+6] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+5] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [5] d6 [1]",
+      "result": "Spinning"
+    },
+    {
+      "step": "Nivel de Spinning",
+      "dice": "2d6 [3+5] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+6] = 11",
+      "result": "Sensory"
+    },
+    {
+      "step": "Tabla Sensory",
+      "dice": "d6 [4] d6 [2]",
+      "result": "Postcognition"
+    },
+    {
+      "step": "Nivel de Postcognition",
+      "dice": "2d6 [1+4] = 5",
+      "result": "4 (Fair)"
+    }
+  ],
+  "rules": "balanced",
+  "gear": [],
+  "ach": {
+    "list": [
+      {
+        "id": "hmw9vy9ph9hi",
+        "tier": "menor",
+        "event": "Bingo (capo)",
+        "date": "2026-11-09",
+        "state": "ok"
+      },
+      {
+        "id": "hmw9vy9phx43",
+        "tier": "menor",
+        "event": "Bingo (capo)",
+        "date": "2026-11-09",
+        "state": "ok"
+      }
+    ],
+    "mejoras": [],
+    "stunts": [],
+    "world": []
+  },
+  "updated": 1794362401977,
+  "play": {
+    "stamina": 7,
+    "dp": 0,
+    "tmp": 0,
+    "page": 7,
+    "conds": [],
+    "log": [
+      {
+        "t": "11:00 p. m.",
+        "pg": 7,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:59 p. m.",
+        "pg": 7,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "10:58 p. m.",
+        "pg": 7,
+        "msg": "Termina: Dazzled",
+        "cls": ""
+      },
+      {
+        "t": "10:57 p. m.",
+        "pg": 7,
+        "msg": "Página 7",
+        "cls": ""
+      },
+      {
+        "t": "10:57 p. m.",
+        "pg": 6,
+        "msg": "Condición: Dazzled (2 pág.)",
+        "cls": ""
+      },
+      {
+        "t": "08:13 p. m.",
+        "pg": 6,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "08:05 p. m.",
+        "pg": 6,
+        "msg": "Página 6",
+        "cls": ""
+      },
+      {
+        "t": "07:57 p. m.",
+        "pg": 5,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "07:55 p. m.",
+        "pg": 5,
+        "msg": "Página 5",
+        "cls": ""
+      },
+      {
+        "t": "07:45 p. m.",
+        "pg": 4,
+        "msg": "Página 4",
+        "cls": ""
+      },
+      {
+        "t": "07:31 p. m.",
+        "pg": 3,
+        "msg": "Página 3",
+        "cls": ""
+      },
+      {
+        "t": "07:06 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 5 + d8[6] = 11",
+        "cls": "roll"
+      },
+      {
+        "t": "07:05 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 5 + d8[5] = 10",
+        "cls": "roll"
+      },
+      {
+        "t": "07:05 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 5 + d8[6] = 11",
+        "cls": "roll"
+      },
+      {
+        "t": "07:05 p. m.",
+        "pg": 1,
+        "msg": "Iniciativa: Coordination 5 + d8[8] = 13",
+        "cls": "roll"
+      },
+      {
+        "t": "06:53 p. m.",
+        "pg": 1,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "06:33 p. m.",
+        "pg": 1,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "06:33 p. m.",
+        "pg": 1,
+        "msg": "+1 Stamina",
+        "cls": ""
+      },
+      {
+        "t": "06:29 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "06:29 p. m.",
+        "pg": 1,
+        "msg": "−1 Stamina",
+        "cls": "hurt"
+      },
+      {
+        "t": "06:28 p. m.",
+        "pg": 1,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "06:27 p. m.",
+        "pg": 1,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "06:24 p. m.",
+        "pg": 1,
+        "msg": "+1 PD · ganado",
+        "cls": "dp"
+      },
+      {
+        "t": "06:24 p. m.",
+        "pg": 1,
+        "msg": "−1 PD · gasto manual",
+        "cls": "dp"
+      },
+      {
+        "t": "06:03 p. m.",
+        "pg": 1,
+        "msg": "Intellect 4 + d8[3] = 7",
+        "cls": "roll"
+      }
+    ],
+    "notes": "",
+    "lastRoll": null
+  }
+}
