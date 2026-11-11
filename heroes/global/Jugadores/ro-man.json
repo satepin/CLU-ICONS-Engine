@@ -1,0 +1,192 @@
+{
+  "id": "hmw9d5t3qp6o",
+  "kind": "hero",
+  "links": [
+    {
+      "id": "hmw9iivf40cf",
+      "rel": "servant",
+      "name": "Ro-Man — Servant"
+    }
+  ],
+  "name": "Ro-Man",
+  "identity": "Ramón",
+  "origin": "Transformed",
+  "originNote": "Trained: +2 specialties; los poderes son entrenamiento/equipo (devices).",
+  "abilities": {
+    "Prowess": 4,
+    "Coordination": 7,
+    "Strength": 4,
+    "Intellect": 2,
+    "Awareness": 6,
+    "Willpower": 5
+  },
+  "powers": [
+    {
+      "base": "Magic",
+      "type": "Control",
+      "tableType": "Alteration",
+      "sub": "",
+      "level": 7,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": "",
+      "copies": [
+        {
+          "as": "Servant",
+          "sub": "",
+          "extras": [
+            "Instant"
+          ],
+          "limits": [
+            {
+              "n": "Close Range",
+              "b": "extra"
+            }
+          ],
+          "perm": true
+        }
+      ]
+    },
+    {
+      "base": "Ability Increase",
+      "type": "Alteration",
+      "tableType": "Mental",
+      "sub": "",
+      "level": 4,
+      "device": true,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [
+    {
+      "name": "Performance",
+      "level": 1
+    },
+    {
+      "name": "Underwater Combat",
+      "level": 1
+    },
+    {
+      "name": "Power",
+      "level": 1
+    }
+  ],
+  "qualities": [
+    "Ro-man",
+    "Rom-Man no matará a nadie, por que es un héroe. Solo lo dará todo, seres gobernantes.",
+    "Pensar no es su fuerte"
+  ],
+  "desc": "Ramón era un niño normal. Sus padres eran arqueólogos y siempre le contaban historias de lo increíbles que son los superhéroes y cómo utilizaban sus grandes poderes siempre para ayudar al resto, nunca para herir a nadie. Que sus sufijos -man/-woman representan que a pesar de su gran fuerza y capacidad nunca olvidan que siguen siendo personas. \nEn una expedición en algún lugar de Conosuria sus padres encontraron en unas ruinas un ídolo antiguo, maldito. Ramón que estaba acompañando a sus padres interactúa con esa extraña y perturbadora estatuilla, revelándose ante él un dios ancestral olvidado y corrupto llamado Cqthón.\nEl solo ver al dios antiguo le brindo a Ramón conocimiento indescriptible del universo, cuando volvió en sí su padres ya no estaban, la única forma de tolerar aquello que vio fue a costa de su cordura y lo poco que tenía de inteligencia. Desde ese día, Ramón se juró a sí mismo que aquellos que nunca se merecerían perdón son todos los seres que interfieren con los asuntos de los mortales.\nA cambio consiguió el poder de cambiar las normas y leyes de la naturaleza con sus increíbles y muy dotados pasos de baile. Ramón se convirtió en Ro-man buscando siendo el héroe que hubieran querido sus padres (probablemente) y siguiendo el rastro de ellos, si existen.",
+  "log": [
+    {
+      "step": "Origin",
+      "dice": "2d6 [1+2] = 3",
+      "result": "Trained"
+    },
+    {
+      "step": "Prowess",
+      "dice": "2d6 [5+4] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Coordination",
+      "dice": "2d6 [1+1] = 2",
+      "result": "1 (Weak)"
+    },
+    {
+      "step": "Strength",
+      "dice": "2d6 [6+3] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Intellect",
+      "dice": "2d6 [5+5] = 10",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Awareness",
+      "dice": "2d6 [6+3] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Willpower",
+      "dice": "2d6 [1+1] = 2",
+      "result": "1 (Weak)"
+    },
+    {
+      "step": "Number of Powers",
+      "dice": "2d6 [1+1] = 2",
+      "result": "2"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+5] = 9",
+      "result": "Alteration"
+    },
+    {
+      "step": "Tabla Alteration",
+      "dice": "d6 [5] d6 [3]",
+      "result": "Phasing"
+    },
+    {
+      "step": "Nivel de Phasing",
+      "dice": "2d6 [2+5] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+1] = 3",
+      "result": "Mental"
+    },
+    {
+      "step": "Tabla Mental",
+      "dice": "d6 [6] d6 [2]",
+      "result": "Mental Blast"
+    },
+    {
+      "step": "Nivel de Mental Blast",
+      "dice": "2d6 [1+5] = 6",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Number of Specialties",
+      "dice": "2d6 [4+4] = 8",
+      "result": "3"
+    },
+    {
+      "step": "Trained",
+      "dice": "+2 specialties",
+      "result": "total 5"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [3] d6 [3]",
+      "result": "Medicine"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [6]",
+      "result": "Linguistics"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [2] d6 [6]",
+      "result": "Linguistics → Expert +2"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [5]",
+      "result": "Weapons"
+    },
+    {
+      "step": "Specialty",
+      "dice": "d6 [6] d6 [6]",
+      "result": "Wrestling"
+    }
+  ],
+  "gear": [],
+  "updated": 1794243959582
+}
