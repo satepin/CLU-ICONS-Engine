@@ -1,0 +1,119 @@
+{
+  "id": "hmw8k4ya5x8e",
+  "kind": "servant",
+  "links": [
+    {
+      "id": "hmw815sz5geh",
+      "rel": "master",
+      "name": "Golem"
+    }
+  ],
+  "name": "Batería AA Enojada",
+  "identity": "",
+  "origin": "Servant",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 0,
+    "Coordination": 7,
+    "Strength": 0,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [
+    {
+      "base": "Flight",
+      "type": "Movement",
+      "tableType": "Movement",
+      "sub": "",
+      "level": 2,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Invisibility",
+      "type": "Alteration",
+      "tableType": "",
+      "sub": "",
+      "level": 4,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Electrical Control",
+      "type": "Control",
+      "tableType": "",
+      "sub": "",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "Sin abilities mentales: sólo actúa para cumplir órdenes. No tiene Determination.",
+  "log": [
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+2] = 4",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+3] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+4] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Burrowing"
+    },
+    {
+      "step": "Nivel de Burrowing",
+      "dice": "2d6 [3+5] = 8",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+2] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+2] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [6] d6 [2]",
+      "result": "Super-Speed"
+    },
+    {
+      "step": "Nivel de Super-Speed",
+      "dice": "2d6 [6+4] = 10",
+      "result": "6 (Great)"
+    }
+  ],
+  "servant": {
+    "level": 5,
+    "enhanced": 0,
+    "count": 1
+  },
+  "updated": 1794366875982,
+  "gear": []
+}

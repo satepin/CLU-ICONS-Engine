@@ -1,0 +1,98 @@
+{
+  "id": "hmw9tp2tfpn2",
+  "kind": "servant",
+  "links": [
+    {
+      "id": "hmw815sz5geh",
+      "rel": "master",
+      "name": "Golem"
+    }
+  ],
+  "name": "PLAGA",
+  "identity": "",
+  "origin": "Servant",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 7,
+    "Coordination": 0,
+    "Strength": 0,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [
+    {
+      "base": "Duplication",
+      "type": "Alteration",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 6,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Affliction",
+      "type": "Offensive",
+      "tableType": "",
+      "sub": "",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "Sin abilities mentales: sólo actúa para cumplir órdenes. No tiene Determination.",
+  "log": [
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+4] = 9",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+4] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [2] d6 [1]",
+      "result": "Affliction"
+    },
+    {
+      "step": "Nivel de Affliction",
+      "dice": "2d6 [4+1] = 5",
+      "result": "4 (Fair)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+3] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [3] d6 [1]",
+      "result": "Burrowing"
+    },
+    {
+      "step": "Nivel de Burrowing",
+      "dice": "2d6 [4+3] = 7",
+      "result": "5 (Good)"
+    }
+  ],
+  "servant": {
+    "level": 5,
+    "enhanced": 0,
+    "count": 1
+  },
+  "updated": 1794366879268,
+  "gear": []
+}

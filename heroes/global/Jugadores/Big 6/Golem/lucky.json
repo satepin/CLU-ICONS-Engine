@@ -1,0 +1,129 @@
+{
+  "id": "hmw9uwzxm51l",
+  "kind": "servant",
+  "links": [
+    {
+      "id": "hmw815sz5geh",
+      "rel": "master",
+      "name": "Golem"
+    }
+  ],
+  "name": "Lucky",
+  "identity": "",
+  "origin": "Servant",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 0,
+    "Coordination": 0,
+    "Strength": 0,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [
+    {
+      "base": "Empowerment",
+      "type": "Control",
+      "tableType": "Offensive",
+      "sub": "Random",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Probability Control",
+      "type": "Control",
+      "tableType": "",
+      "sub": "",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Super-Speed",
+      "type": "Movement",
+      "tableType": "",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "Sin abilities mentales: sólo actúa para cumplir órdenes. No tiene Determination.",
+  "log": [
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+4] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+3] = 5",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [5+6] = 11",
+      "result": "Sensory (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+1] = 4",
+      "result": "Control (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+1] = 2",
+      "result": "Mental (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+5] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [4] d6 [5]",
+      "result": "Reflection"
+    },
+    {
+      "step": "Nivel de Reflection",
+      "dice": "2d6 [5+6] = 11",
+      "result": "7 (Incredible)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+5] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [4] d6 [6]",
+      "result": "Stunning"
+    },
+    {
+      "step": "Nivel de Stunning",
+      "dice": "2d6 [2+4] = 6",
+      "result": "4 (Fair)"
+    }
+  ],
+  "servant": {
+    "level": 5,
+    "enhanced": 0,
+    "count": 1
+  },
+  "updated": 1794366887801,
+  "gear": []
+}

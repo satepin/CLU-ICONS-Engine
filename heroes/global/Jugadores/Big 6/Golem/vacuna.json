@@ -1,0 +1,98 @@
+{
+  "id": "hmw8jpflyn6v",
+  "kind": "servant",
+  "links": [
+    {
+      "id": "hmw815sz5geh",
+      "rel": "master",
+      "name": "Golem"
+    }
+  ],
+  "name": "Vacuna",
+  "identity": "",
+  "origin": "Servant",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 7,
+    "Coordination": 0,
+    "Strength": 0,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [
+    {
+      "base": "Invisibility",
+      "type": "Alteration",
+      "tableType": "Offensive",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Affliction",
+      "type": "Offensive",
+      "tableType": "",
+      "sub": "",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "Sin abilities mentales: sólo actúa para cumplir órdenes. No tiene Determination.",
+  "log": [
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+5] = 11",
+      "result": "Sensory (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [1+5] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [4] d6 [2]",
+      "result": "Life Support"
+    },
+    {
+      "step": "Nivel de Life Support",
+      "dice": "2d6 [4+3] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+5] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [5] d6 [2]",
+      "result": "Energy Drain"
+    },
+    {
+      "step": "Nivel de Energy Drain",
+      "dice": "2d6 [6+4] = 10",
+      "result": "6 (Great)"
+    }
+  ],
+  "servant": {
+    "level": 5,
+    "enhanced": 0,
+    "count": 1
+  },
+  "updated": 1794366859021,
+  "gear": []
+}

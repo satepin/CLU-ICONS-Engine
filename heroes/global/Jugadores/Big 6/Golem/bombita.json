@@ -1,0 +1,109 @@
+{
+  "id": "hmw82cudhv3s",
+  "kind": "servant",
+  "links": [
+    {
+      "id": "hmw815sz5geh",
+      "rel": "master",
+      "name": "Golem"
+    }
+  ],
+  "name": "Bombita",
+  "identity": "",
+  "origin": "Servant",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 0,
+    "Coordination": 0,
+    "Strength": 1,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [
+    {
+      "base": "Spinning",
+      "type": "Movement",
+      "tableType": "Movement",
+      "sub": "",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Aura",
+      "type": "Offensive",
+      "tableType": "",
+      "sub": "",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Super-Speed",
+      "type": "Movement",
+      "tableType": "",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "Sin abilities mentales: sólo actúa para cumplir órdenes. No tiene Determination.",
+  "log": [
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+4] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [3] d6 [2]",
+      "result": "Life Support"
+    },
+    {
+      "step": "Nivel de Life Support",
+      "dice": "2d6 [3+4] = 7",
+      "result": "5 (Good)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [6+4] = 10",
+      "result": "Alteration (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+4] = 8",
+      "result": "Movement"
+    },
+    {
+      "step": "Tabla Movement",
+      "dice": "d6 [1] d6 [2]",
+      "result": "Dimensional Travel"
+    },
+    {
+      "step": "Nivel de Dimensional Travel",
+      "dice": "2d6 [4+3] = 7",
+      "result": "5 (Good)"
+    }
+  ],
+  "servant": {
+    "level": 5,
+    "enhanced": 0,
+    "count": 1
+  },
+  "updated": 1794366849735,
+  "gear": []
+}

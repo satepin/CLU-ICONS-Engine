@@ -1,0 +1,109 @@
+{
+  "id": "hmw8jrtmelkf",
+  "kind": "servant",
+  "links": [
+    {
+      "id": "hmw815sz5geh",
+      "rel": "master",
+      "name": "Golem"
+    }
+  ],
+  "name": "Creeper",
+  "identity": "",
+  "origin": "Servant",
+  "originNote": "",
+  "abilities": {
+    "Prowess": 0,
+    "Coordination": 4,
+    "Strength": 0,
+    "Intellect": 0,
+    "Awareness": 0,
+    "Willpower": 0
+  },
+  "powers": [
+    {
+      "base": "Alternate Form",
+      "type": "Alteration",
+      "tableType": "Offensive",
+      "sub": "Explosiva",
+      "level": 7,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Invisibility",
+      "type": "Alteration",
+      "tableType": "",
+      "sub": "",
+      "level": 5,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    },
+    {
+      "base": "Flight",
+      "type": "Movement",
+      "tableType": "",
+      "sub": "",
+      "level": 3,
+      "device": false,
+      "extras": [],
+      "limits": [],
+      "note": ""
+    }
+  ],
+  "specialties": [],
+  "qualities": [
+    "",
+    "",
+    ""
+  ],
+  "desc": "Sin abilities mentales: sólo actúa para cumplir órdenes. No tiene Determination.",
+  "log": [
+    {
+      "step": "Power Type",
+      "dice": "2d6 [3+3] = 6",
+      "result": "Defensive"
+    },
+    {
+      "step": "Tabla Defensive",
+      "dice": "d6 [1] d6 [6]",
+      "result": "Force Field"
+    },
+    {
+      "step": "Nivel de Force Field",
+      "dice": "2d6 [5+4] = 9",
+      "result": "6 (Great)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [2+1] = 3",
+      "result": "Mental (no permitido → re-tirar)"
+    },
+    {
+      "step": "Power Type",
+      "dice": "2d6 [4+3] = 7",
+      "result": "Offensive"
+    },
+    {
+      "step": "Tabla Offensive",
+      "dice": "d6 [3] d6 [4]",
+      "result": "Blast"
+    },
+    {
+      "step": "Nivel de Blast",
+      "dice": "2d6 [3+2] = 5",
+      "result": "4 (Fair)"
+    }
+  ],
+  "servant": {
+    "level": 5,
+    "enhanced": 0,
+    "count": 1
+  },
+  "updated": 1794366861899,
+  "gear": []
+}
