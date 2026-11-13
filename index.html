@@ -329,6 +329,55 @@ body:not(.kveh) .onlyveh{display:none!important}
 .wz-tray .die em{font-style:normal;font-size:12px;font-weight:700;text-align:center}
 .wz-cap{margin-left:10px;display:inline-flex;gap:4px;align-items:center}
 .wz-cap input[type=number]{width:46px}
+
+/* ---------- vista para celular ---------- */
+.mnav{display:none}
+body.mobile{padding-bottom:70px}
+body.mobile header.top{padding:8px 10px;gap:6px;position:sticky;top:0;z-index:40}
+body.mobile header.top h1{font-size:22px;margin:0}
+body.mobile header.top .sub{display:none}
+body.mobile header.top .actions{flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px;-webkit-overflow-scrolling:touch;width:100%}
+body.mobile header.top .actions>*{flex:0 0 auto;font-size:13px;padding:6px 9px}
+body.mobile header.top .actions .big{font-size:15px}
+body.mobile #btnPrint{display:none}
+body.mobile .layout{display:block;padding:8px}
+body.mobile .layout>*{margin-bottom:10px}
+body.mobile .panel{padding:10px;margin-bottom:10px}
+body.mobile .refcol{display:none}
+body.mobile button{min-height:34px}
+body.mobile .mini{min-height:30px;padding:4px 8px}
+body.mobile input,body.mobile select{font-size:16px}
+/* qué se ve en cada pestaña */
+body.mobile[data-mt=crear] main{display:none!important}
+body.mobile[data-mt=crear] .ctrl .m-heroes{display:none}
+body.mobile[data-mt=ficha] .ctrl,body.mobile[data-mt=jugar] .ctrl,body.mobile[data-mt=mesa] .ctrl{display:none}
+body.mobile[data-mt=heroes] main{display:none!important}
+body.mobile[data-mt=heroes] .ctrl>section:not(.m-heroes){display:none}
+body.mobile:not([data-mt=crear]) header.top .gen-only{display:none}
+/* modo jugar y mesa */
+body.mobile .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+body.mobile .tabs>*{flex:0 0 auto}
+body.mobile #tableView h2{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+body.mobile .pagebar{margin-left:0;flex-wrap:wrap}
+body.mobile .grp{grid-template-columns:1fr!important}
+body.mobile .tgrid{grid-template-columns:1fr!important}
+body.mobile .tcard{max-width:none}
+body.mobile .grp>*,body.mobile .rbox{min-width:0;max-width:100%;box-sizing:border-box}
+body.mobile .rbox .row,body.mobile .atkbox .row{flex-wrap:wrap}
+body.mobile .rbox select{max-width:100%}
+body.mobile .mtools .rbox{margin:0 0 8px}
+body.mobile .mtools{border:2px solid var(--ink);border-radius:6px;padding:6px;margin:8px 0;background:#fff}
+body.mobile .mtools>summary{font-weight:700;cursor:pointer;padding:4px}
+body.mobile .mtools[open]>summary{margin-bottom:6px}
+body.mobile .stat-grid,body.mobile .abil-grid{grid-template-columns:repeat(3,1fr)!important}
+/* barra inferior */
+body.mobile .mnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--ink);padding:4px 4px calc(4px + env(safe-area-inset-bottom));gap:4px}
+.mnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:0;background:transparent;color:#fff;border:none;box-shadow:none;font-size:11px;padding:4px 0;min-height:48px;border-radius:6px}
+.mnav button span{font-size:20px;line-height:1.1}
+.mnav button.on{background:var(--yellow);color:var(--ink)}
+body.mobile .toast{bottom:76px}
+body.mobile #wizModal .wizbox{padding:8px 10px}
+body.mobile .wz-cap{margin-left:0}
 /* ---------- modo jugar ---------- */
 body.play .gen-only{display:none!important}
 body:not(.play) .play-only{display:none!important}
@@ -398,11 +447,19 @@ body:not(.play) .play-only{display:none!important}
     <button id="btnText">📋 Ficha en texto</button>
     <button id="btnJson">⇄ JSON</button>
     <button id="btnPrint">🖨 Imprimir</button>
+    <button id="btnUi" title="Cambiar entre la vista de escritorio y la vista para celular">📱 Vista móvil</button>
     <label class="dicemode play-only" title="Dado de las tiradas del modo jugar">Dado <select id="playDie"><option value="8">d8</option><option value="6">d6</option></select></label>
     <label class="dicemode play-only" id="diceToggle" title="Dados físicos: la app te pide el valor de cada dado y calcula todo lo demás"><input type="checkbox" id="diceManual"> 🎲 Dados físicos</label>
   </div>
 </header>
 
+<nav class="mnav" id="mnav">
+  <button data-mt="crear"><span>🎲</span>Crear</button>
+  <button data-mt="ficha"><span>📝</span>Ficha</button>
+  <button data-mt="jugar"><span>🎭</span>Jugar</button>
+  <button data-mt="mesa"><span>🗂</span>Mesa</button>
+  <button data-mt="heroes"><span>📚</span>Héroes</button>
+</nav>
 <div class="layout">
   <!-- CONTROLES -->
   <aside class="ctrl">
@@ -456,7 +513,7 @@ body:not(.play) .play-only{display:none!important}
       <h2>Tiradas <span class="tag" id="logCount"></span></h2>
       <div class="log" id="log"><div><span class="hint">Tocá “Generar héroe” para empezar.</span></div></div>
     </section>
-    <section class="panel">
+    <section class="panel m-heroes">
       <h2>Héroes guardados</h2>
       <div class="rctl">
         <input id="rq" placeholder="Buscar…" autocomplete="off">
@@ -1329,6 +1386,7 @@ function renderRoster(){
     h+=`<div class="rfold root" data-fold=""><span class="hint">raíz · soltá acá para sacar de una carpeta</span></div>`+node('',0);
   }
   else h+=items.map(it=>itemRow(it,0)).join('');
+  if(!FS.ok)h+=`<div class="folderbar" style="margin-top:8px"><button class="mini" id="btnGh" title="Baja las fichas de heroes/global del repositorio y las guarda en este navegador">☁ Traer fichas globales de GitHub</button></div>`;
   h+=`<div class="folderbar" style="margin-top:8px"><label class="btn" style="font-size:12px;padding:2px 8px">Importar .json… <input type="file" id="rImport" accept=".json,application/json" multiple style="display:none"></label>${RV.sort==='manual'?'<span class="hint">Arrastrá para reordenar.</span>':''}</div>`;
   if(!fsSupported())h+=`<p class="hint">Para guardar en una carpeta abrí el archivo <b>icons-hero-generator.html</b> en Chrome o Edge (en esta vista el navegador no lo permite). Mientras, se guarda en el navegador y podés exportar con “⇄ JSON”.</p>`;
   else if(!FS.ok)h+=`<p class="hint">Elegí una carpeta (por ej. <i>club ludico/fichas</i>) y cada héroe se guarda ahí como un .json. Las subcarpetas se ven como grupos.</p>`;
@@ -1426,11 +1484,46 @@ function spendDP(reason){const p=C.play;
 function gainDP(reason,temp){const p=C.play;if(temp){p.tmp++;plog(`+1 PD temporal · ${reason}`,'dp')}else{p.dp++;plog(`+1 PD · ${reason}`,'dp')}}
 function boostFor(key){return C.play.conds.filter(c=>c.boost&&c.boost.key===key).reduce((s,c)=>s+c.boost.amt,0)}
 function traitList(){return traitsOf(C)}
+
+// ---------------------------------------------------------------- vista para celular
+const MOBQ=window.matchMedia?matchMedia('(max-width:760px)'):{matches:false,addEventListener(){}};
+let UI_PREF='auto',MTAB='ficha',MTOOLS=false;
+try{UI_PREF=localStorage.getItem('icons-gp-ui')||'auto';MTAB=localStorage.getItem('icons-gp-mtab')||'ficha'}catch(_){}
+const isMob=()=>UI_PREF==='mobile'||(UI_PREF!=='desktop'&&MOBQ.matches);
+function applyMobile(){const m=isMob();document.body.classList.toggle('mobile',m);document.body.dataset.mt=MTAB;
+  document.querySelectorAll('#mnav [data-mt]').forEach(b=>b.classList.toggle('on',b.dataset.mt===MTAB));
+  const u=$('btnUi');if(u)u.textContent=m?'🖥 Vista escritorio':'📱 Vista móvil'}
+function mGo(tab){MTAB=tab;try{localStorage.setItem('icons-gp-mtab',tab)}catch(_){}
+  if((tab==='crear'||tab==='ficha')&&PLAY_MODE)setMode(false);
+  if(tab==='jugar'){if(!PLAY_MODE)setMode(true);TABLE.view=C.id;tblSave();renderPlayRoot()}
+  if(tab==='mesa'){if(!PLAY_MODE)setMode(true);TABLE.view='grid';tblSave();renderPlayRoot()}
+  MTAB=tab;applyMobile();window.scrollTo(0,0)}
+document.addEventListener('click',e=>{const b=e.target.closest('#mnav [data-mt]');if(b){mGo(b.dataset.mt);return}
+  if(e.target.id==='btnUi'){UI_PREF=isMob()?'desktop':'mobile';try{localStorage.setItem('icons-gp-ui',UI_PREF)}catch(_){}applyMobile();if(PLAY_MODE)renderPlayRoot();toast(isMob()?'Vista para celular':'Vista de escritorio')}});
+MOBQ.addEventListener&&MOBQ.addEventListener('change',()=>{applyMobile();if(PLAY_MODE)renderPlayRoot()});
+// en celular, elegir una ficha en Héroes te lleva a verla
+document.addEventListener('click',e=>{if(!isMob()||MTAB!=='heroes')return;const r=e.target.closest('#roster .ritem');if(!r||e.target.closest('button,input,select'))return;
+  const before=C&&C.id;setTimeout(()=>{if(C&&C.id!==before||r.classList.contains('cur'))mGo(PLAY_MODE?'jugar':'ficha')},80)},true);
+document.addEventListener('toggle',e=>{if(e.target.classList&&e.target.classList.contains('mtools'))MTOOLS=e.target.open},true);
+// fichas compartidas del repositorio (útil en el celular, donde no se puede elegir una carpeta)
+const GH_REPO='satepin/CLU-ICONS-Engine';
+async function ghImport(){
+  toast('Buscando fichas en GitHub…');
+  try{const tr=await (await fetch(`https://api.github.com/repos/${GH_REPO}/git/trees/main?recursive=1`)).json();
+    const files=(tr.tree||[]).filter(x=>x.type==='blob'&&/^heroes\/global\/.+\.json$/.test(x.path));
+    if(!files.length){toast('No encontré fichas en heroes/global');return}
+    let n=0;for(const f of files){try{const d=await (await fetch(`https://raw.githubusercontent.com/${GH_REPO}/main/${f.path.split('/').map(encodeURIComponent).join('/')}`)).json();
+      if(d&&d.id){d._ghFolder=f.path.replace(/^heroes\/global\//,'').replace(/\/[^/]+$/,'');const r=roster();r[d.id]=d;setRoster(r,true);n++}}catch(_){}}
+    renderRoster();toast(`${n} ficha${n===1?'':'s'} de GitHub guardadas en este navegador`)}
+  catch(err){toast('No pude conectar con GitHub: '+(err.message||err))}
+}
+document.addEventListener('click',e=>{if(e.target.id==='btnGh')ghImport()});
 function setMode(play){
   PLAY_MODE=play;document.body.classList.toggle('play',play);$('btnMode').classList.toggle('on',play);
   $('btnMode').textContent=play?'✏️ Editar ficha':'🎭 Modo jugar';
   if(play){ensurePlay();if(!TABLE.ids.includes(C.id)){TABLE.ids.push(C.id);TABLE.cache[C.id]=C;TABLE.view=C.id;tblSave()}renderPlayRoot()}else{document.body.classList.remove('gridview');renderAll()}
   try{store()&&store().setItem('icons-gp-mode',play?'play':'edit')}catch(_){}
+  if(isMob()){if(play&&!['jugar','mesa','heroes'].includes(MTAB))MTAB=TABLE.view==='grid'?'mesa':'jugar';if(!play&&!['crear','ficha','heroes'].includes(MTAB))MTAB='ficha';applyMobile()}
 }
 function renderPlay(){
   if(!PLAY_MODE)return;const p=ensurePlay();const max=stamMax();const det=computeDet().det;
@@ -1824,6 +1917,7 @@ function renderPlayRoot(){
   renderTabs();
   $('tableView').style.display=TABLE.view==='grid'?'':'none';$('singleView').style.display=TABLE.view==='grid'?'none':'';
   if(TABLE.view==='grid')renderTable();else{ensurePlay();renderPlay()}
+  if(isMob()&&MTAB!=='heroes'){MTAB=TABLE.view==='grid'?'mesa':'jugar';applyMobile()}
 }
 function renderTabs(){
   const opts=rosterItems().filter(i=>!TABLE.ids.includes(i.data.id)).map(i=>`<option value="${i.data.id}">${esc(i.data.name||'sin nombre')}</option>`).join('');
@@ -1849,6 +1943,7 @@ function renderTable(){
    ${TABLE.ids.length?`<div class="row" style="margin-bottom:6px"><b>${n} seleccionada(s)</b>
      <button class="mini" data-tb="selall">Todas</button><button class="mini" data-tb="selnone">Ninguna</button><button class="mini" data-tb="selinv">Invertir</button>
      <span class="hint">Tocá el nombre o la casilla de cada ficha para seleccionarla. Sin selección, las acciones van a todas.</span></div>
+   ${isMob()?`<details class="mtools" ${MTOOLS?'open':''}><summary>🧰 Herramientas de mesa${initCurId()&&tch(initCurId())?` · ▶ le toca <b>${esc(tch(initCurId()).name||'')}</b>`:''}</summary>`:''}
    <div class="grp">
      <div class="rbox"><b>🎲 Tirada grupal</b>
        <div class="row"><select id="gTrait">${traitOptions()}</select> bono <input type="number" id="gBonus" value="${g.bonus||0}" style="width:56px"></div>
@@ -1866,6 +1961,7 @@ function renderTable(){
      ${initHtml()}
    </div>
    ${atkBoxHtml()}
+   ${isMob()?'</details>':''}
    ${TABLE.results?`<div class="gres">${TABLE.results}</div>`:''}`:'<p class="hint">Abrí fichas con “+ abrir ficha…” (arriba) o tocando una en la lista de la izquierda.</p>'}
   </section>
   <div class="tgrid ${TABLE.size}">${shown.map(cardHtml).join('')}</div>
@@ -3316,6 +3412,7 @@ $('profBox').style.display=$('sAbil').value==='carte'?'':'none';
 tblLoad();
 try{syncBalNote()}catch(_){}
 try{$('playDie').value=String(PLAY_DIE)}catch(_){}
+try{applyMobile()}catch(_){}
 try{$('diceManual').checked=DICE_MODE==='manual';$('diceToggle').classList.toggle('on',DICE_MODE==='manual')}catch(_){}
 try{$('rfield').value=RV.field;$('rsort').value=RV.sort;$('rq').placeholder=$('rfield').selectedOptions[0].dataset.ph||'Buscar…'}catch(_){}
 renderRefList();renderRoster();
