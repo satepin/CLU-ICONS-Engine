@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ICONS Engine</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#d62828"><link rel="apple-touch-icon" href="icons/icon-192.png"><meta name="mobile-web-app-capable" content="yes">
 <style>
 :root{
   --paper:#fbf6e9; --ink:#141414; --red:#d7262b; --yellow:#ffcf2e; --blue:#1f5fbf;
@@ -364,6 +365,15 @@ body.mobile .tgrid.lane>.tcard{flex:0 0 min(86vw,420px);max-width:min(86vw,420px
 body.mobile #tableView h2>.tag{display:none}
 body.mobile #tableView .row>.hint{display:none}
 body.mobile #tableView .tabs{margin-bottom:6px}
+
+.syncbox{margin:6px 0;font-size:13px}
+.syncbox:empty{display:none}
+.synchead{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:4px}
+.syncbox .tag{font-size:11px}.syncbox .tag.warn{background:#ffe3a3}.syncbox .tag.ok{background:#d9f2d0}
+.syncbox .row{gap:4px;flex-wrap:wrap}
+.ghform label{display:block;font-size:12px;margin:3px 0}.ghform input{width:100%;font-size:13px}
+.ghpick{border:1px dashed var(--ink);border-radius:4px;padding:6px;margin-top:4px;max-height:260px;overflow:auto}.ghpick label{display:block}
+.synclog pre{white-space:pre-wrap;font-size:11px;max-height:180px;overflow:auto;background:#fff;border:1px solid #ccc;padding:4px}
 /* ---------- vista para celular ---------- */
 .mnav{display:none}
 body.mobile{padding-bottom:70px}
@@ -562,6 +572,7 @@ body:not(.play) .play-only{display:none!important}
         </div>
         <div class="row"><button class="mini" data-fs="expandall">▾ expandir todo</button><button class="mini" data-fs="collapseall">▸ colapsar todo</button></div>
       </div>
+      <div id="syncBox" class="syncbox"></div>
       <div class="roster" id="roster"><span class="hint">Nada guardado todavía.</span></div>
     </section>
   </aside>
@@ -1422,7 +1433,6 @@ function renderRoster(){
     h+=`<div class="rfold root" data-fold=""><span class="hint">raíz · soltá acá para sacar de una carpeta</span></div>`+node('',0);
   }
   else h+=items.map(it=>itemRow(it,0)).join('');
-  if(!FS.ok)h+=`<div class="folderbar" style="margin-top:8px"><button class="mini" id="btnGh" title="Baja las fichas de heroes/global del repositorio y las guarda en este navegador">☁ Traer fichas globales de GitHub</button></div>`;
   h+=`<div class="folderbar" style="margin-top:8px"><label class="btn" style="font-size:12px;padding:2px 8px">Importar .json… <input type="file" id="rImport" accept=".json,application/json" multiple style="display:none"></label>${RV.sort==='manual'?'<span class="hint">Arrastrá para reordenar.</span>':''}</div>`;
   if(!fsSupported())h+=`<p class="hint">Para guardar en una carpeta abrí el archivo <b>icons-hero-generator.html</b> en Chrome o Edge (en esta vista el navegador no lo permite). Mientras, se guarda en el navegador y podés exportar con “⇄ JSON”.</p>`;
   else if(!FS.ok)h+=`<p class="hint">Elegí una carpeta (por ej. <i>club ludico/fichas</i>) y cada héroe se guarda ahí como un .json. Las subcarpetas se ven como grupos.</p>`;
@@ -1573,6 +1583,89 @@ document.addEventListener('click',e=>{
   if(e.target.id==='btnHdr'){UIS.hdr=hdrHidden();uisSave();applySpace();return}
   const f=e.target.closest('.foldbtn');if(f){const s=f.closest('section.panel[data-fold]');if(s){UIS.fold[s.dataset.fold]=!UIS.fold[s.dataset.fold];uisSave();applySpace()}}});
 window.addEventListener('resize',()=>{clearTimeout(window._rsz);window._rsz=setTimeout(applySpace,150)});
+
+// ---------------------------------------------------------------- sincronizar fichas con GitHub
+// Dos caminos: (1) serve.py en la compu → botones que corren git de verdad; (2) sin servidor (celular, archivo suelto) → API de GitHub con un token.
+const SYNC={mode:null,st:null,busy:false,log:'',form:false,pick:false};
+let GHCFG={token:'',repo:GH_REPO,branch:'main',folder:'Jugadores'};try{GHCFG=Object.assign(GHCFG,JSON.parse(localStorage.getItem('icons-gp-gh')||'{}'))}catch(_){}
+const ghSaveCfg=()=>{try{localStorage.setItem('icons-gp-gh',JSON.stringify(GHCFG))}catch(_){}};
+async function syncDetect(){
+  if(/^https?:$/.test(location.protocol)&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname)){
+    try{const r=await fetch('/git/status',{headers:{'X-ICONS':'1'}});if(r.ok){SYNC.mode='git';SYNC.st=await r.json();renderSync();return}}catch(_){}}
+  SYNC.mode='api';renderSync()}
+function renderSync(){const el=$('syncBox');if(!el)return;const S=SYNC;let h='';
+  if(S.mode==='git'){const st=S.st||{};
+    h=`<div class="synchead">⇅ <b>Git</b> <span class="hint">rama ${esc(st.branch||'?')}</span>
+      ${st.behind?`<span class="tag warn">↓ ${st.behind} cambio${st.behind>1?'s':''} en GitHub</span>`:''}${st.ahead?`<span class="tag">↑ ${st.ahead} commit${st.ahead>1?'s':''} sin subir</span>`:''}
+      ${(st.changes||[]).length?`<span class="tag ok">${st.changes.length} ficha${st.changes.length>1?'s':''} global${st.changes.length>1?'es':''} para subir</span>`:'<span class="hint">sin fichas globales nuevas</span>'}</div>
+      <div class="row"><button class="mini" data-sync="pull" ${S.busy?'disabled':''}>⬇ Traer (pull)</button>
+        <input id="syncMsg" placeholder="mensaje (opcional)" style="flex:1;min-width:90px;font-size:12px">
+        <button class="mini big2" data-sync="push" ${S.busy?'disabled':''} title="git add heroes/global, commit, pull --rebase y push">⬆ Subir globales</button>
+        <button class="mini" data-sync="refresh" title="Actualizar estado">↻</button></div>`}
+  else if(S.mode==='api'){
+    if(!GHCFG.token||S.form){h=`<div class="synchead">☁ <b>GitHub</b> <span class="hint">${GHCFG.token?'configuración':'sin conectar'}</span></div>
+      ${S.form||!GHCFG.token?`<div class="ghform">
+        <label>Repositorio <input id="ghRepo" value="${esc(GHCFG.repo)}"></label>
+        <label>Token <input id="ghTok" type="password" placeholder="github_pat_…" value="${esc(GHCFG.token)}" autocomplete="off"></label>
+        <label>Carpeta para fichas nuevas <input id="ghFolder" value="${esc(GHCFG.folder||'')}" placeholder="Jugadores"></label>
+        <p class="hint">Creá un token <i>fine-grained</i> en GitHub → Settings → Developer settings → Personal access tokens: elegí sólo este repositorio y el permiso <b>Contents: Read and write</b>. Queda guardado sólo en este navegador. Para traer fichas de un repositorio público no hace falta token.</p>
+        <div class="row"><button class="mini big2" data-sync="cfgsave">Guardar</button>${GHCFG.token?'<button class="mini" data-sync="cfgdel">Borrar token</button>':''}<button class="mini" data-sync="pull">⬇ Traer sin token</button>${S.form?'<button class="mini" data-sync="cfgclose">Cerrar</button>':''}</div></div>`:''}`}
+    else{const L=apiPushList();
+      h=`<div class="synchead">☁ <b>GitHub</b> <span class="hint">${esc(GHCFG.repo)}</span> <button class="mini" data-sync="cfg" title="Configurar">⚙</button></div>
+      <div class="row"><button class="mini" data-sync="pull" ${S.busy?'disabled':''}>⬇ Traer globales</button>
+        <input id="syncMsg" placeholder="mensaje (opcional)" style="flex:1;min-width:90px;font-size:12px">
+        <button class="mini big2" data-sync="${FS.ok?'push':'pick'}" ${S.busy?'disabled':''}>⬆ Subir globales${FS.ok?` (${L.length})`:'…'}</button></div>
+      ${S.pick?`<div class="ghpick"><b>¿Qué fichas de este navegador se suben a global?</b>${Object.values(roster()).sort((a,b)=>(a.name||'').localeCompare(b.name||'')).map(c=>`<label class="check"><input type="checkbox" data-ghpick="${c.id}" ${c._ghPath?'checked':''}> ${esc(c.name||'sin nombre')} <small class="hint">${esc(c._ghPath?c._ghPath.replace(/^heroes\/global\//,''):'nueva → '+(GHCFG.folder||'')+'/')}</small></label>`).join('')}
+        <div class="row"><button class="mini big2" data-sync="push">⬆ Subir las marcadas</button><button class="mini" data-sync="pickclose">Cancelar</button></div></div>`:''}`}}
+  if(S.busy)h+=`<div class="hint">⏳ trabajando…</div>`;
+  if(S.log)h+=`<details class="synclog"><summary>Último resultado</summary><pre>${esc(S.log)}</pre></details>`;
+  el.innerHTML=h}
+async function gitCall(path,body){const r=await fetch(path,{method:body?'POST':'GET',headers:{'X-ICONS':'1','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});return r.json()}
+// --- API de GitHub
+async function gh(path,opt={}){const h={Accept:'application/vnd.github+json'};if(GHCFG.token)h.Authorization='Bearer '+GHCFG.token;if(opt.body)h['Content-Type']='application/json';
+  const r=await fetch(`https://api.github.com/repos/${GHCFG.repo}${path}`,{method:opt.method||'GET',headers:h,body:opt.body?JSON.stringify(opt.body):undefined});
+  const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(`${r.status} ${d.message||''}`.trim());return d}
+const b64utf8=s=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+function globalBase(){if(!FS.ok)return null;if(/^global$/i.test(FS.dir.name))return '';const f=(FS.folders||[]).find(x=>/(^|\/)global$/i.test(x.path)&&scopeOf(x.path.split('/').slice(0,-1).join('/'))!=='global');return f?f.path:null}
+async function fsEnsureDir(path){let d=FS.dir;for(const seg of (path||'').split('/').filter(Boolean))d=await d.getDirectoryHandle(seg,{create:true});return d}
+function apiPushList(){
+  if(FS.ok){const gb=globalBase();if(gb==null)return[];
+    return FS.files.filter(f=>scopeOf(f.folder)==='global').map(f=>{const rel=(f.folder===gb?'':f.folder.slice(gb.length).replace(/^\//,''));return{path:`heroes/global/${rel?rel+'/':''}${f.fname}`,data:f.data}})}
+  return Object.values(roster()).filter(c=>SYNC.pickIds?SYNC.pickIds.includes(c.id):c._ghPath).map(c=>({path:c._ghPath||`heroes/global/${(GHCFG.folder||'').replace(/^\/|\/$/g,'')?(GHCFG.folder.replace(/^\/|\/$/g,'')+'/'):''}${slugify(c.name)||'heroe'}.json`,data:c}))}
+const cleanSheet=c=>{const o=clone(c);delete o._ghPath;delete o._ghFolder;return o};
+async function apiPull(){const ref=await gh(`/git/ref/heads/${GHCFG.branch}`);const tree=await gh(`/git/trees/${ref.object.sha}?recursive=1`);
+  const files=(tree.tree||[]).filter(x=>x.type==='blob'&&/^heroes\/global\/.+\.json$/.test(x.path));let n=0;const gb=globalBase();
+  for(const f of files){try{const blob=await gh(`/git/blobs/${f.sha}`);const txt=b64utf8(blob.content);const d=JSON.parse(txt);if(!d||!d.id)continue;
+      if(FS.ok&&gb!=null){const rel=f.path.replace(/^heroes\/global\//,'');const sub=rel.split('/').slice(0,-1).join('/');const dir=await fsEnsureDir([gb,sub].filter(Boolean).join('/'));
+        const h=await dir.getFileHandle(rel.split('/').pop(),{create:true});const w=await h.createWritable();await w.write(txt);await w.close()}
+      else{d._ghPath=f.path;const r=roster();r[d.id]=d;setRoster(r,true)}n++}catch(_){}}
+  if(FS.ok)await fsScan();renderRoster();return `${n} ficha${n===1?'':'s'} traída${n===1?'':'s'} de ${GHCFG.repo}`+(FS.ok&&gb==null?' (no encontré una carpeta global en la carpeta elegida: quedaron en este navegador)':'')}
+async function apiPush(msg){if(!GHCFG.token)throw new Error('Falta el token');const L=apiPushList();if(!L.length)return 'No hay fichas globales para subir';
+  for(let attempt=0;attempt<2;attempt++){
+    const ref=await gh(`/git/ref/heads/${GHCFG.branch}`);const base=await gh(`/git/commits/${ref.object.sha}`);
+    const tr=await gh('/git/trees',{method:'POST',body:{base_tree:base.tree.sha,tree:L.map(x=>({path:x.path,mode:'100644',type:'blob',content:JSON.stringify(cleanSheet(x.data),null,2)}))}});
+    if(tr.sha===base.tree.sha)return 'Nada nuevo: GitHub ya tiene estas fichas iguales';
+    const cm=await gh('/git/commits',{method:'POST',body:{message:msg||`Fichas: ${L.length} desde ICONS Engine`,tree:tr.sha,parents:[ref.object.sha]}});
+    try{await gh(`/git/refs/heads/${GHCFG.branch}`,{method:'PATCH',body:{sha:cm.sha}})}catch(e){if(attempt===0&&/422|409/.test(e.message))continue;throw e}
+    if(!FS.ok){const r=roster();L.forEach(x=>{if(r[x.data.id])r[x.data.id]._ghPath=x.path});setRoster(r,true)}
+    return `${L.length} ficha${L.length===1?'':'s'} subida${L.length===1?'':'s'} a ${GHCFG.repo} (commit ${cm.sha.slice(0,7)})`}}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-sync]');if(!b)return;const a=b.dataset.sync;const S=SYNC;
+  if(a==='cfg'){S.form=true;renderSync();return}if(a==='cfgclose'){S.form=false;renderSync();return}
+  if(a==='cfgsave'){GHCFG.repo=$('ghRepo').value.trim()||GH_REPO;GHCFG.token=$('ghTok').value.trim();GHCFG.folder=$('ghFolder').value.trim();ghSaveCfg();S.form=false;renderSync();toast(GHCFG.token?'GitHub conectado':'Guardado (sin token: sólo traer)');return}
+  if(a==='cfgdel'){GHCFG.token='';ghSaveCfg();renderSync();return}
+  if(a==='pick'){S.pick=true;renderSync();return}if(a==='pickclose'){S.pick=false;renderSync();return}
+  if(a==='refresh'){S.st=await gitCall('/git/status');renderSync();return}
+  const msg=(($('syncMsg')||{}).value||'').trim();
+  if(a==='push'&&S.pick){S.pickIds=[...document.querySelectorAll('[data-ghpick]:checked')].map(x=>x.dataset.ghpick);if(!S.pickIds.length){toast('Marcá al menos una ficha');return}}
+  S.busy=true;renderSync();
+  try{
+    if(S.mode==='git'){save(true);await new Promise(r=>setTimeout(r,500));
+      const r=await gitCall(a==='pull'?'/git/pull':'/git/push',{message:msg});S.log=r.log||'';
+      if(FS.ok)await fsScan();renderRoster();S.st=await gitCall('/git/status');
+      toast(r.ok?(a==='pull'?'Listo: fichas al día. Si cambió la app, recargá la página':'Listo: fichas globales subidas'):'Git devolvió un error: mirá “Último resultado”')}
+    else{S.log=a==='pull'?await apiPull():await apiPush(msg);toast(S.log.split('\n')[0]);S.pick=false;S.pickIds=null}
+  }catch(err){S.log=String(err.message||err);toast('No se pudo: '+S.log)}
+  S.busy=false;renderSync()});
 function setMode(play){
   PLAY_MODE=play;document.body.classList.toggle('play',play);$('btnMode').classList.toggle('on',play);
   $('btnMode').textContent=play?'✏️ Editar ficha':'🎭 Modo jugar';
@@ -3469,6 +3562,8 @@ tblLoad();
 try{syncBalNote()}catch(_){}
 try{$('playDie').value=String(PLAY_DIE)}catch(_){}
 try{initFolds();applyMobile()}catch(_){}
+try{syncDetect()}catch(_){}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||/^(localhost|127\.0\.0\.1)$/.test(location.hostname))){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 try{$('diceManual').checked=DICE_MODE==='manual';$('diceToggle').classList.toggle('on',DICE_MODE==='manual')}catch(_){}
 try{$('rfield').value=RV.field;$('rsort').value=RV.sort;$('rq').placeholder=$('rfield').selectedOptions[0].dataset.ph||'Buscar…'}catch(_){}
 renderRefList();renderRoster();

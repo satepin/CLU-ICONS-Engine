@@ -131,10 +131,37 @@ En pantallas chicas la app cambia sola a la **vista móvil**. También se puede 
 - **☰** muestra u oculta los botones de arriba.
 - Los navegadores del celular no dejan elegir una carpeta. Las fichas se guardan en el navegador, y en **Héroes** el botón **☁ Traer fichas globales de GitHub** baja las de `heroes/global`. Para pasar una ficha a la compu, usá **⇄ JSON**.
 
-## Subir fichas al repositorio
+## Sincronizar fichas con GitHub (botones ⬇ Traer / ⬆ Subir)
+
+En **Héroes guardados** hay una caja de sincronización. Funciona de dos maneras, según cómo abras la app.
+
+### En la compu: `serve.py` (git de verdad)
 
 ```bash
-git pull                      # traé lo último del grupo
+cd CLU-ICONS-Engine
+python3 serve.py
+```
+
+Se abre el navegador en `http://localhost:8765`. Elegí la carpeta `heroes` como siempre, y en la caja **⇅ Git** vas a ver:
+- cuántas fichas globales cambiaste y si hay novedades en GitHub;
+- **⬇ Traer (pull):** corre `git pull --rebase --autostash` y vuelve a armar la app;
+- **⬆ Subir globales:** corre `git add heroes/global`, hace el commit con tu mensaje, `git pull --rebase` y `git push`.
+
+Usa tu propio git, con tu usuario y tus credenciales, así que no hace falta ningún token. El servidor sólo escucha en tu máquina.
+
+### En el celular o abriendo el archivo directo: token de GitHub
+
+Sin `serve.py`, la caja dice **☁ GitHub**:
+- **⬇ Traer globales** funciona sin token, porque el repositorio es público.
+- Para **⬆ Subir** hace falta un token *fine-grained*: GitHub → Settings → Developer settings → Personal access tokens → *Generate new token*. Elegí sólo este repositorio y el permiso **Contents: Read and write**. Pegalo en ⚙. Queda guardado sólo en ese navegador.
+- Desde el celular elegís qué fichas subir. Las nuevas van a la carpeta configurada, por defecto `Jugadores`.
+
+> Si en la compu usás git, preferí `serve.py`. Si subís desde el celular, hacé **⬇ Traer** (o `git pull`) en la compu antes de seguir editando.
+
+### A mano
+
+```bash
+git pull
 git add heroes/global
 git commit -m "Fichas: agrego a Imparable"
 git push
@@ -142,7 +169,14 @@ git push
 
 Lo que está en `heroes/local/` nunca se sube.
 
----
+## Instalarla como app (celular o escritorio)
+
+La app es instalable como PWA: tiene ícono propio, se abre sin barra del navegador y funciona sin conexión. Hace falta abrirla desde una dirección web, como GitHub Pages (`https://satepin.github.io/CLU-ICONS-Engine/`) o `serve.py`. Después:
+- **Android (Chrome):** menú ⋮ → *Instalar app* o *Agregar a la pantalla principal*.
+- **iPhone (Safari):** Compartir → *Agregar a inicio*.
+- **Escritorio (Chrome o Edge):** el ícono de instalar en la barra de direcciones.
+
+Para tener un **.apk**, se puede generar uno desde la dirección de GitHub Pages con [PWABuilder](https://www.pwabuilder.com/): pegás la URL, elegís *Android* y te da el `.apk` firmado para instalar.
 
 ## Para desarrollar
 
