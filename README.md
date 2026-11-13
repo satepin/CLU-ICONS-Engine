@@ -129,7 +129,7 @@ En pantallas chicas la app cambia sola a la **vista móvil**. También se puede 
 
 - En la **Mesa**, las fichas van en **un solo carril horizontal**: se deslizan de costado, y los botones con sus nombres saltan a cada una. Las herramientas (tirada grupal, acciones, iniciativa y ataque) quedan plegadas en **🧰 Herramientas de mesa**. Cuando hay iniciativa, el desplegable muestra a quién le toca.
 - **☰** muestra u oculta los botones de arriba.
-- Los navegadores del celular no dejan elegir una carpeta. Las fichas se guardan en el navegador, y en **Héroes** el botón **☁ Traer fichas globales de GitHub** baja las de `heroes/global`. Para pasar una ficha a la compu, usá **⇄ JSON**.
+- Los navegadores del celular no dejan elegir una carpeta. Las fichas se guardan en el navegador, **con la misma estructura de carpetas** (`global/…` y `local/`). **⬇ Traer globales** baja las del repositorio cada una a su carpeta. Para moverlas, usá el botón **📂** de cada ficha o arrastralas; se pueden crear carpetas con **+ carpeta**. **⬆ Subir globales** sube todo lo que esté dentro de `global/`.
 
 ## Sincronizar fichas con GitHub (botones ⬇ Traer / ⬆ Subir)
 

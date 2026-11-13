@@ -373,6 +373,7 @@ body.mobile #tableView .tabs{margin-bottom:6px}
 .syncbox .row{gap:4px;flex-wrap:wrap}
 .ghform label{display:block;font-size:12px;margin:3px 0}.ghform input{width:100%;font-size:13px}
 .ghpick{border:1px dashed var(--ink);border-radius:4px;padding:6px;margin-top:4px;max-height:260px;overflow:auto}.ghpick label{display:block}
+.mvrow{font-size:12px;display:flex;gap:4px;align-items:center;margin:2px 0 4px}.mvrow select{font-size:12px;max-width:200px}
 .synclog pre{white-space:pre-wrap;font-size:11px;max-height:180px;overflow:auto;background:#fff;border:1px solid #ccc;padding:4px}
 /* ---------- vista para celular ---------- */
 .mnav{display:none}
@@ -1397,16 +1398,26 @@ function sortItems(arr){
     updated:(a,b)=>(+b.data.updated||0)-(+a.data.updated||0)}[RV.sort]||(()=>0);
   return arr.slice().sort(by);
 }
+// Sin carpeta conectada, las fichas del navegador también se ordenan en carpetas (local/ y global/ como en el repositorio).
+let LSF={map:{},dirs:[]};try{LSF=Object.assign(LSF,JSON.parse(localStorage.getItem('icons-gp-lsfold')||'{}'))}catch(_){}
+const lsfSave=()=>{try{localStorage.setItem('icons-gp-lsfold',JSON.stringify(LSF))}catch(_){}};
+const ghDirOf=c=>c&&c._ghPath?c._ghPath.replace(/^heroes\//,'').replace(/\/[^/]+$/,''):'';
+const lsFolderOf=c=>LSF.map[c.id]!=null?LSF.map[c.id]:(ghDirOf(c)||'local');
+function lsFolders(){const set=new Set(['global','local',...LSF.dirs]);Object.values(roster()).forEach(c=>{const f=lsFolderOf(c);if(f)set.add(f)});
+  [...set].forEach(f=>{const s=f.split('/');for(let i=1;i<s.length;i++)set.add(s.slice(0,i).join('/'))});
+  return [...set].filter(Boolean).sort((a,b)=>a.localeCompare(b)).map(path=>({path,name:path.split('/').pop()}))}
+const curFolders=()=>FS.ok?FS.folders:lsFolders();
+function lsMove(id,folder){LSF.map[id]=folder;lsfSave();renderRoster();renderSync()}
 function rosterItems(){
   if(FS.ok)return FS.files.map(f=>({key:'fs:'+f.file,data:f.data,label:f.file,folder:f.folder}));
-  const r=roster();return Object.keys(r).map(k=>({key:'ls:'+k,data:r[k],folder:''}));
+  const r=roster();return Object.keys(r).map(k=>({key:'ls:'+k,data:r[k],folder:lsFolderOf(r[k]),label:lsFolderOf(r[k])+'/'+(slugify(r[k].name)||'heroe')+'.json'}));
 }
 const scopeOf=path=>{const segs=[(FS.dir&&FS.dir.name)||'',...(path||'').split('/')].map(s=>s.toLowerCase());return segs.find(s=>s==='local'||s==='global')||''};
 const isScopeFolder=path=>/(^|\/)(local|global)$/i.test(path||'');
 const SCOPE={local:{ico:'🔒',lab:'privada · no se sube'},global:{ico:'🌐',lab:'compartida · se sube al repositorio'}};
 function itemRow(it,depth){
   const d=it.data;const ab=abilityQuery(RV.q||'');const sc=scopeOf(it.folder);
-  return `<div class="ritem ${d.id===C.id?'cur':''} ${sc?'sc-'+sc:''}" draggable="true" data-rid="${d.id}" style="padding-left:${depth*14}px"><span data-load="${esc(it.key)}" title="${esc((it.label||'')+(sc?' — '+SCOPE[sc].lab:''))}">${sc?`<i class="scico">${SCOPE[sc].ico}</i>`:''}${kindIcon(d.kind)}${esc(d.name||'sin nombre')} <small class="hint">${esc(d.origin||'')}${(d.links||[]).length?' · 🔗'+d.links.length:''}${ab?` · ${ab.a} ${(d.abilities||{})[ab.a]}`:''}</small></span><button class="mini" data-dup="${esc(it.key)}" title="Duplicar">⧉</button><button class="mini" data-delr="${esc(it.key)}" title="Borrar">✕</button></div>`;
+  return `<div class="ritem ${d.id===C.id?'cur':''} ${sc?'sc-'+sc:''}" draggable="true" data-rid="${d.id}" style="padding-left:${depth*14}px"><span data-load="${esc(it.key)}" title="${esc((it.label||'')+(sc?' — '+SCOPE[sc].lab:''))}">${sc?`<i class="scico">${SCOPE[sc].ico}</i>`:''}${kindIcon(d.kind)}${esc(d.name||'sin nombre')} <small class="hint">${esc(d.origin||'')}${(d.links||[]).length?' · 🔗'+d.links.length:''}${ab?` · ${ab.a} ${(d.abilities||{})[ab.a]}`:''}</small></span><button class="mini" data-mvr="${esc(it.key)}" title="Mover a otra carpeta">📂</button><button class="mini" data-dup="${esc(it.key)}" title="Duplicar">⧉</button><button class="mini" data-delr="${esc(it.key)}" title="Borrar">✕</button></div>${RV.moving===it.key?`<div class="mvrow" style="padding-left:${depth*14+18}px">mover a <select data-mvto="${esc(it.key)}"><option value="">— elegí —</option>${(FS.ok?['']:[]).concat(curFolders().map(f=>f.path)).filter(f=>f!==it.folder).map(f=>`<option value="${esc(f)}">${f?esc(f):'(raíz)'}</option>`).join('')}</select><button class="mini" data-mvr="${esc(it.key)}">cancelar</button></div>`:''}`;
 }
 function renderRoster(){
   const all=rosterItems();const items=sortItems(all.filter(it=>matches(it.data)));const searching=!!(RV.q||'').trim();let h='';
@@ -1416,15 +1427,17 @@ function renderRoster(){
     else if(FS.dir)h+=`<div class="folderbar"><button class="mini" data-fs="reconnect">📁 Reconectar “${esc(FS.dir.name)}”</button><button class="mini" data-fs="pick">otra</button></div>`;
     else h+=`<div class="folderbar"><button class="mini" data-fs="pick">📁 Elegir carpeta de fichas</button></div>`;
   }
-  if(FS.ok&&!FS.folders.some(f=>isScopeFolder(f.path))&&!/^(local|global)$/i.test(FS.dir.name))h+=`<div class="scwarn">Esta carpeta no tiene <b>local/</b> ni <b>global/</b>. Si usás el repositorio, tocá <b>cambiar</b> y elegí <b>CLU-ICONS-Engine/heroes</b>.</div>`;
+  if(!FS.ok)h+=`<div class="folderbar"><b>🗂 En este navegador</b><button class="mini" data-fs="mkdir" title="Nueva carpeta">+ carpeta</button></div>
+      <div class="row" id="mkdirRow" style="display:none;margin-bottom:6px"><input id="mkdirName" placeholder="nombre de la carpeta" style="flex:1;font-size:12px"><select id="mkdirIn" style="font-size:12px"><option value="">en la raíz</option>${lsFolders().map(f=>`<option value="${esc(f.path)}" ${f.path==='global'?'selected':''}>en ${esc(f.path)}</option>`).join('')}</select><button class="mini" data-fs="mkdirgo">crear</button></div>`;
+  if(FS.ok&&FS.dir&&!FS.folders.some(f=>isScopeFolder(f.path))&&!/^(local|global)$/i.test(FS.dir.name))h+=`<div class="scwarn">Esta carpeta no tiene <b>local/</b> ni <b>global/</b>. Si usás el repositorio, tocá <b>cambiar</b> y elegí <b>CLU-ICONS-Engine/heroes</b>.</div>`;
   h+=`<div class="src">${FS.ok?'En la carpeta':'En este navegador'}${searching?` · ${items.length} de ${all.length}`:''}</div>`;
   if(!all.length)h+='<span class="hint">Nada guardado todavía.</span>';
   else if(searching&&!items.length)h+='<span class="hint">Ninguna ficha coincide.</span>';
-  else if(FS.ok&&FS.folders.length){
+  else if(curFolders().length){
     const count=path=>items.filter(it=>it.folder===path||it.folder.startsWith(path+'/')).length;
     const node=(path,depth)=>{let s='';
       items.filter(it=>it.folder===path).forEach(it=>s+=itemRow(it,depth));
-      FS.folders.filter(f=>f.path.slice(0,f.path.lastIndexOf('/')<0?0:f.path.lastIndexOf('/'))===path&&(path?f.path.startsWith(path+'/'):!f.path.includes('/'))).forEach(f=>{
+      curFolders().filter(f=>f.path.slice(0,f.path.lastIndexOf('/')<0?0:f.path.lastIndexOf('/'))===path&&(path?f.path.startsWith(path+'/'):!f.path.includes('/'))).forEach(f=>{
         const n=count(f.path);if(searching&&!n)return;const col=!searching&&RV.collapsed[f.path];
         const sc=scopeOf(f.path);const top=sc&&isScopeFolder(f.path)&&scopeOf(f.path.split('/').slice(0,-1).join('/'))!==sc;
         s+=`<div class="rfold ${sc?'sc-'+sc:''} ${top?'sctop':''}" data-fold="${esc(f.path)}" style="padding-left:${depth*14}px"><button class="mini ghost" data-foldtog="${esc(f.path)}" title="${col?'Expandir':'Colapsar'}${sc?' — '+SCOPE[sc].lab:''}">${col?'▸':'▾'} ${top?SCOPE[sc].ico:'📁'} ${esc(f.name)} <small class="hint">(${n})</small>${top?`<span class="scbadge">${sc==='local'?'privada':'se sube'}</span>`:''}</button></div>`;
@@ -1435,9 +1448,11 @@ function renderRoster(){
   else h+=items.map(it=>itemRow(it,0)).join('');
   h+=`<div class="folderbar" style="margin-top:8px"><label class="btn" style="font-size:12px;padding:2px 8px">Importar .json… <input type="file" id="rImport" accept=".json,application/json" multiple style="display:none"></label>${RV.sort==='manual'?'<span class="hint">Arrastrá para reordenar.</span>':''}</div>`;
   if(!fsSupported())h+=`<p class="hint">Para guardar en una carpeta abrí el archivo <b>icons-hero-generator.html</b> en Chrome o Edge (en esta vista el navegador no lo permite). Mientras, se guarda en el navegador y podés exportar con “⇄ JSON”.</p>`;
-  else if(!FS.ok)h+=`<p class="hint">Elegí una carpeta (por ej. <i>club ludico/fichas</i>) y cada héroe se guarda ahí como un .json. Las subcarpetas se ven como grupos.</p>`;
+  else if(!FS.ok)h+=`<p class="hint">En la compu podés elegir la carpeta <i>CLU-ICONS-Engine/heroes</i> y cada héroe se guarda ahí como un .json. Si no, quedan en este navegador, ordenadas en carpetas igual: usá 📂 o arrastrá para moverlas.</p>`;
   $('roster').innerHTML=h;
 }
+async function moveItem(it,folder){if(FS.ok)await fsSave(it.data,true,folder);else lsMove(it.data.id,folder);toast(`${it.data.name} → ${folder||'raíz'}${scopeOf(folder)==='global'?' (se sube con ⬆)':''}`)}
+document.addEventListener('change',async e=>{if(!e.target.dataset||!e.target.dataset.mvto||!e.target.value)return;const it=findItem(e.target.dataset.mvto);RV.moving=null;if(it)await moveItem(it,e.target.value);else renderRoster()});
 // controles de búsqueda y orden
 document.addEventListener('input',e=>{if(e.target.id==='rq'){RV.q=e.target.value;renderRoster()}});
 document.addEventListener('change',e=>{if(e.target.id==='rfield'){RV.field=e.target.value;$('rq').placeholder=e.target.selectedOptions[0].dataset.ph||'Buscar…';rvSave();renderRoster()}else if(e.target.id==='rsort'){RV.sort=e.target.value;rvSave();renderRoster()}});
@@ -1452,7 +1467,7 @@ document.addEventListener('dragend',()=>{DRAG=null;document.querySelectorAll('.d
 function dropTarget(e){if(!DRAG)return null;
   if(DRAG.k==='table'){const box=e.target.closest('.inibox');if(box){const r=e.target.closest('.inirow[data-ini]');return r?{el:r,kind:'iniadd',vert:true,id:r.dataset.ini}:{el:box,kind:'iniadd'}}}
   if(DRAG.k==='init'){const r=e.target.closest('.inirow[data-ini]');return r&&r.dataset.ini!==DRAG.id?{el:r,kind:'init',vert:true,id:r.dataset.ini}:null}
-  if(DRAG.k==='roster'){const f=e.target.closest('.rfold[data-fold]');if(f&&FS.ok)return{el:f,kind:'fold'};const r=e.target.closest('.ritem[data-rid]');return r&&r.dataset.rid!==DRAG.id?{el:r,kind:'item',vert:true}:null}
+  if(DRAG.k==='roster'){const f=e.target.closest('.rfold[data-fold]');if(f)return{el:f,kind:'fold'};const r=e.target.closest('.ritem[data-rid]');return r&&r.dataset.rid!==DRAG.id?{el:r,kind:'item',vert:true}:null}
   const t=e.target.closest('.tcard[data-cid],.tab[data-tid]');const id=t&&(t.dataset.cid||t.dataset.tid);return t&&id!==DRAG.id?{el:t,kind:'tbl',id}:null}
 document.addEventListener('dragover',e=>{const d=dropTarget(e);document.querySelectorAll('.drop-before,.drop-after,.drop-in').forEach(x=>x.classList.remove('drop-before','drop-after','drop-in'));if(!d)return;e.preventDefault();
   if(d.kind==='fold'||(d.kind==='iniadd'&&!d.id)){d.el.classList.add('drop-in');return}
@@ -1462,7 +1477,7 @@ document.addEventListener('drop',async e=>{const d=dropTarget(e);if(!d)return;e.
   if(d.kind==='init'){const L=TABLE.init.list.filter(x=>x.id!==id);let i=L.findIndex(x=>x.id===d.id);if(after)i++;initMove(id,i);return}
   if(d.kind==='tbl'){const a=TABLE.ids.filter(x=>x!==id);let i=a.indexOf(d.id);if(after)i++;a.splice(i,0,id);TABLE.ids=a;tblSave();renderPlayRoot();return}
   const it=rosterItems().find(x=>x.data.id===id);
-  if(d.kind==='fold'){const folder=d.el.dataset.fold;if(it&&it.folder!==folder){await fsSave(it.data,true,folder);toast(`${it.data.name} → ${folder||'raíz'}`)}return}
+  if(d.kind==='fold'){const folder=d.el.dataset.fold;if(it&&it.folder!==folder){await moveItem(it,folder)}return}
   const tgt=rosterItems().find(x=>x.data.id===d.el.dataset.rid);
   // orden manual: arma el orden con lo que se ve y mueve el arrastrado
   const vis=sortItems(rosterItems()).map(x=>x.data.id);const ord=getOrder().filter(x=>vis.includes(x));vis.forEach(x=>{if(!ord.includes(x))ord.push(x)});
@@ -1473,11 +1488,14 @@ document.addEventListener('drop',async e=>{const d=dropTarget(e);if(!d)return;e.
 
 function findItem(key){return rosterItems().find(i=>i.key===key)}
 async function handleRoster(t){
+  if(t.dataset.mvr){RV.moving=RV.moving===t.dataset.mvr?null:t.dataset.mvr;renderRoster();return}
   if(t.dataset.foldtog!=null){const f=t.dataset.foldtog;RV.collapsed[f]=!RV.collapsed[f];rvSave();renderRoster();return}
   if(t.dataset.fs){const a=t.dataset.fs;if(a==='pick')await fsPick();else if(a==='reconnect')await fsReconnect();else if(a==='refresh')await fsRefresh();
     else if(a==='mkdir'){const r=$('mkdirRow');r.style.display=r.style.display==='none'?'':'none';if(r.style.display!=='none')$('mkdirName').focus()}
-    else if(a==='mkdirgo'){const n=($('mkdirName').value||'').trim().replace(/[\\/:*?"<>|]/g,'');if(!n){toast('Escribí un nombre');return}try{await fsMkdir(n,$('mkdirIn').value);toast('Carpeta creada: '+n)}catch(err){toast('No se pudo crear: '+err.message)}}
-    else if(a==='expandall'){RV.collapsed={};rvSave();renderRoster()}else if(a==='collapseall'){(FS.folders||[]).forEach(f=>RV.collapsed[f.path]=true);rvSave();renderRoster()}
+    else if(a==='mkdirgo'){const n=($('mkdirName').value||'').trim().replace(/[\\/:*?"<>|]/g,'');if(!n){toast('Escribí un nombre');return}
+      if(!FS.ok){const par=$('mkdirIn').value;LSF.dirs.push((par?par+'/':'')+n);lsfSave();renderRoster();toast('Carpeta creada: '+n);return}
+      try{await fsMkdir(n,$('mkdirIn').value);toast('Carpeta creada: '+n)}catch(err){toast('No se pudo crear: '+err.message)}}
+    else if(a==='expandall'){RV.collapsed={};rvSave();renderRoster()}else if(a==='collapseall'){curFolders().forEach(f=>RV.collapsed[f.path]=true);rvSave();renderRoster()}
     return}
   if(t.dataset.load){const it=findItem(t.dataset.load);if(!it)return;
     if(PLAY_MODE){tableOpen(it.data.id,TABLE.view!=='grid');toast('En la mesa: '+(it.data.name||'sin nombre'));return}
@@ -1607,16 +1625,14 @@ function renderSync(){const el=$('syncBox');if(!el)return;const S=SYNC;let h='';
       ${S.form||!GHCFG.token?`<div class="ghform">
         <label>Repositorio <input id="ghRepo" value="${esc(GHCFG.repo)}"></label>
         <label>Token <input id="ghTok" type="password" placeholder="github_pat_…" value="${esc(GHCFG.token)}" autocomplete="off"></label>
-        <label>Carpeta para fichas nuevas <input id="ghFolder" value="${esc(GHCFG.folder||'')}" placeholder="Jugadores"></label>
         <p class="hint">Creá un token <i>fine-grained</i> en GitHub → Settings → Developer settings → Personal access tokens: elegí sólo este repositorio y el permiso <b>Contents: Read and write</b>. Queda guardado sólo en este navegador. Para traer fichas de un repositorio público no hace falta token.</p>
         <div class="row"><button class="mini big2" data-sync="cfgsave">Guardar</button>${GHCFG.token?'<button class="mini" data-sync="cfgdel">Borrar token</button>':''}<button class="mini" data-sync="pull">⬇ Traer sin token</button>${S.form?'<button class="mini" data-sync="cfgclose">Cerrar</button>':''}</div></div>`:''}`}
     else{const L=apiPushList();
       h=`<div class="synchead">☁ <b>GitHub</b> <span class="hint">${esc(GHCFG.repo)}</span> <button class="mini" data-sync="cfg" title="Configurar">⚙</button></div>
       <div class="row"><button class="mini" data-sync="pull" ${S.busy?'disabled':''}>⬇ Traer globales</button>
         <input id="syncMsg" placeholder="mensaje (opcional)" style="flex:1;min-width:90px;font-size:12px">
-        <button class="mini big2" data-sync="${FS.ok?'push':'pick'}" ${S.busy?'disabled':''}>⬆ Subir globales${FS.ok?` (${L.length})`:'…'}</button></div>
-      ${S.pick?`<div class="ghpick"><b>¿Qué fichas de este navegador se suben a global?</b>${Object.values(roster()).sort((a,b)=>(a.name||'').localeCompare(b.name||'')).map(c=>`<label class="check"><input type="checkbox" data-ghpick="${c.id}" ${c._ghPath?'checked':''}> ${esc(c.name||'sin nombre')} <small class="hint">${esc(c._ghPath?c._ghPath.replace(/^heroes\/global\//,''):'nueva → '+(GHCFG.folder||'')+'/')}</small></label>`).join('')}
-        <div class="row"><button class="mini big2" data-sync="push">⬆ Subir las marcadas</button><button class="mini" data-sync="pickclose">Cancelar</button></div></div>`:''}`}}
+        <button class="mini big2" data-sync="push" ${S.busy?'disabled':''} title="Sube las fichas que están en global/">⬆ Subir globales (${L.length})</button></div>
+`}}
   if(S.busy)h+=`<div class="hint">⏳ trabajando…</div>`;
   if(S.log)h+=`<details class="synclog"><summary>Último resultado</summary><pre>${esc(S.log)}</pre></details>`;
   el.innerHTML=h}
@@ -1631,14 +1647,15 @@ async function fsEnsureDir(path){let d=FS.dir;for(const seg of (path||'').split(
 function apiPushList(){
   if(FS.ok){const gb=globalBase();if(gb==null)return[];
     return FS.files.filter(f=>scopeOf(f.folder)==='global').map(f=>{const rel=(f.folder===gb?'':f.folder.slice(gb.length).replace(/^\//,''));return{path:`heroes/global/${rel?rel+'/':''}${f.fname}`,data:f.data}})}
-  return Object.values(roster()).filter(c=>SYNC.pickIds?SYNC.pickIds.includes(c.id):c._ghPath).map(c=>({path:c._ghPath||`heroes/global/${(GHCFG.folder||'').replace(/^\/|\/$/g,'')?(GHCFG.folder.replace(/^\/|\/$/g,'')+'/'):''}${slugify(c.name)||'heroe'}.json`,data:c}))}
+  return Object.values(roster()).filter(c=>scopeOf(lsFolderOf(c))==='global').map(c=>{const f=lsFolderOf(c);const keep=c._ghPath&&ghDirOf(c)===f;return{path:keep?c._ghPath:`heroes/${f}/${slugify(c.name)||'heroe'}.json`,data:c}})}
 const cleanSheet=c=>{const o=clone(c);delete o._ghPath;delete o._ghFolder;return o};
 async function apiPull(){const ref=await gh(`/git/ref/heads/${GHCFG.branch}`);const tree=await gh(`/git/trees/${ref.object.sha}?recursive=1`);
   const files=(tree.tree||[]).filter(x=>x.type==='blob'&&/^heroes\/global\/.+\.json$/.test(x.path));let n=0;const gb=globalBase();
   for(const f of files){try{const blob=await gh(`/git/blobs/${f.sha}`);const txt=b64utf8(blob.content);const d=JSON.parse(txt);if(!d||!d.id)continue;
       if(FS.ok&&gb!=null){const rel=f.path.replace(/^heroes\/global\//,'');const sub=rel.split('/').slice(0,-1).join('/');const dir=await fsEnsureDir([gb,sub].filter(Boolean).join('/'));
         const h=await dir.getFileHandle(rel.split('/').pop(),{create:true});const w=await h.createWritable();await w.write(txt);await w.close()}
-      else{d._ghPath=f.path;const r=roster();r[d.id]=d;setRoster(r,true)}n++}catch(_){}}
+      else{d._ghPath=f.path;delete LSF.map[d.id];const r=roster();r[d.id]=d;setRoster(r,true)}n++}catch(_){}}
+  lsfSave();
   if(FS.ok)await fsScan();renderRoster();return `${n} ficha${n===1?'':'s'} traída${n===1?'':'s'} de ${GHCFG.repo}`+(FS.ok&&gb==null?' (no encontré una carpeta global en la carpeta elegida: quedaron en este navegador)':'')}
 async function apiPush(msg){if(!GHCFG.token)throw new Error('Falta el token');const L=apiPushList();if(!L.length)return 'No hay fichas globales para subir';
   for(let attempt=0;attempt<2;attempt++){
@@ -1647,16 +1664,16 @@ async function apiPush(msg){if(!GHCFG.token)throw new Error('Falta el token');co
     if(tr.sha===base.tree.sha)return 'Nada nuevo: GitHub ya tiene estas fichas iguales';
     const cm=await gh('/git/commits',{method:'POST',body:{message:msg||`Fichas: ${L.length} desde ICONS Engine`,tree:tr.sha,parents:[ref.object.sha]}});
     try{await gh(`/git/refs/heads/${GHCFG.branch}`,{method:'PATCH',body:{sha:cm.sha}})}catch(e){if(attempt===0&&/422|409/.test(e.message))continue;throw e}
-    if(!FS.ok){const r=roster();L.forEach(x=>{if(r[x.data.id])r[x.data.id]._ghPath=x.path});setRoster(r,true)}
+    if(!FS.ok){const r=roster();L.forEach(x=>{if(r[x.data.id]){r[x.data.id]._ghPath=x.path;delete LSF.map[x.data.id]}});setRoster(r,true);lsfSave()}
     return `${L.length} ficha${L.length===1?'':'s'} subida${L.length===1?'':'s'} a ${GHCFG.repo} (commit ${cm.sha.slice(0,7)})`}}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-sync]');if(!b)return;const a=b.dataset.sync;const S=SYNC;
   if(a==='cfg'){S.form=true;renderSync();return}if(a==='cfgclose'){S.form=false;renderSync();return}
-  if(a==='cfgsave'){GHCFG.repo=$('ghRepo').value.trim()||GH_REPO;GHCFG.token=$('ghTok').value.trim();GHCFG.folder=$('ghFolder').value.trim();ghSaveCfg();S.form=false;renderSync();toast(GHCFG.token?'GitHub conectado':'Guardado (sin token: sólo traer)');return}
+  if(a==='cfgsave'){GHCFG.repo=$('ghRepo').value.trim()||GH_REPO;GHCFG.token=$('ghTok').value.trim();ghSaveCfg();S.form=false;renderSync();toast(GHCFG.token?'GitHub conectado':'Guardado (sin token: sólo traer)');return}
   if(a==='cfgdel'){GHCFG.token='';ghSaveCfg();renderSync();return}
   if(a==='pick'){S.pick=true;renderSync();return}if(a==='pickclose'){S.pick=false;renderSync();return}
   if(a==='refresh'){S.st=await gitCall('/git/status');renderSync();return}
   const msg=(($('syncMsg')||{}).value||'').trim();
-  if(a==='push'&&S.pick){S.pickIds=[...document.querySelectorAll('[data-ghpick]:checked')].map(x=>x.dataset.ghpick);if(!S.pickIds.length){toast('Marcá al menos una ficha');return}}
+  
   S.busy=true;renderSync();
   try{
     if(S.mode==='git'){save(true);await new Promise(r=>setTimeout(r,500));
