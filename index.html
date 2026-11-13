@@ -330,6 +330,40 @@ body:not(.kveh) .onlyveh{display:none!important}
 .wz-cap{margin-left:10px;display:inline-flex;gap:4px;align-items:center}
 .wz-cap input[type=number]{width:46px}
 
+
+/* ---------- espacio: lista oculta, paneles plegables, cabecera compacta ---------- */
+.tophead{display:flex;align-items:center;gap:8px}
+.tophead .hdrbtn{background:#fff;font-size:12px}
+.tophead .hdrbtn.on{background:var(--yellow)}
+#btnHdr{display:none}
+body.hide-ctrl .ctrl{display:none}
+body.hide-ctrl .layout{grid-template-columns:minmax(0,1fr) 330px}
+body.hide-ctrl.play.gridview .layout,body.hide-ctrl.play .layout{grid-template-columns:minmax(0,1fr) 330px}
+body.hide-ctrl.play.gridview .layout{grid-template-columns:minmax(0,1fr)}
+@media(max-width:1180px){body.hide-ctrl .layout{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:1100px){body.play.gridview:not(.hide-ctrl) .layout{grid-template-columns:220px minmax(0,1fr)}}
+.foldbtn{margin-right:6px;padding:0 6px;min-height:0!important;font-size:12px;vertical-align:middle}
+section.panel.folded>:not(h2){display:none!important}
+section.panel.folded>h2{margin-bottom:0;border-bottom:none}
+section.panel.folded .foldbtn{transform:rotate(-90deg)}
+.mtools{border:2px solid var(--ink);border-radius:6px;padding:6px;margin:8px 0;background:#fff}
+.mtools>summary{font-weight:700;cursor:pointer;padding:2px 4px}
+.mtools[open]>summary{margin-bottom:6px}
+#btnCtrlHide{float:right;font-size:11px}
+body.mobile #btnHdr{display:inline-block}
+body.mobile.hide-hdr header.top .actions{display:none}
+body.mobile header.top{position:static}
+body.mobile .tophead{width:100%}
+body.mobile .tophead h1{flex:1;font-size:20px}
+/* carril horizontal de fichas en el celular */
+body.mobile .tgrid.lane{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:4px 2px 12px;-webkit-overflow-scrolling:touch;align-items:flex-start}
+body.mobile .tgrid.lane>.tcard{flex:0 0 min(86vw,420px);max-width:min(86vw,420px);scroll-snap-align:start}
+.lanehint{font-size:12px;color:var(--muted);margin:6px 0 4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.lanedots{display:flex;gap:4px;overflow-x:auto;flex-wrap:nowrap;max-width:100%}
+.lanedots button{font-size:11px;padding:2px 6px;min-height:26px!important;flex:0 0 auto}
+body.mobile #tableView h2>.tag{display:none}
+body.mobile #tableView .row>.hint{display:none}
+body.mobile #tableView .tabs{margin-bottom:6px}
 /* ---------- vista para celular ---------- */
 .mnav{display:none}
 body.mobile{padding-bottom:70px}
@@ -435,8 +469,10 @@ body:not(.play) .play-only{display:none!important}
 </head>
 <body>
 <header class="top">
-  <div>
+  <div class="tophead">
+    <button class="mini hdrbtn" id="btnCtrl" title="Mostrar u ocultar la lista de héroes y los paneles de la izquierda">📚 Lista</button>
     <h1>ICONS Engine</h1>
+    <button class="mini hdrbtn" id="btnHdr" title="Mostrar u ocultar los botones de arriba">☰</button>
     <div class="sub">Creación aleatoria (ICONS Assembled Edition) con las tablas y poderes de <b>Great Power</b></div>
   </div>
   <div class="actions">
@@ -514,7 +550,7 @@ body:not(.play) .play-only{display:none!important}
       <div class="log" id="log"><div><span class="hint">Tocá “Generar héroe” para empezar.</span></div></div>
     </section>
     <section class="panel m-heroes">
-      <h2>Héroes guardados</h2>
+      <h2>Héroes guardados <button class="mini noprint" id="btnCtrlHide" title="Ocultar la lista (volvé a abrirla con 📚 Lista)">✕ ocultar</button></h2>
       <div class="rctl">
         <input id="rq" placeholder="Buscar…" autocomplete="off">
         <div class="row">
@@ -1486,11 +1522,11 @@ function boostFor(key){return C.play.conds.filter(c=>c.boost&&c.boost.key===key)
 function traitList(){return traitsOf(C)}
 
 // ---------------------------------------------------------------- vista para celular
-const MOBQ=window.matchMedia?matchMedia('(max-width:760px)'):{matches:false,addEventListener(){}};
-let UI_PREF='auto',MTAB='ficha',MTOOLS=false;
+const MOBQ=window.matchMedia?matchMedia('(max-width:900px)'):{matches:false,addEventListener(){}};
+let UI_PREF='auto',MTAB='ficha',MTOOLS=null;
 try{UI_PREF=localStorage.getItem('icons-gp-ui')||'auto';MTAB=localStorage.getItem('icons-gp-mtab')||'ficha'}catch(_){}
 const isMob=()=>UI_PREF==='mobile'||(UI_PREF!=='desktop'&&MOBQ.matches);
-function applyMobile(){const m=isMob();document.body.classList.toggle('mobile',m);document.body.dataset.mt=MTAB;
+function applyMobile(){try{applySpace()}catch(_){}const m=isMob();document.body.classList.toggle('mobile',m);document.body.dataset.mt=MTAB;
   document.querySelectorAll('#mnav [data-mt]').forEach(b=>b.classList.toggle('on',b.dataset.mt===MTAB));
   const u=$('btnUi');if(u)u.textContent=m?'🖥 Vista escritorio':'📱 Vista móvil'}
 function mGo(tab){MTAB=tab;try{localStorage.setItem('icons-gp-mtab',tab)}catch(_){}
@@ -1504,6 +1540,7 @@ MOBQ.addEventListener&&MOBQ.addEventListener('change',()=>{applyMobile();if(PLAY
 // en celular, elegir una ficha en Héroes te lleva a verla
 document.addEventListener('click',e=>{if(!isMob()||MTAB!=='heroes')return;const r=e.target.closest('#roster .ritem');if(!r||e.target.closest('button,input,select'))return;
   const before=C&&C.id;setTimeout(()=>{if(C&&C.id!==before||r.classList.contains('cur'))mGo(PLAY_MODE?'jugar':'ficha')},80)},true);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-lane]');if(!b)return;const g=$('tgrid');const c=g&&g.children[+b.dataset.lane];if(c)c.scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'})});
 document.addEventListener('toggle',e=>{if(e.target.classList&&e.target.classList.contains('mtools'))MTOOLS=e.target.open},true);
 // fichas compartidas del repositorio (útil en el celular, donde no se puede elegir una carpeta)
 const GH_REPO='satepin/CLU-ICONS-Engine';
@@ -1518,6 +1555,24 @@ async function ghImport(){
   catch(err){toast('No pude conectar con GitHub: '+(err.message||err))}
 }
 document.addEventListener('click',e=>{if(e.target.id==='btnGh')ghImport()});
+
+// ---------------------------------------------------------------- espacio en pantalla: lista oculta, paneles plegables, cabecera compacta
+let UIS={ctrl:null,hdr:null,fold:{}};try{UIS=Object.assign(UIS,JSON.parse(localStorage.getItem('icons-gp-uis')||'{}'))}catch(_){}
+const uisSave=()=>{try{localStorage.setItem('icons-gp-uis',JSON.stringify(UIS))}catch(_){}};
+const ctrlHidden=()=>UIS.ctrl==null?(window.innerWidth<1100):UIS.ctrl===false;
+const hdrHidden=()=>UIS.hdr==null?isMob():UIS.hdr===false;
+function applySpace(){document.body.classList.toggle('hide-ctrl',ctrlHidden()&&!(isMob()&&MTAB==='heroes'));document.body.classList.toggle('hide-hdr',hdrHidden());
+  const b=$('btnCtrl');if(b)b.classList.toggle('on',!ctrlHidden());const h=$('btnHdr');if(h)h.classList.toggle('on',!hdrHidden());
+  document.querySelectorAll('section.panel[data-fold]').forEach(s=>s.classList.toggle('folded',!!UIS.fold[s.dataset.fold]))}
+function initFolds(){document.querySelectorAll('section.panel').forEach(s=>{if(s.dataset.fold||s.closest('#tableView'))return;const h=s.querySelector(':scope>h2');if(!h)return;
+  const k=(h.childNodes[0]&&h.childNodes[0].textContent||h.textContent).trim().slice(0,40);if(!k)return;s.dataset.fold=k;
+  const b=document.createElement('button');b.className='mini foldbtn noprint';b.type='button';b.title='Plegar o desplegar';b.textContent='▾';h.insertBefore(b,h.firstChild)});applySpace()}
+document.addEventListener('click',e=>{
+  if(e.target.id==='btnCtrl'||e.target.id==='btnCtrlHide'){UIS.ctrl=e.target.id==='btnCtrlHide'?false:ctrlHidden();uisSave();
+    if(isMob()&&!ctrlHidden()){mGo('heroes');}applySpace();return}
+  if(e.target.id==='btnHdr'){UIS.hdr=hdrHidden();uisSave();applySpace();return}
+  const f=e.target.closest('.foldbtn');if(f){const s=f.closest('section.panel[data-fold]');if(s){UIS.fold[s.dataset.fold]=!UIS.fold[s.dataset.fold];uisSave();applySpace()}}});
+window.addEventListener('resize',()=>{clearTimeout(window._rsz);window._rsz=setTimeout(applySpace,150)});
 function setMode(play){
   PLAY_MODE=play;document.body.classList.toggle('play',play);$('btnMode').classList.toggle('on',play);
   $('btnMode').textContent=play?'✏️ Editar ficha':'🎭 Modo jugar';
@@ -1943,7 +1998,7 @@ function renderTable(){
    ${TABLE.ids.length?`<div class="row" style="margin-bottom:6px"><b>${n} seleccionada(s)</b>
      <button class="mini" data-tb="selall">Todas</button><button class="mini" data-tb="selnone">Ninguna</button><button class="mini" data-tb="selinv">Invertir</button>
      <span class="hint">Tocá el nombre o la casilla de cada ficha para seleccionarla. Sin selección, las acciones van a todas.</span></div>
-   ${isMob()?`<details class="mtools" ${MTOOLS?'open':''}><summary>🧰 Herramientas de mesa${initCurId()&&tch(initCurId())?` · ▶ le toca <b>${esc(tch(initCurId()).name||'')}</b>`:''}</summary>`:''}
+   ${true?`<details class="mtools" ${(MTOOLS==null?!isMob():MTOOLS)?'open':''}><summary>🧰 Herramientas de mesa${initCurId()&&tch(initCurId())?` · ▶ le toca <b>${esc(tch(initCurId()).name||'')}</b>`:''}</summary>`:''}
    <div class="grp">
      <div class="rbox"><b>🎲 Tirada grupal</b>
        <div class="row"><select id="gTrait">${traitOptions()}</select> bono <input type="number" id="gBonus" value="${g.bonus||0}" style="width:56px"></div>
@@ -1961,10 +2016,11 @@ function renderTable(){
      ${initHtml()}
    </div>
    ${atkBoxHtml()}
-   ${isMob()?'</details>':''}
+   </details>
    ${TABLE.results?`<div class="gres">${TABLE.results}</div>`:''}`:'<p class="hint">Abrí fichas con “+ abrir ficha…” (arriba) o tocando una en la lista de la izquierda.</p>'}
   </section>
-  <div class="tgrid ${TABLE.size}">${shown.map(cardHtml).join('')}</div>
+  ${isMob()&&shown.length>1?`<div class="lanehint">${shown.length} fichas · deslizá ↔ <span class="lanedots">${shown.map((ch,i)=>`<button class="mini" data-lane="${i}" title="${esc(ch.name||'')}">${esc((ch.name||'?').slice(0,10))}</button>`).join('')}</span></div>`:''}
+  <div class="tgrid ${TABLE.size} ${isMob()?'lane':''}" id="tgrid">${shown.map(cardHtml).join('')}</div>
   ${mins.length?`<div class="dock"><span class="lab">Minimizadas</span>${mins.map(ch=>{const p=ch.play||{};return `<button data-tb="restore" data-id="${ch.id}" title="Restaurar">▣ ${esc(ch.name||'sin nombre')} · ${p.stamina??''}/${withC(ch,stamMax)} · PD ${p.dp??''}</button>`}).join('')}</div>`:''}`;
   $('tableView').innerHTML=h;
 }
@@ -3412,7 +3468,7 @@ $('profBox').style.display=$('sAbil').value==='carte'?'':'none';
 tblLoad();
 try{syncBalNote()}catch(_){}
 try{$('playDie').value=String(PLAY_DIE)}catch(_){}
-try{applyMobile()}catch(_){}
+try{initFolds();applyMobile()}catch(_){}
 try{$('diceManual').checked=DICE_MODE==='manual';$('diceToggle').classList.toggle('on',DICE_MODE==='manual')}catch(_){}
 try{$('rfield').value=RV.field;$('rsort').value=RV.sort;$('rq').placeholder=$('rfield').selectedOptions[0].dataset.ph||'Buscar…'}catch(_){}
 renderRefList();renderRoster();
